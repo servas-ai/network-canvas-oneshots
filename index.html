@@ -2,509 +2,1135 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Network Canvas & CLI Dashboard Gallery (15 Prototypes)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premium Product Studies — 15 Standalone One-Shots</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
     :root {
-      --bg: #090D16;
-      --card-bg: #121927;
-      --border: #1E293B;
-      --border-hover: #38BDF8;
-      --text: #F8FAFC;
-      --text-muted: #94A3B8;
-      --accent: #38BDF8;
-      --accent-purple: #818CF8;
-      --green: #10B981;
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --panel-hover: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --line-subtle: #f1f5f9;
+      --soft: #f1f5f9;
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --tint: #eef2ff;
+      --tag-bg: #e2e8f0;
+      --tag-text: #475569;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+      --badge-canvas: #3b82f6;
+      --badge-canvas-bg: #eff6ff;
+      --badge-dash: #059669;
+      --badge-dash-bg: #ecfdf5;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 32px 24px; min-height: 100vh; }
+    body.dark {
+      --bg: #090d16;
+      --panel: #111726;
+      --panel-hover: #161e30;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --line: #1e293b;
+      --line-subtle: #151d2f;
+      --soft: #172033;
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+      --tint: #1e1b4b;
+      --tag-bg: #1e293b;
+      --tag-text: #cbd5e1;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+      --shadow-md: 0 4px 8px -1px rgb(0 0 0 / 0.35);
+      --shadow-lg: 0 12px 20px -3px rgb(0 0 0 / 0.45);
+      --badge-canvas: #60a5fa;
+      --badge-canvas-bg: #172554;
+      --badge-dash: #34d399;
+      --badge-dash-bg: #064e3b;
+    }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.2s ease, color 0.2s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    
+    /* Top Navbar */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--panel) 85%, transparent);
+      border-bottom: 1px solid var(--line);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      transition: border-color 0.2s;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+    .brandmark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent), #9333ea);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 40%, transparent);
+    }
+    .brandmark svg { width: 20px; height: 20px; }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+    .nav-link:hover {
+      color: var(--text);
+      background: var(--soft);
+    }
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .theme-toggle:hover {
+      background: var(--soft);
+      border-color: var(--muted);
+    }
+    .theme-toggle svg { width: 18px; height: 18px; }
 
-    .container { max-width: 1300px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
-
-    /* Hero Header */
-    header.gallery-header {
-      text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
-      padding-bottom: 24px; border-bottom: 1px solid var(--border);
+    /* Hero Section */
+    .hero {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 56px 32px 32px;
     }
-    .hero-badge {
-      background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3);
-      color: var(--accent); padding: 6px 16px; border-radius: 9999px; font-size: 13px; font-weight: 700;
-      letter-spacing: 0.05em; text-transform: uppercase;
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: var(--tint);
+      color: var(--accent);
+      margin-bottom: 16px;
+      border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
     }
-    h1 { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; }
-    p.subtitle { font-size: 16px; color: var(--text-muted); max-width: 720px; line-height: 1.5; }
-
-    /* Category Filter Tabs */
-    .filter-bar {
-      display: flex; justify-content: center; gap: 10px; margin-top: 8px;
+    .hero h1 {
+      font-size: 44px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 0 0 16px;
+      max-width: 780px;
     }
-    .filter-tab {
-      background: #1E293B; border: 1px solid var(--border); color: #94A3B8;
-      padding: 8px 18px; border-radius: 9999px; font-size: 13px; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .filter-tab:hover { background: #334155; color: white; }
-    .filter-tab.active { background: var(--accent); color: #090D16; font-weight: 700; }
-
-    /* Card Grid */
-    .gallery-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px;
-    }
-    .prototype-card {
-      background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
-      overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    }
-    .prototype-card:hover {
-      transform: translateY(-4px); border-color: var(--border-hover);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    .hero p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0;
+      max-width: 680px;
     }
 
-    /* Thumbnail Image Container */
-    .card-thumb-container {
-      width: 100%; aspect-ratio: 16 / 9; background: #070A10; overflow: hidden;
-      position: relative; border-bottom: 1px solid var(--border);
+    /* Controls Bar */
+    .controls-wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px 24px;
     }
-    .card-thumb {
-      width: 100%; height: 100%; object-fit: cover; object-position: top center;
-      transition: transform 0.3s;
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
     }
-    .prototype-card:hover .card-thumb { transform: scale(1.03); }
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--soft);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+    .filter-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 7px 14px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s ease;
+    }
+    .filter-btn:hover {
+      color: var(--text);
+    }
+    .filter-btn.active {
+      background: var(--panel);
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-count {
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: var(--line);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .filter-btn.active .filter-count {
+      background: var(--tint);
+      color: var(--accent);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 14px;
+      width: 320px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .search-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+    }
+    .search-box svg {
+      width: 17px;
+      height: 17px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      color: var(--text);
+      width: 100%;
+      font-size: 13px;
+    }
+    .search-box input::placeholder {
+      color: var(--muted);
+    }
+    .search-clear {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--muted);
+      display: none;
+    }
+    .search-clear svg { width: 14px; height: 14px; }
+    .search-clear:hover { color: var(--text); }
 
-    .card-form-pill {
-      position: absolute; top: 12px; left: 12px;
-      background: rgba(9, 13, 22, 0.85); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #FFF; font-size: 11px; font-weight: 700;
-      padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
+    /* Results Counter & Empty State */
+    .status-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 32px 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      stroke-width: 1.5;
+      margin-bottom: 12px;
+      opacity: 0.6;
+    }
+    .empty-state h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 6px;
     }
 
-    /* Card Body */
-    .card-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-    .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
-    .card-title { font-size: 18px; font-weight: 700; color: #FFF; }
-    .qg-badge {
-      font-size: 11px; font-weight: 700; background: rgba(16, 185, 129, 0.15);
-      color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 2px 8px; border-radius: 9999px; white-space: nowrap;
+    /* Cards Grid */
+    .grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px 32px 64px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
     }
-
-    .card-description { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
-
-    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; }
-    .tag {
-      font-size: 11px; background: #0F172A; color: #94A3B8; border: 1px solid #1E293B;
-      padding: 2px 8px; border-radius: 4px;
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
     }
-
-    /* Card Action Footer */
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+    }
+    .thumbnail-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--soft);
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      display: block;
+    }
+    .thumbnail-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      transition: transform 0.3s ease, filter 0.2s ease;
+    }
+    .card:hover .thumbnail-wrap img {
+      transform: scale(1.02);
+    }
+    .type-pill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+      letter-spacing: 0.02em;
+    }
+    .type-pill.canvas {
+      background: var(--badge-canvas-bg);
+      color: var(--badge-canvas);
+      border: 1px solid color-mix(in srgb, var(--badge-canvas) 30%, transparent);
+    }
+    .type-pill.dashboard {
+      background: var(--badge-dash-bg);
+      color: var(--badge-dash);
+      border: 1px solid color-mix(in srgb, var(--badge-dash) 30%, transparent);
+    }
+    .card-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .card-title a {
+      color: var(--text);
+      transition: color 0.15s;
+    }
+    .card-title a:hover {
+      color: var(--accent);
+    }
+    .card-subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 0 0 10px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0 0 18px;
+      flex: 1;
+    }
     .card-footer {
-      padding: 14px 20px; background: #0D1320; border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line-subtle);
+      margin-top: auto;
     }
-    .btn-open {
-      display: inline-flex; align-items: center; gap: 6px; background: var(--accent);
-      color: #090D16; text-decoration: none; font-size: 12.5px; font-weight: 700;
-      padding: 7px 14px; border-radius: 6px; transition: background 0.15s;
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
-    .btn-open:hover { background: #7DD3FC; }
-    .file-ref { font-family: monospace; font-size: 11px; color: var(--text-muted); }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .open-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--tint);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 12px;
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .open-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .open-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke-width: 2.2;
+      transition: transform 0.15s;
+    }
+    .open-btn:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+      padding: 32px;
+      margin-top: 40px;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer-inner a {
+      color: var(--accent);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .footer-inner a:hover {
+      text-decoration: underline;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      z-index: 100;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 36px; }
+      .nav, .hero, .controls-wrapper, .status-line, .grid, footer { padding-left: 20px; padding-right: 20px; }
+      .search-box { width: 100%; }
+      .controls-bar { flex-direction: column; align-items: stretch; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="gallery-header">
-      <div class="hero-badge">One-Shot Prototype Fleet</div>
-      <h1>Network Canvas & CLI Dashboard Gallery</h1>
-      <p class="subtitle">
-        Comprehensive showroom of 15 fully self-contained, zero-dependency HTML one-shot prototypes: 5 proprietary whiteboard canvases + 10 CLI proxy and usage dashboards.
-      </p>
 
-      <!-- Category Filter -->
-      <div class="filter-bar">
-        <button class="filter-tab active" onclick="filterGallery('all')">All Prototypes (15)</button>
-        <button class="filter-tab" onclick="filterGallery('canvas')">Canvas Whiteboards (5)</button>
-        <button class="filter-tab" onclick="filterGallery('dashboard')">CLI Dashboards & Trays (10)</button>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="brand">
+      <div class="brandmark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+        </svg>
       </div>
-    </header>
+      <span>Network Canvas One-Shots</span>
+    </div>
+    <div class="nav-actions">
+      <a href="https://github.com/servas-ai/network-canvas-oneshots" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+      <a href="QG.md" class="nav-link">Quality Report</a>
+      <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme" title="Toggle dark/light mode">
+        <svg id="moonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+        <svg id="sunIcon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2 M12 20v2 M4.93 4.93l1.41 1.41 M17.66 17.66l1.41 1.41 M2 12h2 M20 12h2 M6.34 17.66l-1.41 1.41 M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
 
-    <!-- Main Grid -->
-    <div class="gallery-grid" id="galleryGrid">
-      <!-- 1. Miro -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/miro.png" alt="Miro Canvas" class="card-thumb">
-          <span class="card-form-pill">Infinite Canvas</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Miro</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Collaborative strategy board with pan/zoom engine, colored draggable sticky notes, frames, zoom controls, and simulated live cursor sync.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Miro</span><span class="tag">Sticky Notes</span><span class="tag">Live Cursor</span><span class="tag">Pan & Zoom</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">miro.html</span>
-          <a href="miro.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
+  <!-- Hero -->
+  <header class="hero">
+    <div class="badge-pill">
+      <span>●</span> 15 Verified Interactive Studies
+    </div>
+    <h1>Single-file product mockups.<br>Zero build steps. Zero external assets.</h1>
+    <p>A benchmark suite of 5 collaborative canvas editors and 10 local AI CLI dashboards. Implemented with clean semantic HTML, embedded inline SVG, and responsive client-side interactions.</p>
+  </header>
 
-      <!-- 2. FigJam -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/figjam.png" alt="FigJam Canvas" class="card-thumb">
-          <span class="card-form-pill">Whiteboard</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">FigJam</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Playful Figma-style whiteboard with floating bottom dock, section containers, sticky notes with author chips, and clickable reaction stamps.
-          </p>
-          <div class="tag-row">
-            <span class="tag">FigJam</span><span class="tag">Dock</span><span class="tag">Stamps</span><span class="tag">Sections</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">figjam.html</span>
-          <a href="figjam.html" class="btn-open">Open Prototype ↗</a>
-        </div>
+  <!-- Controls -->
+  <section class="controls-wrapper">
+    <div class="controls-bar">
+      <div class="filter-tabs" role="tablist">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+          All Studies <span class="filter-count" id="countAll">15</span>
+        </button>
+        <button class="filter-btn" data-filter="canvas" role="tab" aria-selected="false">
+          Canvas Editors <span class="filter-count" id="countCanvas">5</span>
+        </button>
+        <button class="filter-btn" data-filter="dashboard" role="tab" aria-selected="false">
+          CLI Dashboards <span class="filter-count" id="countDash">10</span>
+        </button>
       </div>
 
-      <!-- 3. Lucidchart -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/lucidchart.png" alt="Lucidchart Canvas" class="card-thumb">
-          <span class="card-form-pill">Diagramming</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Lucidchart</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Enterprise cloud architecture diagram with left shape library dock, top formatting ribbon, right inspector panel, and orthogonal elbow connectors.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Lucidchart</span><span class="tag">Flowchart</span><span class="tag">Orthogonal</span><span class="tag">Inspector</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">lucidchart.html</span>
-          <a href="lucidchart.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 4. Whimsical -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/whimsical.png" alt="Whimsical Canvas" class="card-thumb">
-          <span class="card-form-pill">Mind Map & Flow</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Whimsical</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Speed-first workflow canvas with mode switcher, card nodes with status badges, and smooth branching bezier curves connecting trees.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Whimsical</span><span class="tag">Mind Map</span><span class="tag">Bezier</span><span class="tag">SaaS Flow</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">whimsical.html</span>
-          <a href="whimsical.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 5. Mural -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/mural.png" alt="Mural Canvas" class="card-thumb">
-          <span class="card-form-pill">Facilitation</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Mural</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Facilitation suite with live countdown timer, voting tools, right session outline, 2x2 matrix framework, and color-coded stickies with vote dots.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Mural</span><span class="tag">Facilitator</span><span class="tag">Timer</span><span class="tag">Voting</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">mural.html</span>
-          <a href="mural.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 6. OpenCodex -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/opencodex.png" alt="OpenCodex" class="card-thumb">
-          <span class="card-form-pill">Web + Tray</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">OpenCodex</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Multi-account router with 5h rolling & weekly quota bars per account, auto-switch engine on 429 errors, and simulated macOS tray popover preview.
-          </p>
-          <div class="tag-row">
-            <span class="tag">OpenCodex</span><span class="tag">Auto-Switch</span><span class="tag">5h Limits</span><span class="tag">Tray</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">opencodex.html</span>
-          <a href="opencodex.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 7. CPA-Manager-Plus -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cpa-manager-plus.png" alt="CPA-Manager-Plus" class="card-thumb">
-          <span class="card-form-pill">Web Ops</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">CPA-Manager-Plus</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            High-density operations cockpit with proxy node health raster (6 nodes), live traffic frequency chart, token mix spectrum, and real-time request logs.
-          </p>
-          <div class="tag-row">
-            <span class="tag">CPA Plus</span><span class="tag">Health Matrix</span><span class="tag">Token Mix</span><span class="tag">Telemetry</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cpa-manager-plus.html</span>
-          <a href="cpa-manager-plus.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 8. Magpie -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/magpie.png" alt="Magpie" class="card-thumb">
-          <span class="card-form-pill">Desktop / TUI</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Magpie</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Zero-config dynamic model switch and routing groups builder. Select active CLI targets and inspect fallback chains without editing config files.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Magpie</span><span class="tag">Model Switch</span><span class="tag">Routing Groups</span><span class="tag">TUI</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">magpie.html</span>
-          <a href="magpie.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 9. EasyCLIProxy -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/easycliproxy.png" alt="EasyCLIProxy" class="card-thumb">
-          <span class="card-form-pill">Desktop App</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">EasyCLIProxy</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Clean desktop manager featuring OAuth provider cards (OpenAI, Anthropic, Google, xAI), local proxy endpoint routing table, and instant quota inspector.
-          </p>
-          <div class="tag-row">
-            <span class="tag">EasyCLIProxy</span><span class="tag">OAuth 2.0</span><span class="tag">Endpoints</span><span class="tag">Inspector</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">easycliproxy.html</span>
-          <a href="easycliproxy.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 10. CLIProxy Quota Tray -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cliproxy-quota-tray.png" alt="CLIProxy Quota Tray" class="card-thumb">
-          <span class="card-form-pill">macOS Tray</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">CLIProxy Quota Tray</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Compact macOS menubar popover tracking Codex Pro 5-hour rolling limits, Grok weekly & monthly quota progress bars, reset countdowns, and quick actions.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Quota Tray</span><span class="tag">Menubar</span><span class="tag">Codex Pro</span><span class="tag">Grok</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cliproxy-quota-tray.html</span>
-          <a href="cliproxy-quota-tray.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 11. CC Switch -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cc-switch.png" alt="CC Switch" class="card-thumb">
-          <span class="card-form-pill">Desktop App</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">CC Switch</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Provider switcher displaying both 5-hour rolling limit and 7-day quota percentages directly in each provider row, with instant profile activation.
-          </p>
-          <div class="tag-row">
-            <span class="tag">CC Switch</span><span class="tag">5h & 7d Gauge</span><span class="tag">Profile Switch</span><span class="tag">Claude</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cc-switch.html</span>
-          <a href="cc-switch.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 12. 9Router -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/9router.png" alt="9Router" class="card-thumb">
-          <span class="card-form-pill">Web Gateway</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">9Router</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Three-stage fallback cascade: Stage 1 (Flatrate Abo), Stage 2 (Cheap Pay-As-You-Go), Stage 3 (Local / Free Tier), with interactive request test dispatch.
-          </p>
-          <div class="tag-row">
-            <span class="tag">9Router</span><span class="tag">3-Stage</span><span class="tag">Cost Optimizer</span><span class="tag">Simulator</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">9router.html</span>
-          <a href="9router.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 13. Claude Code Router -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/claude-code-router.png" alt="Claude Code Router" class="card-thumb">
-          <span class="card-form-pill">Control Plane</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Claude Code Router</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Dedicated control plane for Claude Code sessions featuring context window gauge (200k tokens), tool interceptor hooks, and RPM/TPM rate-limit wardens.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Claude Code</span><span class="tag">Control Plane</span><span class="tag">Context Gauge</span><span class="tag">Hooks</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">claude-code-router.html</span>
-          <a href="claude-code-router.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 14. cliproxyapi-usage-dashboard -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cliproxyapi-usage.png" alt="CLIProxyAPI Usage" class="card-thumb">
-          <span class="card-form-pill">Web Analytics</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">cliproxyapi-usage</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Aggregated dashboard reporting 5h and 7-day residual allowances across all active Codex accounts alongside local machine token burn broken down by CLI.
-          </p>
-          <div class="tag-row">
-            <span class="tag">CLIProxyAPI</span><span class="tag">Multi-Account</span><span class="tag">Token Burn</span><span class="tag">Analytics</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cliproxyapi-usage.html</span>
-          <a href="cliproxyapi-usage.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 15. Tokscale -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/tokscale.png" alt="Tokscale Terminal" class="card-thumb">
-          <span class="card-form-pill">Terminal / TUI</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Tokscale</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Retro terminal token monitor featuring a 52-week GitHub-style contribution heatmap grid, 24-hour hourly burn spectrum, and local agent consumption stats.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Tokscale</span><span class="tag">Heatmap</span><span class="tag">Tagesraster</span><span class="tag">Terminal TUI</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">tokscale.html</span>
-          <a href="tokscale.html" class="btn-open">Open Prototype ↗</a>
-        </div>
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Filter by name, tool, or keyword…" aria-label="Search studies">
+        <button class="search-clear" id="searchClear" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
+  </section>
+
+  <!-- Status Line -->
+  <div class="status-line">
+    <span id="resultsCounter">Showing all 15 studies</span>
+    <span>Click card or 'Open Scene' to preview standalone HTML</span>
   </div>
 
+  <!-- Empty State -->
+  <div class="empty-state" id="emptyState">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+      <line x1="8" y1="11" x2="14" y2="11"></line>
+    </svg>
+    <h3>No matching prototypes found</h3>
+    <p>Try searching with another keyword or reset the filter tabs.</p>
+  </div>
+
+  <!-- Cards Grid -->
+  <main class="grid" id="studiesGrid">
+
+    <!-- 1. Miro -->
+    <article class="card" data-group="canvas" data-tags="miro canvas board sticky notes zoom diagram">
+      <a href="miro.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/miro.png" alt="Miro Interactive Opportunity Mapping Canvas" loading="eager">
+        <span class="type-pill canvas">Canvas Editor</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="miro.html">Miro</a></h2>
+        </div>
+        <div class="card-subtitle">Opportunity & Journey Mapping</div>
+        <p class="card-desc">Interactive infinity canvas with sticky notes, grouped discovery lanes, multi-color markers, voting counters, and pan-zoom controls.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Infinity Canvas</span>
+            <span class="tag">Stickies</span>
+            <span class="tag">Zoom/Pan</span>
+          </div>
+          <a href="miro.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. FigJam -->
+    <article class="card" data-group="canvas" data-tags="figjam canvas whiteboard sprint stamps widgets stickers figma">
+      <a href="figjam.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/figjam.png" alt="FigJam Collaborative Sprint Whiteboard" loading="eager">
+        <span class="type-pill canvas">Canvas Editor</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="figjam.html">FigJam</a></h2>
+        </div>
+        <div class="card-subtitle">Collaborative Sprint Whiteboard</div>
+        <p class="card-desc">Playful design sprint workspace featuring stamp interactions, reaction wheels, retro columns, timer bar, and movable sticker widgets.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Sprint Retro</span>
+            <span class="tag">Stamps & Stickers</span>
+            <span class="tag">Timer</span>
+          </div>
+          <a href="figjam.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. Lucidchart -->
+    <article class="card" data-group="canvas" data-tags="lucidchart architecture diagram orthogonal connectors flow grid">
+      <a href="lucidchart.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/lucidchart.png" alt="Lucidchart AI Gateway Architecture Diagram" loading="eager">
+        <span class="type-pill canvas">Canvas Editor</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="lucidchart.html">Lucidchart</a></h2>
+        </div>
+        <div class="card-subtitle">AI Gateway Architecture Blueprint</div>
+        <p class="card-desc">Precision technical diagramming board with orthogonal SVG connectors, node inspector pane, alignment grid, and cloud provider stencils.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Orthogonal Lines</span>
+            <span class="tag">Inspector</span>
+            <span class="tag">Grid Snap</span>
+          </div>
+          <a href="lucidchart.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. Whimsical -->
+    <article class="card" data-group="canvas" data-tags="whimsical mindmap flowchart minimalist clean hierarchy">
+      <a href="whimsical.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/whimsical.png" alt="Whimsical Product Mind Map" loading="eager">
+        <span class="type-pill canvas">Canvas Editor</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="whimsical.html">Whimsical</a></h2>
+        </div>
+        <div class="card-subtitle">Product Strategy Mind Map</div>
+        <p class="card-desc">Fast, aesthetic hierarchy mapper with organic bezier curve branches, pastel palette accents, collapsible nodes, and embedded docs preview.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Bezier Branches</span>
+            <span class="tag">Mind Map</span>
+            <span class="tag">Doc Cards</span>
+          </div>
+          <a href="whimsical.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5. Mural -->
+    <article class="card" data-group="canvas" data-tags="mural facilitation workshop timer voting agenda">
+      <a href="mural.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/mural.png" alt="Mural Facilitated Enterprise Workshop" loading="eager">
+        <span class="type-pill canvas">Canvas Editor</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="mural.html">Mural</a></h2>
+        </div>
+        <div class="card-subtitle">Facilitated Team Workshop</div>
+        <p class="card-desc">Structured enterprise canvas with warm framework backgrounds, active voting sessions, presenter broadcast badge, and guided outline outline.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Facilitator Bar</span>
+            <span class="tag">Voting Session</span>
+            <span class="tag">Outline</span>
+          </div>
+          <a href="mural.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6. OpenCodex -->
+    <article class="card" data-group="dashboard" data-tags="opencodex codex accounts pool quota delegation rate-limits dashboard">
+      <a href="opencodex.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/opencodex.png" alt="OpenCodex Account Pool and Delegation" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="opencodex.html">OpenCodex</a></h2>
+        </div>
+        <div class="card-subtitle">Account Pool & Auto-Delegation</div>
+        <p class="card-desc">Multi-account orchestration console tracking token burn per credential, switch thresholds, model routing tiering, and active delegated sessions.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Account Pool</span>
+            <span class="tag">Delegation</span>
+            <span class="tag">Dark Shell</span>
+          </div>
+          <a href="opencodex.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 7. CPA Manager Plus -->
+    <article class="card" data-group="dashboard" data-tags="cpa manager gateway observability health latency telemetry">
+      <a href="cpa-manager-plus.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/cpa-manager-plus.png" alt="CPA Manager Plus Gateway Observability" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="cpa-manager-plus.html">CPA Manager Plus</a></h2>
+        </div>
+        <div class="card-subtitle">Gateway Observability & Health</div>
+        <p class="card-desc">High-density telemetry dashboard with 28-node uptime health grid, live latency SVG graph, endpoint response monitor, and cost telemetry.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Uptime Grid</span>
+            <span class="tag">Latency Sparkline</span>
+            <span class="tag">Endpoints</span>
+          </div>
+          <a href="cpa-manager-plus.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 8. Magpie -->
+    <article class="card" data-group="dashboard" data-tags="magpie desktop agent routing budget models matrix">
+      <a href="magpie.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/magpie.png" alt="Magpie Desktop Agent Routing" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="magpie.html">Magpie</a></h2>
+        </div>
+        <div class="card-subtitle">Desktop Agent Matrix & Routing</div>
+        <p class="card-desc">Native-feel configuration app for local agents (Claude, Codex, OpenCode, Aider) with routing priorities, fallback targets, and spending guards.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Agent Matrix</span>
+            <span class="tag">Routing Rules</span>
+            <span class="tag">Budget Guards</span>
+          </div>
+          <a href="magpie.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 9. EasyCLIProxy -->
+    <article class="card" data-group="dashboard" data-tags="easycliproxy oauth daemon port service local">
+      <a href="easycliproxy.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/easycliproxy.png" alt="EasyCLIProxy Local Service and OAuth" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="easycliproxy.html">EasyCLIProxy</a></h2>
+        </div>
+        <div class="card-subtitle">Local Daemon & OAuth Manager</div>
+        <p class="card-desc">Simple management UI for background daemon status, 1-click OAuth provider linking, listening port indicators, and active client connections.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Daemon Status</span>
+            <span class="tag">OAuth Flows</span>
+            <span class="tag">Port 8317</span>
+          </div>
+          <a href="easycliproxy.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10. CLIProxy Quota Tray -->
+    <article class="card" data-group="dashboard" data-tags="cliproxy quota tray macos cost compact window">
+      <a href="cliproxy-quota-tray.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/cliproxy-quota-tray.png" alt="CLIProxy Quota Tray Compact Monitor" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="cliproxy-quota-tray.html">CLIProxy Quota Tray</a></h2>
+        </div>
+        <div class="card-subtitle">Menu Bar Companion & Cost Monitor</div>
+        <p class="card-desc">Compact dark popover interface showing live cost burn, hourly pace, subscription renewal meters, and per-token quota bars across accounts.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Tray App</span>
+            <span class="tag">Cost Velocity</span>
+            <span class="tag">Quota Bars</span>
+          </div>
+          <a href="cliproxy-quota-tray.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 11. CC Switch -->
+    <article class="card" data-group="dashboard" data-tags="cc-switch provider switcher auth token gemini codex claude">
+      <a href="cc-switch.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/cc-switch.png" alt="CC Switch Provider Management" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="cc-switch.html">CC Switch</a></h2>
+        </div>
+        <div class="card-subtitle">Provider & Credential Switcher</div>
+        <p class="card-desc">Fast switching interface between Anthropic Claude, OpenAI Codex, and Google Gemini with quick-toggle active state, proxy port copy, and latency pills.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Provider Switch</span>
+            <span class="tag">Instant Active</span>
+            <span class="tag">Port Copy</span>
+          </div>
+          <a href="cc-switch.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 12. 9Router -->
+    <article class="card" data-group="dashboard" data-tags="9router fallback pipeline retry auto-heal stream">
+      <a href="9router.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/9router.png" alt="9Router Smart Fallback Pipeline" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="9router.html">9Router</a></h2>
+        </div>
+        <div class="card-subtitle">Intelligent Fallback Pipeline</div>
+        <p class="card-desc">Dynamic multi-tier fallback router with interactive simulation test, circuit breaker status, automatic error recovery (429/500/timeout), and connected agent tree.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Failover Sim</span>
+            <span class="tag">Circuit Breaker</span>
+            <span class="tag">Multi-tier</span>
+          </div>
+          <a href="9router.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 13. Claude Code Router -->
+    <article class="card" data-group="dashboard" data-tags="claude-code-router task-aware prompt classification architecture">
+      <a href="claude-code-router.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/claude-code-router.png" alt="Claude Code Router Task-Aware Routing" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="claude-code-router.html">Claude Code Router</a></h2>
+        </div>
+        <div class="card-subtitle">Task-Aware Prompt Routing</div>
+        <p class="card-desc">Prompt intent classification engine that assigns specialized models (Haiku for search, Sonnet for edits, Opus for architecture) with rule priority controls.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">Intent Classifier</span>
+            <span class="tag">Dynamic Models</span>
+            <span class="tag">Token Savings</span>
+          </div>
+          <a href="claude-code-router.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 14. CLIProxyAPI Usage -->
+    <article class="card" data-group="dashboard" data-tags="cliproxyapi-usage token analytics billing graphs distribution">
+      <a href="cliproxyapi-usage.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/cliproxyapi-usage.png" alt="CLIProxyAPI Usage Analytics" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="cliproxyapi-usage.html">CLIProxyAPI Usage</a></h2>
+        </div>
+        <div class="card-subtitle">Quota & Usage Analytics Engine</div>
+        <p class="card-desc">Full-scale analytics dashboard with multi-line SVG token trajectory, model breakdown charts, tier consumption bars, and JSON export functionality.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">SVG Trajectory</span>
+            <span class="tag">Distribution</span>
+            <span class="tag">JSON Export</span>
+          </div>
+          <a href="cliproxyapi-usage.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 15. Tokscale -->
+    <article class="card" data-group="dashboard" data-tags="tokscale terminal tokens heatmap git calendar analytics">
+      <a href="tokscale.html" class="thumbnail-wrap" tabindex="-1">
+        <img src="screenshots/tokscale.png" alt="Tokscale Terminal Token Analytics" loading="eager">
+        <span class="type-pill dashboard">CLI Dashboard</span>
+      </a>
+      <div class="card-body">
+        <div class="card-header">
+          <h2 class="card-title"><a href="tokscale.html">Tokscale</a></h2>
+        </div>
+        <div class="card-subtitle">Terminal Token Velocity & Heatmap</div>
+        <p class="card-desc">GitHub-style token commitment matrix showing 52-week green activity heatmaps, model efficiency scores, daily velocity curves, and agent comparisons.</p>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag">52-Week Heatmap</span>
+            <span class="tag">Terminal Theme</span>
+            <span class="tag">Velocity Curves</span>
+          </div>
+          <a href="tokscale.html" class="open-btn">
+            Open Scene
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14 M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong>Network Canvas One-Shots</strong> · 15 Standalone HTML UI studies · No dependencies, no framework overhead
+      </div>
+      <div>
+        <a href="https://github.com/servas-ai/network-canvas-oneshots" target="_blank" rel="noopener">
+          View Repository on GitHub
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6 M15 3h6v6 M10 14L21 3"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Client-Side Search, Filter, & Theme Script -->
   <script>
-    function filterGallery(category) {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      event.target.classList.add('active');
-      const cards = document.querySelectorAll('.prototype-card');
+    // Theme Handling (System / LocalStorage / Toggle)
+    const themeBtn = document.getElementById('themeBtn');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+    
+    function applyTheme(isDark) {
+      document.body.classList.toggle('dark', isDark);
+      moonIcon.style.display = isDark ? 'none' : 'block';
+      sunIcon.style.display = isDark ? 'block' : 'none';
+    }
+
+    const savedTheme = localStorage.getItem('theme-pref');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialDark = savedTheme ? savedTheme === 'dark' : systemPrefersDark;
+    applyTheme(initialDark);
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = !document.body.classList.contains('dark');
+      applyTheme(isDark);
+      localStorage.setItem('theme-pref', isDark ? 'dark' : 'light');
+      showToast(isDark ? 'Dark theme enabled' : 'Light theme enabled');
+    });
+
+    // Toast Notification
+    const toast = document.getElementById('toast');
+    let toastTimeout;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // Filter Tabs & Search
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+    const emptyState = document.getElementById('emptyState');
+    const resultsCounter = document.getElementById('resultsCounter');
+
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    function updateView() {
+      let visibleCount = 0;
+      const q = searchQuery.toLowerCase().trim();
+
       cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
+        const matchesFilter = currentFilter === 'all' || card.dataset.group === currentFilter;
+        const textContent = (card.textContent + ' ' + (card.dataset.tags || '')).toLowerCase();
+        const matchesSearch = !q || textContent.includes(q);
+
+        if (matchesFilter && matchesSearch) {
           card.style.display = 'flex';
+          visibleCount++;
         } else {
           card.style.display = 'none';
         }
       });
+
+      // Update counters & state
+      if (visibleCount === 0) {
+        emptyState.style.display = 'block';
+        resultsCounter.textContent = 'No studies found';
+      } else {
+        emptyState.style.display = 'none';
+        const filterLabel = currentFilter === 'all' ? 'all' : (currentFilter === 'canvas' ? 'canvas' : 'dashboard');
+        resultsCounter.textContent = `Showing ${visibleCount} of 15 ${filterLabel === 'all' ? 'studies' : filterLabel + ' studies'}${q ? ` for "${q}"` : ''}`;
+      }
+
+      searchClear.style.display = q ? 'block' : 'none';
     }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        currentFilter = btn.dataset.filter;
+        updateView();
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      updateView();
+    });
+
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      searchInput.focus();
+      updateView();
+    });
+
+    // Keyboard shortcut '/' to search
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      } else if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.value = '';
+        searchQuery = '';
+        searchInput.blur();
+        updateView();
+      }
+    });
   </script>
 </body>
 </html>
