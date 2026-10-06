@@ -1,0 +1,92 @@
+[
+  {
+    "file": "cpa-manager-plus.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "claude-code-router.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "easycliproxy.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "cliproxy-quota-tray.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "cliproxyapi-usage.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "magpie.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "mural.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "whimsical.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "opencodex.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "9router.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "figjam.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "cc-switch.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "tokscale.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "lucidchart.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  },
+  {
+    "file": "miro.html",
+    "standalone": true,
+    "javascriptSyntax": "pass",
+    "svgIcons": true
+  }
+]

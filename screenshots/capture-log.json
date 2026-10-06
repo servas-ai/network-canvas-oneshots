@@ -1,0 +1,82 @@
+[
+  {
+    "tool": "miro",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/miro.png --width 1440 --height 1000",
+    "timestamp": "2026-10-06T22:38:01+0200"
+  },
+  {
+    "tool": "figjam",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/figjam.png --width 1440 --height 1000",
+    "timestamp": "2026-10-06T22:38:02+0200"
+  },
+  {
+    "tool": "lucidchart",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/lucidchart.png --width 1440 --height 1000",
+    "timestamp": "2026-10-06T22:38:04+0200"
+  },
+  {
+    "tool": "whimsical",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/whimsical.png --width 1440 --height 1000",
+    "timestamp": "2026-10-06T22:38:06+0200"
+  },
+  {
+    "tool": "mural",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/mural.png --width 1440 --height 1000",
+    "timestamp": "2026-10-06T22:38:08+0200"
+  },
+  {
+    "tool": "opencodex",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/opencodex.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:10+0200"
+  },
+  {
+    "tool": "cpa-manager-plus",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cpa-manager-plus.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:11+0200"
+  },
+  {
+    "tool": "magpie",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/magpie.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:14+0200"
+  },
+  {
+    "tool": "easycliproxy",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/easycliproxy.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:16+0200"
+  },
+  {
+    "tool": "cliproxy-quota-tray",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cliproxy-quota-tray.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:17+0200"
+  },
+  {
+    "tool": "cc-switch",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cc-switch.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:19+0200"
+  },
+  {
+    "tool": "9router",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/9router.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:21+0200"
+  },
+  {
+    "tool": "claude-code-router",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/claude-code-router.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:25+0200"
+  },
+  {
+    "tool": "cliproxyapi-usage",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cliproxyapi-usage.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:34+0200"
+  },
+  {
+    "tool": "tokscale",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/tokscale.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:43+0200"
+  },
+  {
+    "tool": "index",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/index.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:38:52+0200"
+  }
+]
