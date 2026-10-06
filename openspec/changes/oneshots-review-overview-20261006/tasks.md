@@ -15,6 +15,6 @@
 ## 3. Prüfen und ausliefern
 - [x] 3.1 Lokal mit echtem Browser prüfen: 15 Einträge, `innerWidth` = Gerätebreite, Markierung + Neuladen, Issue-URL dekodiert korrekt (Beleg: E2E 38/38 PASS lokal in Brave headless (Temp-Profil))
 - [x] 3.2 README um Übersicht und Markier-Weg ergänzen (Beleg: README.md Abschnitt „Review-Übersicht“)
-- [ ] 3.3 Push auf `feat/canvas-oneshots`, Pages-Build abwarten
-- [ ] 3.4 Auf der echten Pages-URL prüfen und Screenshots nach `.proof/2026-10-06_*.png` (Übersicht, iPhone, Markierung, Issue-Formular), selbst gesichtet
-- [ ] 3.5 `openspec validate oneshots-review-overview-20261006 --strict` grün
+- [x] 3.3 Push auf `feat/canvas-oneshots`, Pages-Build abwarten (Beleg: Push e635c96, Pages-Build „built e635c96“)
+- [x] 3.4 Auf der echten Pages-URL prüfen und Screenshots nach `.proof/2026-10-06_*.png` (Übersicht, iPhone, Markierung, Issue-Formular), selbst gesichtet (Beleg: .proof/2026-10-06_pages-*.png (7 Bilder, selbst gesichtet), .proof/2026-10-06_pages-e2e-result.json 38/38; Issue-Link: GitHub 302 → Login, return_to behält Titel+Body 1:1)
+- [x] 3.5 `openspec validate oneshots-review-overview-20261006 --strict` grün (Beleg: „Change ... is valid“)

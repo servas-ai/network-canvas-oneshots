@@ -1,0 +1,192 @@
+[
+ {
+  "check": "AC1 list shows 15 prototypes",
+  "ok": true,
+  "detail": "15 items · 15 Prototypen · 5 Canvas · 10 CLI-Dashboard"
+ },
+ {
+  "check": "AC1 grouped by category",
+  "ok": true,
+  "detail": "['Canvas', 'CLI-Dashboard']"
+ },
+ {
+  "check": "AC3 iPhone 390 -> iframe innerWidth 390",
+  "ok": true,
+  "detail": "innerWidth=390"
+ },
+ {
+  "check": "AC3 iPhone 430 -> iframe innerWidth 430",
+  "ok": true,
+  "detail": "innerWidth=430"
+ },
+ {
+  "check": "AC3 Tablet 820 -> iframe innerWidth 820",
+  "ok": true,
+  "detail": "innerWidth=820"
+ },
+ {
+  "check": "AC3 Desktop 1440 -> iframe innerWidth 1440",
+  "ok": true,
+  "detail": "innerWidth=1440"
+ },
+ {
+  "check": "AC3 phone frame class",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC4 mark mode on via M",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC4 element mark saved",
+  "ok": true,
+  "detail": "{\"tag\": \"div\", \"selector\": \"div#canvas > div.frame-container:nth-of-type(1) > div.sticky-note.sticky-yellow:nth-of-type(2) > div.sticky-content:nth-of-type(1)\","
+ },
+ {
+  "check": "AC4 element anchor has selector + text",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC4 area mark rect in prototype px",
+  "ok": true,
+  "detail": "{\"x\": 40, \"y\": 600, \"breite\": 260, \"hoehe\": 120}"
+ },
+ {
+  "check": "Spec cancel (Esc) discards draft",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "Esc leaves mark mode",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC4 overlay shows saved marks",
+  "ok": true,
+  "detail": "2 boxes"
+ },
+ {
+  "check": "AC5 reload keeps marks (list)",
+  "ok": true,
+  "detail": "2 cards"
+ },
+ {
+  "check": "AC5 URL keeps tool + device",
+  "ok": true,
+  "detail": "https://servas-ai.github.io/network-canvas-oneshots/index.html?tool=miro&geraet=iphone-390"
+ },
+ {
+  "check": "AC5 export JSON file",
+  "ok": true,
+  "detail": "oneshots-markierungen-2026-10-06.json"
+ },
+ {
+  "check": "AC6 issue URL target",
+  "ok": true,
+  "detail": "https://github.com/servas-ai/network-canvas-oneshots/issues/new?title=%5BReview%5D+Miro+%2"
+ },
+ {
+  "check": "AC6 title",
+  "ok": true,
+  "detail": "[Review] Miro #1 · Haftnotiz zu klein auf dem iPhone, Text abgeschnitten"
+ },
+ {
+  "check": "AC6 body contains 'miro.html'",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 body contains 'iPhone 390'",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 body contains 'Koordinaten'",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 body contains 'sticky'",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 body contains 'Haftnotiz zu klein'",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 body contains '```json'",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 body contains 'Markierung in der Übersicht öffnen'",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 URL length < 7000",
+  "ok": true,
+  "detail": "4063 chars"
+ },
+ {
+  "check": "AC6 bundle issue for tool",
+  "ok": true,
+  "detail": "[Review] Miro · 2 Markierungen"
+ },
+ {
+  "check": "AC6 card shows issue opened",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "No JS errors on page",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "Deep link imports mark in fresh profile",
+  "ok": true,
+  "detail": "https://servas-ai.github.io/network-canvas-oneshots/?tool=miro&geraet=iphone-390&m=m-mux4v0nzr9q6#im"
+ },
+ {
+  "check": "Deep link: hash removed, mark visible",
+  "ok": true,
+  "detail": "https://servas-ai.github.io/network-canvas-oneshots/?tool=miro&geraet=iphone-390"
+ },
+ {
+  "check": "AC2 API adds unknown .html as \"Neu\"",
+  "ok": true,
+  "detail": "16 items, probe=1"
+ },
+ {
+  "check": "AC2 API 403 -> manifest list still complete",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC7 no horizontal scroll at 390",
+  "ok": true,
+  "detail": "scrollWidth=390"
+ },
+ {
+  "check": "AC7 controls visible on phone",
+  "ok": true,
+  "detail": "{'#pick': True, '#deviceSeg': True, '#markBtn': True, '#sheetBtn': True}"
+ },
+ {
+  "check": "AC7 nothing sticks out of the viewport",
+  "ok": true,
+  "detail": "[]"
+ },
+ {
+  "check": "AC7 touch mark + sheet list",
+  "ok": true,
+  "detail": ""
+ }
+]
