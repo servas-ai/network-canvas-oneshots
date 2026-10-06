@@ -142,12 +142,12 @@
  {
   "check": "AC4 every shortcut button names its key",
   "ok": true,
-  "detail": "12 buttons, bad=[]"
+  "detail": "14 buttons, bad=[]"
  },
  {
   "check": "AC5 controls use SVG icons, no emoji",
   "ok": true,
-  "detail": "svg=35 emoji=[]"
+  "detail": "svg=38 emoji=[]"
  },
  {
   "check": "AC2 T: Auto -> Hell -> Dunkel",

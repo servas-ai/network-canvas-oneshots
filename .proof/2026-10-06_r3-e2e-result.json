@@ -1,0 +1,112 @@
+[
+ {
+  "check": "AC1 C opens the compare view (Nebeneinander)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 B loads via raw -> srcdoc (same origin, DOM readable)",
+  "ok": true,
+  "detail": "A='Miro — Visual Collaboration Platform Prototype' B='miro — Product preview'"
+ },
+ {
+  "check": "AC5 B is the real premium V2, different from A",
+  "ok": true,
+  "detail": "B title='miro — Product preview'"
+ },
+ {
+  "check": "AC4 device per side (A iPhone 390, B Desktop 1440)",
+  "ok": true,
+  "detail": "A=390 B=1440"
+ },
+ {
+  "check": "AC1 slider drag to 30 % clips B",
+  "ok": true,
+  "detail": "cut=30.0% clip=inset(0px 0px 0px 30%)"
+ },
+ {
+  "check": "Slider moves with arrow keys",
+  "ok": true,
+  "detail": "30.0 -> 40.0"
+ },
+ {
+  "check": "AC1 Überblenden: B opacity follows the slider",
+  "ok": true,
+  "detail": "opacity=0.7"
+ },
+ {
+  "check": "AC6 compare issue title names both versions",
+  "ok": true,
+  "detail": "[Review] Miro · Vergleich Aktuell (Pages) ↔ Premium (V2)"
+ },
+ {
+  "check": "AC6 compare issue body: A, B with ref, share link",
+  "ok": true,
+  "detail": "## 🔀 Miro: Aktuell (Pages) ↔ Premium (V2)\n\n- **A:** Aktuell (Pages) · [miro.html](https://servas-ai.github.io/network-canvas-oneshots/miro.html) · [Quelltext](https://github.com/servas-ai/network-canv"
+ },
+ {
+  "check": "M in compare opens B in the main view in mark mode",
+  "ok": true,
+  "detail": "version=feat/premium-oneshots"
+ },
+ {
+  "check": "AC3 marking on V2 stores ref (+ sha when resolvable)",
+  "ok": true,
+  "detail": "{\"ref\": \"feat/premium-oneshots\", \"sha\": \"bbb9e60\", \"label\": \"Premium (V2)\"}"
+ },
+ {
+  "check": "Card shows the version chip",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 marking issue names the version",
+  "ok": true,
+  "detail": "[Review] Miro (Premium (V2)) #1 · V2: Share-Knopf ist besser sichtbar, so lassen"
+ },
+ {
+  "check": "Markings are per version (hidden on Aktuell)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC2 free ref (commit bf02f87) loads as B",
+  "ok": true,
+  "detail": "Bbf02f87iPhone 390iPhone 430Tablet 820Desktop 1440"
+ },
+ {
+  "check": "AC6 deep link ?vergleich=&modus= opens the compare view",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC5 CLI one-shot (OpenCodex) V1 vs premium V2",
+  "ok": true,
+  "detail": "A='OpenCodex — Multi-Account Router & Quota Dashboard' B='OpenCodex — Product preview'"
+ },
+ {
+  "check": "AC4 scroll sync: B follows A (9router)",
+  "ok": true,
+  "detail": "A=120 B=120"
+ },
+ {
+  "check": "Scroll sync can be switched off",
+  "ok": true,
+  "detail": "B stays 120"
+ },
+ {
+  "check": "Keys 1-4 switch both sides",
+  "ok": true,
+  "detail": "A=1440 B=1440"
+ },
+ {
+  "check": "No JS errors",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "Phone: compare opens as slider and fits 390 px",
+  "ok": true,
+  "detail": "scrollWidth=390"
+ }
+]

@@ -72,7 +72,7 @@
  {
   "check": "AC1 passage 1 -> marking on the element under the pointer (Share)",
   "ok": true,
-  "detail": "{\"id\": \"m-mux75sw5nvt5\", \"nr\": 1, \"tool\": \"miro\", \"name\": \"Miro\", \"file\": \"miro.html\", \"geraet\": {\"id\": \"iphone-390\", \"name\": \"iPhone 390\", \"breite\": 390, \"hoehe\": 844, \"quer\": false}, \"art\": \"element"
+  "detail": "{\"id\": \"m-mux7ttrbfexi\", \"nr\": 1, \"tool\": \"miro\", \"name\": \"Miro\", \"file\": \"miro.html\", \"geraet\": {\"id\": \"iphone-390\", \"name\": \"iPhone 390\", \"breite\": 390, \"hoehe\": 844, \"quer\": false}, \"art\": \"element"
  },
  {
   "check": "AC1 pointer moved -> passage 2 on the new element (Sticky tool)",

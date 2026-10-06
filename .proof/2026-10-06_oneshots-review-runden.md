@@ -87,7 +87,7 @@ Alle drei sind `validate --strict` grün.
 **Sprach-Einstellungen** (4 Adapter mit Status, Brücke verbunden)
 ![Einstellungen](./2026-10-06_r2-sprach-einstellungen.png)
 
-**iPhone dunkel:** antippen, sprechen, Aufnahme rot · Brücke aus: klare Meldung
+**iPhone dunkel:** antippen, sprechen, Aufnahme rot · **Browser sperrt 127.0.0.1:** Die Seite nennt den Schalter „Lokales Netzwerk“
 <img src="./2026-10-06_r2-mobil-sprechen.png" alt="iPhone Sprechen" width="250"> <img src="./2026-10-06_r2-bruecke-offline.png" alt="Brücke offline" width="500">
 
 ---
@@ -101,6 +101,51 @@ Alle drei sind `validate --strict` grün.
 - **E2E gegen die laufende :9275: 26/26.** Alle 70 Knoten haben einen Issue-Knopf. Die vorausgefüllte Issue-URL enthält `labels=ablauf` und den Marker ``Ablauf-Knoten: `<id>` ``. Den Live-Status liest der Proxy über `gh` (radar ist privat): 49 Knoten offen, 21 ohne Issue. #220 ist laut Overlay offen, laut `gh issue view` OPEN.
 - **Beweisbilder:** im radar-Branch unter `.proof/2026-10-06_ablauf-*.png`, privat.
 
-## ⏳ Runde 3 · V1/V2-Vergleich (läuft)
+## ✅ Runde 3 · V1/V2-Vergleich (Commits `0eb7532` · `475bce5` · `59f44ff`)
 
-- **V2-Quelle:** `feat/premium-oneshots` (`bbb9e60`). Er wird per raw → `srcdoc` geladen, gleiche Herkunft, Markieren funktioniert.
+**E2E gegen die echte Pages-URL: 22/22** ([`2026-10-06_r3-e2e-result.json`](./2026-10-06_r3-e2e-result.json)). V2 ist die echte Premium-Fassung der Premium-Lane (`feat/premium-oneshots` @ `bbb9e60`), geladen von GitHub.
+
+- 🟢 **AC1 Ansichten:** Nebeneinander, Schieber (ziehen oder `←` `→`), Überblenden (Regler). `C` öffnet, `Esc` schließt.
+- 🟢 **AC2 Versionen:**
+  - Aktuell und die Manifest-Ref „Premium (V2)“
+  - alle Branches, der Datei-Verlauf und eine beliebige Ref (im Test Commit `bf02f87`)
+  - Bei API-Limit bleiben Manifest-Ref und freie Ref nutzbar.
+- 🟢 **AC3 Gleiche Herkunft:** raw → `srcdoc`. Markieren (und Sprach-Notiz) gehen auf V2. Die Markierung speichert `ref` und `sha` (`bbb9e60`).
+- 🟢 **AC4:** Gerät je Seite (A iPhone 390, B Desktop 1440). Scroll-Kopplung ist an- und abschaltbar. `1`–`4` stellt beide Seiten um.
+- 🟢 **AC5 Echte Daten:** Canvas (Miro) und CLI (OpenCodex, 9router), V1 gegen V2.
+- 🟢 **AC6 Teilen:** `?vergleich=feat/premium-oneshots&modus=schieber` öffnet dieselbe Ansicht. Das Vergleichs-Issue nennt A und B mit Ref, Link und Urteil-Checkliste ([Beispiel-Body](./2026-10-06_r3-vergleich-issue-body.md)).
+- 🔎 **Weitergedacht:**
+  - „Auf B markieren“ (`M` im Vergleich) öffnet B direkt im Markier-Modus.
+  - Die Versions-Auswahl in der Leiste wählt V2 auch ohne Vergleich.
+  - Markierungen gelten je Version.
+- 🔎 **Befund aus den Daten:** Fast alle V1-One-Shots scrollen auf dem iPhone nicht auf Seitenebene (feste App-Layouts), die Premium-V2 schon (OpenCodex 1098 px, EasyCLIProxy 2328 px).
+- 🐛 **Gefunden und behoben:**
+  - Die Klasse des Schieber-Trenners kollidierte mit dem Kopfzeilen-Trennstrich.
+  - Auf dem iPhone entstand 1 px seitliches Scrollen.
+  - Labels und A/B-Etiketten auf dem iPhone überlappten.
+
+**Miro · Nebeneinander** (A V1 · B Premium V2)
+![Nebeneinander](./2026-10-06_r3-miro-nebeneinander.png)
+
+**Miro · Schieber** bei 30 %
+![Schieber](./2026-10-06_r3-miro-schieber.png)
+
+**Miro · Überblenden** 70 % B
+![Überblenden](./2026-10-06_r3-miro-ueberblenden.png)
+
+**OpenCodex (CLI) · Desktop 1440 nebeneinander**
+![OpenCodex](./2026-10-06_r3-opencodex-desktop-nebeneinander.png)
+
+**Markierung auf V2** (Share-Knopf der Premium-Fassung, Chip „Premium (V2)“) · **iPhone: Schieber**
+<img src="./2026-10-06_r3-markierung-auf-v2.png" alt="Markierung auf V2" width="560"> <img src="./2026-10-06_r3-mobil-schieber.png" alt="iPhone Schieber" width="250">
+
+---
+
+## 🧾 Gesamt (Pages, letzter Lauf)
+
+- **Alt:** 38/38
+- **Runde 1:** 37/37
+- **Runde 2:** 27/27
+- **Runde 3:** 22/22
+- **Ablauf-Overlay:** 26/26 (lokal gegen :9275)
+- **Testskripte:** `.proof/2026-10-06_e2e*.py`
