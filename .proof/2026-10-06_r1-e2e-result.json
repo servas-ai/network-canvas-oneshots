@@ -1,0 +1,187 @@
+[
+ {
+  "check": "AC1 hex colors only in token blocks (+ traffic lights)",
+  "ok": true,
+  "detail": "outside: [] rgba=0"
+ },
+ {
+  "check": "AC1 spacing/radius/type/shadow tokens defined",
+  "ok": true,
+  "detail": "{'sp': 7, 'r': 6, 'fs': 6, 'shadow': 12}"
+ },
+ {
+  "check": "AC3 N -> next one-shot",
+  "ok": true,
+  "detail": "figjam"
+ },
+ {
+  "check": "AC3 P -> previous one-shot",
+  "ok": true,
+  "detail": "miro"
+ },
+ {
+  "check": "AC3 P wraps to the last one-shot",
+  "ok": true,
+  "detail": "tokscale (last=tokscale)"
+ },
+ {
+  "check": "AC3 key 2 -> iframe width 430",
+  "ok": true,
+  "detail": "innerWidth=430"
+ },
+ {
+  "check": "AC3 key 3 -> iframe width 820",
+  "ok": true,
+  "detail": "innerWidth=820"
+ },
+ {
+  "check": "AC3 key 4 -> iframe width 1440",
+  "ok": true,
+  "detail": "innerWidth=1440"
+ },
+ {
+  "check": "AC3 key 1 -> iframe width 390",
+  "ok": true,
+  "detail": "innerWidth=390"
+ },
+ {
+  "check": "AC3 R -> landscape",
+  "ok": true,
+  "detail": "innerWidth=844"
+ },
+ {
+  "check": "AC3 / focuses search",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 typing \"n1m\" in search triggers nothing",
+  "ok": true,
+  "detail": "tool=miro w=390 search='n1m'"
+ },
+ {
+  "check": "AC3 Esc clears search",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 Enter opens first hit",
+  "ok": true,
+  "detail": "tokscale"
+ },
+ {
+  "check": "AC3 key 2 works with focus in iframe",
+  "ok": true,
+  "detail": "focusInFrame=True innerWidth=430"
+ },
+ {
+  "check": "AC3 typing in a contenteditable of the prototype triggers nothing",
+  "ok": true,
+  "detail": "editable=True innerWidth=390"
+ },
+ {
+  "check": "AC3 I without marks -> hint toast",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 M -> mark mode on",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 typing in note dialog triggers nothing",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 Cmd+Enter saves note",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 Esc ends mark mode",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 J steps through markings",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 K steps back",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 I -> issue for selected marking",
+  "ok": true,
+  "detail": "[Review] Miro #1 · n4 p Text zu klein"
+ },
+ {
+  "check": "Card click selects marking",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC3 H hides and shows markings",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC4 ? opens overview with all keys",
+  "ok": true,
+  "detail": "missing=[]"
+ },
+ {
+  "check": "AC4 Esc closes overview",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC4 every shortcut button names its key",
+  "ok": true,
+  "detail": "12 buttons, bad=[]"
+ },
+ {
+  "check": "AC5 controls use SVG icons, no emoji",
+  "ok": true,
+  "detail": "svg=35 emoji=[]"
+ },
+ {
+  "check": "AC2 T: Auto -> Hell -> Dunkel",
+  "ok": true,
+  "detail": "auto -> light -> dark bg=rgb(10, 11, 14)"
+ },
+ {
+  "check": "AC2 Dunkel survives reload",
+  "ok": true,
+  "detail": "rgb(10, 11, 14)"
+ },
+ {
+  "check": "AC2 T wraps to Auto",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "No JS errors (desktop)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC2 Auto follows system dark",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 phone light: no horizontal scroll, targets >= 36 px",
+  "ok": true,
+  "detail": "scrollWidth=390 small=[]"
+ },
+ {
+  "check": "AC6 phone dark: no horizontal scroll, targets >= 36 px",
+  "ok": true,
+  "detail": "scrollWidth=390 small=[]"
+ }
+]
