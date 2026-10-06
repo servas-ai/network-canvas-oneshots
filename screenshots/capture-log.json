@@ -1,0 +1,77 @@
+[
+  {
+    "tool": "figjam",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/figjam.png",
+    "timestamp": "2026-10-06T22:33:41+0200"
+  },
+  {
+    "tool": "lucidchart",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/lucidchart.png",
+    "timestamp": "2026-10-06T22:33:42+0200"
+  },
+  {
+    "tool": "whimsical",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/whimsical.png",
+    "timestamp": "2026-10-06T22:33:44+0200"
+  },
+  {
+    "tool": "mural",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/mural.png",
+    "timestamp": "2026-10-06T22:33:45+0200"
+  },
+  {
+    "tool": "opencodex",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/opencodex.png",
+    "timestamp": "2026-10-06T22:33:47+0200"
+  },
+  {
+    "tool": "cpa-manager-plus",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cpa-manager-plus.png",
+    "timestamp": "2026-10-06T22:33:48+0200"
+  },
+  {
+    "tool": "magpie",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/magpie.png",
+    "timestamp": "2026-10-06T22:33:50+0200"
+  },
+  {
+    "tool": "easycliproxy",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/easycliproxy.png",
+    "timestamp": "2026-10-06T22:33:52+0200"
+  },
+  {
+    "tool": "cliproxy-quota-tray",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cliproxy-quota-tray.png",
+    "timestamp": "2026-10-06T22:33:53+0200"
+  },
+  {
+    "tool": "cc-switch",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cc-switch.png",
+    "timestamp": "2026-10-06T22:33:55+0200"
+  },
+  {
+    "tool": "9router",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/9router.png",
+    "timestamp": "2026-10-06T22:33:56+0200"
+  },
+  {
+    "tool": "claude-code-router",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/claude-code-router.png",
+    "timestamp": "2026-10-06T22:33:58+0200"
+  },
+  {
+    "tool": "cliproxyapi-usage",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cliproxyapi-usage.png",
+    "timestamp": "2026-10-06T22:33:59+0200"
+  },
+  {
+    "tool": "tokscale",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/tokscale.png",
+    "timestamp": "2026-10-06T22:34:01+0200"
+  },
+  {
+    "tool": "index",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/index.png",
+    "timestamp": "2026-10-06T22:34:03+0200"
+  }
+]
