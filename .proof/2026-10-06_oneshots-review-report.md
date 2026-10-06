@@ -10,7 +10,7 @@
 ## ✅ Akzeptanz (E2E 38/38 gegen die echte Pages-URL, Brave headless, Temp-Profil)
 
 - 🟢 **AC1** 15 Prototypen gelistet (5 Canvas · 10 CLI-Dashboard), gruppiert
-- 🟢 **AC2** API ergänzt unbekannte `.html` als „Neu“ (gemockt geprüft) · API-403 → Manifest-Liste bleibt vollständig
+- 🟢 **AC2** API ergänzt unbekannte `.html` als „Neu“ (gemockt geprüft) · API-403 → Manifest-Liste bleibt vollständig · **live auf Pages:** Contents-API 200, Liste bleibt 15 (5 Canvas · 10 CLI), kein falsches „Neu“, Puffer in sessionStorage gesetzt
 - 🟢 **AC3** iframe-`innerWidth` = 390 / 430 / 820 / 1440, Geräte-Rahmen Telefon/Tablet/Browser
 - 🟢 **AC4** Klick = Element (Selektor + Text), Ziehen = Bereich (40/600/260×120 px exakt), Esc verwirft
 - 🟢 **AC5** Neuladen behält Markierungen · JSON-Download `oneshots-markierungen-2026-10-06.json`
@@ -43,4 +43,4 @@ Ergebnis-Datei: [`2026-10-06_pages-e2e-result.json`](./2026-10-06_pages-e2e-resu
 ## 👀 Bitte drüberschauen
 
 - `feat/cli-dashboards` (3930442, Lane ws:52) per **Fast-Forward** auf `feat/canvas-oneshots` geholt, sonst wären die 10 Dashboards nicht auf Pages. Deren Galerie `index.html` heißt jetzt **`gallery.html`**. ws:52 soll `index.html` nicht mehr überschreiben.
-- GitHub-API ist von dieser IP gerade rate-limited (60/h ohne Token). Dann gilt das Manifest. Neue One-Shots: `python3 scripts/update-manifest.py`.
+- GitHub-API erlaubt ohne Token 60 Abrufe pro Stunde und IP (war zeitweise erschöpft). Dann gilt das Manifest. Neue One-Shots: `python3 scripts/update-manifest.py`.
