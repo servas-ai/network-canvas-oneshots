@@ -393,6 +393,52 @@
     .toast button { padding: 3px 10px; border-radius: var(--r-sm); border: 1px solid color-mix(in srgb, var(--text-inverse) 35%, transparent); background: transparent; color: inherit; font-weight: var(--fw-bold); }
     @keyframes toast-in { from { opacity: 0; translate: 0 8px; } }
 
+    /* ================= Voice notes ================= */
+    .split { display: inline-flex; }
+    .split > .btn:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+    .split > .btn:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: -1px; width: 26px; padding: 0; }
+    .voice-btn[aria-pressed="true"] { background: var(--mark); border-color: var(--mark); color: var(--mark-ink); }
+    .voice-btn[aria-pressed="true"] .kbd { background: transparent; border-color: color-mix(in srgb, var(--mark-ink) 45%, transparent); color: var(--mark-ink); }
+    .voice-btn[aria-pressed="true"] .ic { animation: rec 1.2s ease-in-out infinite; }
+    .voice-arm .overlay, .voice-touch .overlay { pointer-events: auto; cursor: crosshair; touch-action: none; }
+    .voice-hud {
+      position: absolute; left: 50%; bottom: var(--sp-5); transform: translateX(-50%); z-index: 30;
+      display: flex; align-items: center; gap: var(--sp-3); width: max-content; max-width: min(680px, calc(100% - 24px));
+      padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4); border-radius: var(--r-full);
+      background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+    }
+    .rec-dot { width: 10px; height: 10px; flex: none; border-radius: 50%; background: var(--mark); animation: rec 1.2s ease-in-out infinite; }
+    .voice-hud.busy .rec-dot { background: var(--accent); }
+    @keyframes rec { 50% { opacity: .35; } }
+    .vu { display: flex; align-items: center; gap: 2px; height: 20px; flex: none; }
+    .vu i { display: block; width: 3px; height: 4px; border-radius: 2px; background: var(--mark); transition: height 90ms linear; }
+    .vh-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+    .vh-text strong { font-size: var(--fs-sm); }
+    .vh-text span { max-width: 380px; color: var(--text-2); font-size: var(--fs-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .vh-meta { flex: none; color: var(--text-3); font-size: var(--fs-xs); white-space: nowrap; }
+    .mk.voice { border-style: dashed; }
+    .dlg-sub { margin: 0; color: var(--text-2); font-size: var(--fs-sm); line-height: 1.5; }
+    .dlg-sub .kbd { vertical-align: 1px; }
+    .adapters { display: flex; flex-direction: column; gap: var(--sp-2); }
+    .adapter { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3); border: 1px solid var(--border); border-radius: var(--r-lg); cursor: pointer; transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease); }
+    .adapter:hover { border-color: var(--border-strong); }
+    .adapter.on { border-color: var(--accent); background: var(--accent-soft); }
+    .adapter input { accent-color: var(--accent); margin: 0; }
+    .a-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+    .a-text strong { font-size: var(--fs-md); }
+    .a-text span { color: var(--text-3); font-size: var(--fs-xs); }
+    .a-state { flex: none; padding: 2px 8px; border-radius: var(--r-full); font-size: var(--fs-2xs); font-weight: var(--fw-bold); background: var(--surface-3); color: var(--text-3); }
+    .a-state.ok { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+    .a-state.warn { background: color-mix(in srgb, var(--warn) 14%, transparent); color: var(--warn); }
+    .bridge-box { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-3); border-radius: var(--r-lg); background: var(--surface-2); font-size: var(--fs-sm); }
+    .bridge-box code { font: var(--fs-xs) var(--mono); padding: 2px 6px; border-radius: var(--r-xs); background: var(--surface); box-shadow: 0 0 0 1px var(--border); word-break: break-all; }
+    .bridge-state { display: flex; align-items: center; gap: var(--sp-2); font-weight: var(--fw-semi); }
+    .bridge-state i { width: 8px; height: 8px; border-radius: 50%; background: var(--text-3); }
+    .bridge-state.ok i { background: var(--ok); } .bridge-state.warn i { background: var(--warn); }
+    .pair-row { display: flex; gap: var(--sp-2); }
+    .pair-row input { flex: 1; min-width: 0; height: var(--ctl); padding: 0 var(--sp-3); border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface); font: var(--fs-sm) var(--mono); }
+    .pair-row input:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
+
     /* ================= Medium screens ================= */
     @media (max-width: 1240px) {
       :root { --nav-w: 240px; --panel-w: 316px; }
@@ -409,7 +455,12 @@
       .logo { width: 28px; height: 28px; }
       #themeBtn { order: 0; margin-left: auto; }
       #sheetBtn { display: inline-flex; }
-      .mark-btn { min-width: 0; }
+      .mark-btn { min-width: 0; padding: 0 10px; }
+      #voiceBtn .lbl, #voiceCfgBtn { display: none; }
+      #voiceBtn { width: var(--ctl); padding: 0; border-radius: var(--r-md); }
+      .voice-hud { bottom: var(--sp-3); gap: var(--sp-2); }
+      .vh-meta { display: none; }
+      .vh-text span { max-width: 170px; }
       #pick { display: block; width: 100%; height: var(--ctl); padding: 0 var(--sp-3); border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface-2); font-weight: var(--fw-semi); }
       .top .seg { flex: 1; min-width: 0; padding: 2px; }
       .top .seg button { flex: 1; min-width: 0; height: calc(var(--ctl) - 4px); padding: 0 2px; font-size: var(--fs-sm); }
@@ -482,6 +533,9 @@
       <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></symbol>
       <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></symbol>
       <symbol id="i-grow" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></symbol>
+      <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0Z"/><path d="M12 18v4"/></symbol>
       <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
     </defs>
   </svg>
@@ -503,6 +557,10 @@
     <div class="row">
       <div class="seg" role="radiogroup" aria-label="Gerätegröße" id="deviceSeg"></div>
       <button class="btn mark-btn" id="markBtn" type="button" aria-pressed="false" aria-keyshortcuts="M" data-tip="Markier-Modus · M"></button>
+      <div class="split">
+        <button class="btn voice-btn" id="voiceBtn" type="button" aria-pressed="false" aria-keyshortcuts="V" data-tip="Sprach-Notiz · V (Zeiger auf die Stelle, dann sprechen)"></button>
+        <button class="btn voice-cfg" id="voiceCfgBtn" type="button" aria-label="Sprach-Einstellungen" data-tip="Sprach-Einstellungen" data-tip-pos="end"><svg class="ic sm"><use href="#i-chev-d"/></svg></button>
+      </div>
       <span class="divider"></span>
       <button class="btn icon ghost" id="keysBtn" type="button" aria-label="Tastenkürzel (?)" aria-keyshortcuts="?" data-tip="Tastenkürzel · ?"><svg class="ic"><use href="#i-keyboard"/></svg></button>
     </div>
@@ -546,6 +604,13 @@
         <span class="h-long"><kbd class="kbd">Esc</kbd> beendet</span>
       </div>
       <div class="stage" id="stage">
+        <div class="voice-hud" id="voiceHud" role="status" aria-live="polite" hidden>
+          <span class="rec-dot" aria-hidden="true"></span>
+          <span class="vu" id="voiceVu" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="vh-text"><strong id="voiceState">Hört zu …</strong><span id="voiceLive"></span></span>
+          <span class="vh-meta" id="voiceMeta"></span>
+          <button class="btn sm" id="voiceStop" type="button"><svg class="ic sm"><use href="#i-check"/></svg>Fertig <kbd class="kbd">V</kbd></button>
+        </div>
         <div class="fit" id="fit">
           <div class="device phone" id="device">
             <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><div class="url"><svg class="ic sm"><use href="#i-lock"/></svg><span id="chromeUrl"></span></div></div>
@@ -609,6 +674,19 @@
     </div>
   </dialog>
 
+  <dialog id="voiceDlg" class="box" aria-labelledby="voiceTitle">
+    <div class="dlg">
+      <div class="dlg-head">
+        <span class="dlg-icon"><svg class="ic"><use href="#i-mic"/></svg></span>
+        <h3 id="voiceTitle">Sprach-Notiz</h3>
+        <button class="btn sm icon ghost x" id="voiceClose" type="button" aria-label="Schließen"><svg class="ic"><use href="#i-x"/></svg></button>
+      </div>
+      <p class="dlg-sub">Zeiger auf eine Stelle im Prototyp, <kbd class="kbd">V</kbd> drücken und sprechen. Jede Passage wird eine Markierung an der Stelle, auf die der Zeiger zu Beginn der Passage zeigt. Zeiger bewegen, weiterreden: nächste Stelle. <kbd class="kbd">V</kbd> oder <kbd class="kbd">Enter</kbd> beendet, <kbd class="kbd">V</kbd> halten = sprechen solange gedrückt.</p>
+      <div class="adapters" id="voiceAdapters" role="radiogroup" aria-label="Spracherkennung"></div>
+      <div class="bridge-box" id="bridgeBox"></div>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
   <script>
@@ -653,6 +731,9 @@
     dlg: $('#noteDlg'), dlgForm: $('#noteForm'), dlgTitle: $('#noteTitle'), dlgMeta: $('#noteMeta'), dlgText: $('#noteText'), dlgKeys: $('#noteKeys'),
     dlgCancel: $('#noteCancel'), dlgIssue: $('#noteIssue'), toast: $('#toast'),
     keysDlg: $('#keysDlg'), keysGrid: $('#keysGrid'), keysClose: $('#keysClose'),
+    voiceBtn: $('#voiceBtn'), voiceCfgBtn: $('#voiceCfgBtn'), voiceHud: $('#voiceHud'), voiceVu: $('#voiceVu'), voiceState: $('#voiceState'),
+    voiceLive: $('#voiceLive'), voiceMeta: $('#voiceMeta'), voiceStop: $('#voiceStop'),
+    voiceDlg: $('#voiceDlg'), voiceClose: $('#voiceClose'), voiceAdapters: $('#voiceAdapters'), bridgeBox: $('#bridgeBox'),
   };
 
   const state = {
@@ -804,6 +885,8 @@
       scroll: { x: num(m.scroll?.x), y: num(m.scroll?.y) },
       element: el,
       notiz: str(m.notiz, 4000),
+      quelle: m.quelle === 'sprache' ? 'sprache' : null,
+      adapter: m.quelle === 'sprache' ? (str(m.adapter, 24).replace(/[^\w.-]/g, '') || null) : null,
       erstellt: str(m.erstellt, 40) || nowIso(),
       issueGeoeffnet: str(m.issueGeoeffnet, 40) || null,
     };
@@ -934,6 +1017,7 @@
     const item = itemOf(file);
     if (!item) return;
     const same = state.tool?.file === file;
+    if (!same && voice.session) stopVoice(); // passages belong to one tool and one device
     state.tool = item;
     if (!keepScroll) state.pendingScroll = null;
     els.toolName.textContent = item.name;
@@ -953,6 +1037,7 @@
   function setDevice(id) {
     const d = deviceOf(id);
     if (!d) return;
+    if (voice.session && d !== state.device) stopVoice();
     state.device = d;
     if (d.kind === 'desktop') state.landscape = false;
     applyFrame();
@@ -1008,6 +1093,9 @@
       els.frame.contentWindow.addEventListener('scroll', () => requestAnimationFrame(renderOverlay), { passive: true });
       // Shortcuts keep working after a click into the prototype (same origin; prototypes have no own key handlers).
       els.frame.contentWindow.addEventListener('keydown', onKey);
+      els.frame.contentWindow.addEventListener('keyup', onKeyUp);
+      state.frameDoc.addEventListener('pointermove', (ev) => trackPointer(ev.clientX, ev.clientY), { passive: true });
+      state.frameDoc.documentElement.addEventListener('pointerleave', () => { voice.inside = false; }, { passive: true });
     } catch { /* cross-origin: area marks still work, element anchors and shortcuts in the frame do not */ }
     applyPendingScroll();
     renderOverlay();
@@ -1113,6 +1201,14 @@
   }
 
   els.overlay.addEventListener('pointerdown', (ev) => {
+    if (voice.armed || (voice.session && !state.marking)) {
+      // voice: the click/tap sets the spot (arming), or moves it for the next passage (touch)
+      ev.preventDefault();
+      const p = toFramePoint(ev);
+      trackPointer(p.x, p.y);
+      if (voice.armed) { disarmVoice(); startVoice(); }
+      return;
+    }
     if (!state.marking || ev.button > 0 || ev.target.closest('.mk-badge')) return;
     ev.preventDefault();
     els.overlay.setPointerCapture(ev.pointerId);
@@ -1121,8 +1217,9 @@
   });
 
   els.overlay.addEventListener('pointermove', (ev) => {
-    if (!state.marking) return;
     const p = toFramePoint(ev);
+    trackPointer(p.x, p.y);
+    if (!state.marking) return;
     if (!drag) {
       if (ev.pointerType === 'mouse') { cancelAnimationFrame(hoverRaf); hoverRaf = requestAnimationFrame(() => showHover(p)); }
       return;
@@ -1297,11 +1394,16 @@
     const boxes = [];
     const list = [...visibleMarks()];
     if (state.draft?.mode === 'new') list.push(state.draft.mark);
+    if (voice.session?.tool === state.tool) {
+      for (const p of voice.session.passages.values()) {
+        list.push({ id: 'voice-' + p.key, nr: '…', art: p.art, x: p.rect.x, y: p.rect.y, breite: p.rect.w, hoehe: p.rect.h, scroll: p.scroll, notiz: p.partial || 'hört zu …', voiceDraft: true });
+      }
+    }
     const inv = 1 / state.scale; // badge size in prototype px grows when the device is scaled down
     for (const m of list) {
-      const isDraft = state.draft?.mark === m;
+      const isDraft = state.draft?.mark === m || !!m.voiceDraft;
       const left = m.x + m.scroll.x - cur.x, top = m.y + m.scroll.y - cur.y;
-      const cls = ['mk', m.art, isDraft && 'draft', m.issueGeoeffnet && 'issue', m.id === state.selected && !isDraft && 'sel', top < 28 * inv && 'low', left + 200 * inv > w && 'right'];
+      const cls = ['mk', m.art, isDraft && 'draft', m.voiceDraft && 'voice', m.issueGeoeffnet && 'issue', m.id === state.selected && !isDraft && 'sel', top < 28 * inv && 'low', left + 200 * inv > w && 'right'];
       const box = h('div', { class: cls.filter(Boolean).join(' '), 'data-id': m.id });
       Object.assign(box.style, { left: left + 'px', top: top + 'px', width: m.breite + 'px', height: m.hoehe + 'px' });
       box.append(h('span', { class: 'mk-badge', title: m.notiz || '(ohne Notiz)', text: `#${m.nr}${m.notiz ? ' ' + short(m.notiz, 28) : ''}`,
@@ -1366,6 +1468,7 @@
           state.scope === 'all' ? h('span', { class: 'tool', text: m.name }) : '',
           h('span', { class: 'meta-i' }, icon(ART_ICON[m.art], 'sm'), ART_WORD[m.art]),
           h('span', { class: 'meta-i' }, icon(KIND_ICON[kind], 'sm'), `${m.geraet.name}${m.geraet.quer ? ' quer' : ''}`),
+          m.quelle === 'sprache' ? h('span', { class: 'meta-i', title: `Sprach-Notiz (${m.adapter || ''})` }, icon('mic', 'sm'), 'Sprache') : '',
           m.issueGeoeffnet ? h('span', { class: 'ok meta-i', title: 'Issue-Formular wurde geöffnet' }, icon('check', 'sm'), 'Issue') : ''),
         h('div', { class: 'note' + (m.notiz ? '' : ' empty'), text: m.notiz || '(ohne Notiz)' }),
         el ? h('div', { class: 'el', title: el.selector }, h('span', { text: el.selector.split(' > ').slice(-2).join(' > ') + (el.text ? `  „${short(el.text, 60)}“` : '') })) : '',
@@ -1433,8 +1536,8 @@
 
   /* ---------- GitHub issue (prefilled link, no token) ---------- */
   function liteMark(m) {
-    const { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, erstellt } = m;
-    return { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, erstellt };
+    const { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, quelle, adapter, erstellt } = m;
+    return { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, ...(quelle ? { quelle, adapter } : {}), erstellt };
   }
 
   function deepLink(m, withData) {
@@ -1457,6 +1560,7 @@
       `- **Koordinaten:** x ${m.x} · y ${m.y} · ${m.breite} × ${m.hoehe} px (${p.x} % · ${p.y} % · ${p.breite} % × ${p.hoehe} %)${m.scroll.y || m.scroll.x ? ` · Scroll ${m.scroll.x}/${m.scroll.y}` : ''}`,
     ];
     if (el) lines.push(`- **Element:** \`${el.selector}\`${el.text ? ` „${short(el.text, 80)}“` : ''}`);
+    if (m.quelle === 'sprache') lines.push(`- **Quelle:** 🎙 Sprach-Notiz (${m.adapter || 'Sprache'}), Zeiger-Position beim Sprechen`);
     lines.push(`- **Ansehen:** [Markierung in der Übersicht öffnen](${deepLink(m, opts.withData)})`);
     return lines.join('\n');
   }
@@ -1515,6 +1619,437 @@
   }
 
   els.bundleBtn.addEventListener('click', () => openIssue(toolMarks()));
+
+  /* ---------- voice notes ----------
+     Point at the prototype, press V, talk. Each spoken passage becomes a marking anchored to the
+     element under the pointer at the moment the passage starts. Transcription is pluggable:
+     window.OneshotsVoice.register({ id, label, desc, available, start, stop }). Built in:
+     whisper (local whisper.cpp via scripts/voice-bridge.mjs), grok (Grok-Voice-Harness via the bridge),
+     browser (Web Speech API) and tippen (no STT, opens the note at the pointer). */
+  const VOICE_KEY = 'oneshots-review:voice';
+  const voice = {
+    cfg: { adapter: 'whisper', port: 9395, token: '' },
+    adapters: new Map(),
+    pointer: null,      // last pointer position over the prototype, in prototype px
+    inside: false,      // pointer currently over the prototype
+    session: null,
+    armed: false,       // waiting for a click/tap that sets the position
+    keyAt: 0,
+    health: null,
+    bridge: 'unknown',  // unknown | offline | unpaired | ok
+  };
+
+  function loadVoiceCfg() {
+    try { Object.assign(voice.cfg, JSON.parse(localStorage.getItem(VOICE_KEY) || '{}')); } catch { /* defaults */ }
+    voice.cfg.port = Number(voice.cfg.port) || 9395;
+  }
+  function saveVoiceCfg() { try { localStorage.setItem(VOICE_KEY, JSON.stringify(voice.cfg)); } catch { /* per-viewer only */ } }
+
+  // Pairing code "port.token", as printed by the bridge or passed in #voice=…
+  function pairWith(code) {
+    const m = /(?:#voice=)?(\d{2,5})\.([\w-]{16,64})\s*$/.exec(String(code || '').trim());
+    if (!m) return false;
+    voice.cfg.port = Number(m[1]);
+    voice.cfg.token = m[2];
+    saveVoiceCfg();
+    return true;
+  }
+
+  const bridgeUrl = (path) => `http://127.0.0.1:${voice.cfg.port}${path}`;
+  const bridgeFetch = (path, opts = {}) => fetch(bridgeUrl(path), { ...opts, headers: { ...(opts.headers || {}), 'X-Voice-Token': voice.cfg.token } });
+
+  async function checkBridge() {
+    try {
+      const r = await bridgeFetch('/health', { signal: AbortSignal.timeout(2500) });
+      voice.health = await r.json();
+      voice.bridge = voice.health.paired ? 'ok' : 'unpaired';
+    } catch {
+      voice.health = null;
+      voice.bridge = 'offline';
+    }
+    renderVoiceCfg();
+    return voice.bridge;
+  }
+
+  function bridgeProblem() {
+    if (voice.bridge === 'offline') return 'Voice-Brücke läuft nicht. Im Terminal: node scripts/voice-bridge.mjs --open';
+    if (voice.bridge === 'unpaired') return 'Voice-Brücke läuft, ist aber nicht gekoppelt. Kopplungscode in den Sprach-Einstellungen eintragen.';
+    return '';
+  }
+
+  /* -- audio capture: AudioWorklet frames, energy VAD, 16 kHz WAV -- */
+  const TAP_WORKLET = `class Tap extends AudioWorkletProcessor {
+    constructor() { super(); this.buf = new Float32Array(512); this.n = 0; }
+    process(inputs) {
+      const ch = inputs[0] && inputs[0][0];
+      if (ch) for (let i = 0; i < ch.length; i++) { this.buf[this.n++] = ch[i]; if (this.n === 512) { this.port.postMessage(this.buf.slice(0)); this.n = 0; } }
+      return true;
+    }
+  }
+  registerProcessor('oneshots-tap', Tap);`;
+
+  async function openMic(onFrame) {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+    const ctx = new AudioContext();
+    await ctx.resume();
+    const url = URL.createObjectURL(new Blob([TAP_WORKLET], { type: 'text/javascript' }));
+    try { await ctx.audioWorklet.addModule(url); } finally { URL.revokeObjectURL(url); }
+    const src = ctx.createMediaStreamSource(stream);
+    const node = new AudioWorkletNode(ctx, 'oneshots-tap');
+    const mute = ctx.createGain();
+    mute.gain.value = 0;
+    src.connect(node); node.connect(mute); mute.connect(ctx.destination);
+    node.port.onmessage = (e) => onFrame(e.data);
+    return { rate: ctx.sampleRate, stop() { node.port.onmessage = null; stream.getTracks().forEach((t) => t.stop()); ctx.close().catch(() => {}); } };
+  }
+
+  // Energy-based voice activity detection on 512-sample frames.
+  function createVad(rate, { onStart, onEnd, onLevel }) {
+    const frameMs = 512 / rate * 1000;
+    const PRE = Math.ceil(300 / frameMs), START = Math.ceil(90 / frameMs), END = Math.ceil(800 / frameMs), KEEP = Math.ceil(250 / frameMs), MAX = Math.ceil(25000 / frameMs);
+    let floor = 0.004, speaking = false, above = 0, below = 0, pre = [], cur = [];
+    function finish() {
+      const frames = cur.slice(0, Math.max(1, cur.length - Math.max(0, below - KEEP)));
+      speaking = false; above = 0; below = 0; cur = [];
+      const out = new Float32Array(frames.reduce((n, f) => n + f.length, 0));
+      let o = 0; for (const f of frames) { out.set(f, o); o += f.length; }
+      onEnd(out);
+    }
+    return {
+      push(f) {
+        let sum = 0; for (let i = 0; i < f.length; i++) sum += f[i] * f[i];
+        const rms = Math.sqrt(sum / f.length);
+        onLevel(rms);
+        const thr = Math.max(0.012, floor * 3);
+        if (!speaking) {
+          floor = floor * 0.97 + Math.min(rms, 0.05) * 0.03;
+          pre.push(f); if (pre.length > PRE) pre.shift();
+          if (rms > thr) { if (++above >= START) { speaking = true; cur = pre; pre = []; below = 0; onStart(); } } else above = 0;
+        } else {
+          cur.push(f);
+          if (rms < thr * 0.7) { if (++below >= END) finish(); } else below = 0;
+          if (speaking && cur.length >= MAX) finish();
+        }
+      },
+      flush() { if (speaking) finish(); },
+      reset() { speaking = false; cur = []; pre = []; above = 0; below = 0; },
+    };
+  }
+
+  function toWav16k(samples, rate) {
+    const ratio = rate / 16000;
+    const n = Math.floor(samples.length / ratio);
+    const view = new DataView(new ArrayBuffer(44 + n * 2));
+    const str = (o, t) => { for (let i = 0; i < t.length; i++) view.setUint8(o + i, t.charCodeAt(i)); };
+    str(0, 'RIFF'); view.setUint32(4, 36 + n * 2, true); str(8, 'WAVE'); str(12, 'fmt ');
+    view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+    view.setUint32(24, 16000, true); view.setUint32(28, 32000, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+    str(36, 'data'); view.setUint32(40, n * 2, true);
+    for (let i = 0; i < n; i++) {
+      // box filter over the source span keeps it simple and alias-poor for speech
+      const a = Math.floor(i * ratio), b = Math.max(a + 1, Math.floor((i + 1) * ratio));
+      let acc = 0; for (let j = a; j < b; j++) acc += samples[j] || 0;
+      const v = Math.max(-1, Math.min(1, acc / (b - a)));
+      view.setInt16(44 + i * 2, v < 0 ? v * 0x8000 : v * 0x7fff, true);
+    }
+    return new Blob([view.buffer], { type: 'audio/wav' });
+  }
+
+  /* -- built-in adapters -- */
+  function whisperAdapter() {
+    let mic = null, vad = null, queue = Promise.resolve(), n = 0, cur = null;
+    return {
+      id: 'whisper', label: 'Lokal · whisper.cpp', desc: 'Audio bleibt auf diesem Rechner. Braucht die Voice-Brücke.',
+      async available() {
+        const b = await checkBridge();
+        if (b !== 'ok') return { ok: false, reason: bridgeProblem() };
+        if (!voice.health.stt?.reachable && !voice.health.stt?.autostart) return { ok: false, reason: 'Kein lokaler STT-Dienst (STT_URL) und kein whisper.cpp-Modell für den Autostart.' };
+        if (!navigator.mediaDevices?.getUserMedia) return { ok: false, reason: 'Dieser Browser gibt kein Mikrofon frei (nur über https oder localhost).' };
+        return { ok: true };
+      },
+      state() { return voice.bridge !== 'ok' ? ['warn', voice.bridge === 'offline' ? 'Brücke aus' : 'nicht gekoppelt'] : voice.health.stt?.reachable ? ['ok', 'bereit'] : voice.health.stt?.autostart ? ['ok', 'startet bei Bedarf'] : ['warn', 'STT fehlt']; },
+      async start(cb) {
+        queue = Promise.resolve(); n = 0; cur = null;
+        mic = await openMic((f) => vad.push(f));
+        vad = createVad(mic.rate, {
+          onLevel: cb.onLevel,
+          onStart: () => { cur = 'w' + (++n); cb.onSpeechStart(cur); },
+          onEnd: (samples) => {
+            const key = cur;
+            cb.onPartial(key, 'wird erkannt …');
+            const wav = toWav16k(samples, mic.rate);
+            queue = queue.then(async () => {
+              try {
+                const r = await bridgeFetch('/stt', { method: 'POST', headers: { 'Content-Type': 'audio/wav' }, body: wav });
+                const d = await r.json();
+                if (d.ok) cb.onFinal(key, d.text); else cb.onError(`Transkription fehlgeschlagen (${d.code})`, key);
+              } catch { cb.onError('Voice-Brücke nicht erreichbar', key); }
+            });
+          },
+        });
+      },
+      async stop({ cancel } = {}) {
+        if (vad) cancel ? vad.reset() : vad.flush();
+        mic?.stop(); mic = null;
+        await queue;
+      },
+    };
+  }
+
+  function grokAdapter() {
+    let es = null;
+    const seen = new Set();
+    const GROK_ERR = { consent_required: 'Grok: Einwilligung fehlt (grok-voice consent on)', signed_out: 'Grok: nicht angemeldet (grok-voice open)', busy: 'Grok: es läuft schon eine Sitzung', check_required: 'Grok: Prüfung im Grok-Fenster nötig' };
+    return {
+      id: 'grok', label: 'Grok Voice · Harness', desc: 'Grok-Voice-Harness auf 127.0.0.1:9381 über die Brücke. Nutzt dein Grok-Konto, Grok kann antworten.',
+      async available() {
+        const b = await checkBridge();
+        if (b !== 'ok') return { ok: false, reason: bridgeProblem() };
+        if (!voice.health.grok?.reachable) return { ok: false, reason: 'Grok-Voice-Harness läuft nicht (grok-voice serve).' };
+        if (voice.health.grok.consent !== true) return { ok: false, reason: GROK_ERR.consent_required };
+        return { ok: true };
+      },
+      state() { return voice.bridge !== 'ok' ? ['warn', voice.bridge === 'offline' ? 'Brücke aus' : 'nicht gekoppelt'] : !voice.health.grok?.reachable ? ['warn', 'Harness aus'] : voice.health.grok.consent !== true ? ['warn', 'Einwilligung fehlt'] : ['ok', 'bereit']; },
+      async start(cb) {
+        seen.clear();
+        es = new EventSource(bridgeUrl('/grok/events?token=' + encodeURIComponent(voice.cfg.token)));
+        es.addEventListener('transcript', (m) => {
+          let e; try { e = JSON.parse(m.data); } catch { return; }
+          if (e.speaker !== 'user' || !e.segmentId) return;
+          const key = 'g' + e.segmentId;
+          if (!seen.has(key)) { seen.add(key); cb.onSpeechStart(key); }
+          if (e.kind === 'final') cb.onFinal(key, e.text || '');
+          else if (e.kind === 'partial') cb.onPartial(key, e.text || '');
+        });
+        const r = await bridgeFetch('/grok/start', { method: 'POST' });
+        const d = await r.json().catch(() => ({}));
+        if (!d.ok) { es.close(); es = null; throw new Error(GROK_ERR[d.code] || `Grok-Start fehlgeschlagen (${d.code || r.status})`); }
+      },
+      async stop() {
+        es?.close(); es = null;
+        await bridgeFetch('/grok/stop', { method: 'POST' }).catch(() => {});
+      },
+    };
+  }
+
+  function browserAdapter() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let rec = null, stopped = true;
+    return {
+      id: 'browser', label: 'Browser-Spracherkennung', desc: 'Web Speech API (Chrome, Safari, iPhone). Das Audio geht an den Dienst des Browsers.',
+      async available() {
+        if (!SR) return { ok: false, reason: 'Dieser Browser hat keine Spracherkennung.' };
+        if (navigator.brave) return { ok: false, reason: 'Brave sperrt die Web-Spracherkennung. Bitte „Lokal · whisper.cpp“ nehmen.' };
+        return { ok: true };
+      },
+      state() { return !SR ? ['', 'nicht vorhanden'] : navigator.brave ? ['warn', 'in Brave gesperrt'] : ['ok', 'verfügbar']; },
+      async start(cb) {
+        const seen = new Set();
+        rec = new SR();
+        rec.lang = 'de-DE'; rec.continuous = true; rec.interimResults = true;
+        rec.onresult = (ev) => {
+          for (let i = ev.resultIndex; i < ev.results.length; i++) {
+            const key = 'b' + i, res = ev.results[i];
+            if (!seen.has(key)) { seen.add(key); cb.onSpeechStart(key); }
+            res.isFinal ? cb.onFinal(key, res[0].transcript) : cb.onPartial(key, res[0].transcript);
+          }
+        };
+        rec.onerror = (e) => { if (e.error !== 'no-speech' && e.error !== 'aborted') cb.onError(`Spracherkennung: ${e.error}`); };
+        rec.onend = () => { if (!stopped) try { rec.start(); } catch { /* restarting too fast */ } };
+        stopped = false;
+        rec.start();
+      },
+      async stop() { stopped = true; try { rec?.stop(); } catch { /* already stopped */ } rec = null; },
+    };
+  }
+
+  const typeAdapter = { id: 'tippen', label: 'Tippen', desc: 'Ohne Spracherkennung: V öffnet die Notiz für die Stelle unter dem Zeiger.', available: async () => ({ ok: true }), state: () => ['ok', 'immer'], start: async () => {}, stop: async () => {} };
+
+  function registerAdapter(a) {
+    if (!a || typeof a.id !== 'string' || typeof a.start !== 'function' || typeof a.stop !== 'function') throw new TypeError('Adapter braucht id, start(cb) und stop()');
+    voice.adapters.set(a.id, { label: a.id, desc: '', available: async () => ({ ok: true }), state: () => ['', 'eigener Adapter'], ...a });
+    renderVoiceCfg();
+  }
+  for (const a of [whisperAdapter(), grokAdapter(), browserAdapter(), typeAdapter]) registerAdapter(a);
+  window.OneshotsVoice = Object.freeze({
+    register: registerAdapter,
+    adapters: () => [...voice.adapters.keys()],
+    get pointer() { return voice.pointer ? { ...voice.pointer } : null; },
+  });
+
+  /* -- pointer + session -- */
+  function trackPointer(x, y) {
+    voice.pointer = { x, y };
+    voice.inside = true;
+    if (voice.session && !state.marking) { cancelAnimationFrame(hoverRaf); hoverRaf = requestAnimationFrame(() => showHover(voice.pointer)); }
+  }
+
+  // Anchor like a click marking: element under the point, or the spot itself on huge containers.
+  function anchorAt(point) {
+    const { w, h: hgt } = screenSize();
+    const target = elementAt(point.x, point.y);
+    const r = target?.getBoundingClientRect();
+    if (!r || r.width * r.height > 0.5 * w * hgt) return { art: 'punkt', rect: { x: point.x - 12, y: point.y - 12, w: 24, h: 24 }, element: target ? anchorOf(target, point) : null, key: `pt:${Math.round(point.x / 24)}:${Math.round(point.y / 24)}` };
+    const element = anchorOf(target, point);
+    return { art: 'element', rect: { x: r.left, y: r.top, w: r.width, h: r.height }, element, key: 'el:' + element.selector };
+  }
+
+  function passageStart(s, key) {
+    if (s !== voice.session) return;
+    const point = voice.pointer || { x: screenSize().w / 2, y: screenSize().h / 3 };
+    s.passages.set(key, { key, point, scroll: frameScroll(), ...anchorAt(point), partial: '', startedAt: nowIso() });
+    s.current = key;
+    renderVoiceUi(); renderOverlay();
+  }
+
+  function passagePartial(s, key, text) {
+    const p = s.passages.get(key);
+    if (!p) return;
+    p.partial = compact(text, 200);
+    s.current = key;
+    renderVoiceUi(); renderOverlay();
+  }
+
+  function passageFinal(s, key, text) {
+    const p = s.passages.get(key);
+    if (!p) return;
+    s.passages.delete(key);
+    const t = compact(text, 2000);
+    if (t) {
+      const { w, h: hgt } = screenSize();
+      const existing = s.byAnchor.get(p.key) && state.marks.find((m) => m.id === s.byAnchor.get(p.key));
+      if (existing) {
+        existing.notiz = compact(`${existing.notiz} ${t}`, 4000);
+      } else {
+        const tool = s.tool, r = p.rect;
+        const mark = cleanMark({
+          id: 'm-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+          nr: 1 + Math.max(0, ...state.marks.filter((m) => m.file === tool.file).map((m) => m.nr)),
+          name: tool.name, file: tool.file,
+          geraet: { id: state.device.id, breite: w, hoehe: hgt, quer: state.landscape },
+          art: p.art, x: r.x, y: r.y, breite: r.w, hoehe: r.h,
+          prozent: { x: r.x / w * 100, y: r.y / hgt * 100, breite: r.w / w * 100, hoehe: r.h / hgt * 100 },
+          scroll: p.scroll, element: p.element, notiz: t, quelle: 'sprache', adapter: s.adapter.id, erstellt: p.startedAt,
+        });
+        state.marks.push(mark);
+        s.byAnchor.set(p.key, mark.id);
+        state.selected = mark.id;
+      }
+      s.saved++;
+      s.lastText = t;
+      saveMarks(); renderList(); renderPanel();
+    }
+    renderVoiceUi(); renderOverlay();
+  }
+
+  async function startVoice() {
+    if (voice.session || voice.starting || !state.tool) return;
+    if (!voice.inside || !voice.pointer) { armVoice(); return; }
+    const adapter = voice.adapters.get(voice.cfg.adapter) || typeAdapter;
+    if (adapter.id === 'tippen') { startDraft('element', null, voice.pointer); return; }
+    voice.starting = true;
+    renderVoiceBtn();
+    try {
+      const ok = await adapter.available();
+      if (!ok.ok) { toast(ok.reason, { kind: 'warn', icon: 'mic', action: { label: 'Einstellungen', run: openVoiceCfg } }); return; }
+      const s = voice.session = { adapter, tool: state.tool, passages: new Map(), byAnchor: new Map(), saved: 0, current: null, lastText: '', level: 0 };
+      document.body.classList.toggle('voice-touch', matchMedia('(hover: none)').matches);
+      renderVoiceUi();
+      try {
+        await adapter.start({
+          onSpeechStart: (key) => passageStart(s, key),
+          onPartial: (key, text) => passagePartial(s, key, text),
+          onFinal: (key, text) => passageFinal(s, key, text),
+          onLevel: (v) => { s.level = v; renderLevel(v); },
+          onError: (msg, key) => { if (key) s.passages.delete(key); toast(msg, { kind: 'warn', icon: 'mic' }); renderOverlay(); },
+        });
+      } catch (e) {
+        voice.session = null;
+        document.body.classList.remove('voice-touch');
+        renderVoiceUi();
+        toast(e?.name === 'NotAllowedError' ? 'Mikrofon nicht freigegeben' : (e?.message || 'Aufnahme konnte nicht starten'), { kind: 'warn', icon: 'mic' });
+      }
+    } finally {
+      voice.starting = false;
+      renderVoiceBtn();
+    }
+  }
+
+  async function stopVoice(cancel = false) {
+    const s = voice.session;
+    if (!s || s.stopping) return;
+    s.stopping = true;
+    renderVoiceUi();
+    try { await s.adapter.stop({ cancel }); } catch { /* adapter already gone */ }
+    voice.session = null;
+    document.body.classList.remove('voice-touch');
+    hideHover();
+    renderVoiceUi(); renderOverlay();
+    if (s.saved) toast(`${s.saved} Sprach-Notiz${s.saved > 1 ? 'en' : ''} gespeichert`, { icon: 'mic' });
+    else toast(cancel ? 'Sprach-Notiz abgebrochen' : 'Nichts verstanden', { kind: 'info', icon: 'mic' });
+  }
+
+  // No pointer over the prototype (touch, or pointer elsewhere): the next click/tap sets the spot.
+  function armVoice() {
+    voice.armed = true;
+    document.body.classList.add('voice-arm');
+    toast('Auf die Stelle im Prototyp klicken oder tippen, dann sprechen', { kind: 'info', icon: 'mic' });
+  }
+  function disarmVoice() { voice.armed = false; document.body.classList.remove('voice-arm'); }
+
+  function renderLevel(v) {
+    const bars = els.voiceVu.children;
+    const lvl = Math.min(1, Math.max(0, (Math.log10(Math.max(v, 1e-4)) + 3.2) / 2.4)); // ~ -64 dB … -16 dB
+    for (let i = 0; i < bars.length; i++) {
+      const center = 1 - Math.abs(i - (bars.length - 1) / 2) / bars.length;
+      bars[i].style.height = Math.round(4 + 16 * lvl * center) + 'px';
+    }
+  }
+
+  function renderVoiceBtn() {
+    const on = !!voice.session;
+    els.voiceBtn.setAttribute('aria-pressed', String(on));
+    els.voiceBtn.setAttribute('aria-label', on ? 'Sprach-Notiz beenden (V)' : 'Sprach-Notiz (V)');
+    els.voiceBtn.replaceChildren(icon('mic'), h('span', { class: 'lbl', text: on ? 'Stopp' : voice.starting ? 'Startet …' : 'Sprechen' }), kbd('V'));
+  }
+
+  function renderVoiceUi() {
+    renderVoiceBtn();
+    const s = voice.session;
+    els.voiceHud.hidden = !s;
+    if (!s) return;
+    const p = s.current && s.passages.get(s.current);
+    els.voiceHud.classList.toggle('busy', !!s.stopping);
+    els.voiceState.textContent = s.stopping ? 'Wird abgeschlossen …' : p ? 'Hört zu …' : 'Bereit · sprich jetzt';
+    els.voiceLive.textContent = p ? (p.partial || '…') : s.lastText ? `„${short(s.lastText, 60)}“` : 'Zeiger auf die Stelle, dann reden';
+    els.voiceMeta.textContent = `${s.saved} gespeichert · ${s.adapter.label}`;
+  }
+
+  /* -- settings dialog -- */
+  function renderVoiceCfg() {
+    if (!els.voiceAdapters) return;
+    els.voiceAdapters.replaceChildren(...[...voice.adapters.values()].map((a) => {
+      const [cls, text] = a.state ? a.state() : ['', ''];
+      return h('label', { class: 'adapter' + (a.id === voice.cfg.adapter ? ' on' : '') },
+        h('input', { type: 'radio', name: 'voiceAdapter', value: a.id, checked: a.id === voice.cfg.adapter, onchange: () => { voice.cfg.adapter = a.id; saveVoiceCfg(); renderVoiceCfg(); } }),
+        h('span', { class: 'a-text' }, h('strong', { text: a.label }), h('span', { text: a.desc })),
+        h('span', { class: 'a-state ' + cls, text }));
+    }));
+    const st = { ok: ['ok', `Voice-Brücke verbunden · 127.0.0.1:${voice.cfg.port}`], unpaired: ['warn', 'Voice-Brücke läuft, nicht gekoppelt'], offline: ['warn', 'Voice-Brücke nicht erreichbar'], unknown: ['', 'Voice-Brücke: noch nicht geprüft'] }[voice.bridge];
+    const input = h('input', { type: 'text', placeholder: 'Kopplungscode, z. B. 9395.Ab3…', 'aria-label': 'Kopplungscode', autocomplete: 'off', spellcheck: 'false' });
+    els.bridgeBox.replaceChildren(
+      h('span', { class: 'bridge-state ' + st[0] }, h('i'), st[1]),
+      h('span', {}, 'Start im Terminal (Repo-Ordner): ', h('code', { text: 'node scripts/voice-bridge.mjs --open' }), ' öffnet die Übersicht schon gekoppelt.'),
+      h('div', { class: 'pair-row' }, input,
+        h('button', { class: 'btn sm', type: 'button', onclick: async () => { if (!pairWith(input.value)) { toast('Kopplungscode ungültig', { kind: 'warn' }); return; } const b = await checkBridge(); toast(b === 'ok' ? 'Voice-Brücke gekoppelt' : bridgeProblem(), { kind: b === 'ok' ? 'ok' : 'warn', icon: 'plug' }); } }, icon('plug', 'sm'), 'Koppeln'),
+        h('button', { class: 'btn sm', type: 'button', onclick: () => checkBridge() }, icon('refresh', 'sm'), 'Prüfen')));
+  }
+
+  function openVoiceCfg() {
+    renderVoiceCfg();
+    if (!els.voiceDlg.open) els.voiceDlg.showModal();
+    checkBridge();
+  }
 
   /* ---------- theme ---------- */
   const currentTheme = () => document.documentElement.dataset.theme || 'auto';
@@ -1587,6 +2122,7 @@
     { group: 'Navigation', keys: ['/'], text: 'Suche (Enter öffnet den ersten Treffer)' },
     { group: 'Navigation', keys: ['J', 'K'], text: 'Nächste / vorige Markierung' },
     { group: 'Markieren', keys: ['M'], text: 'Markier-Modus an / aus' },
+    { group: 'Markieren', keys: ['V'], text: 'Sprach-Notiz: Zeiger auf die Stelle, V, sprechen (halten = solange gedrückt)' },
     { group: 'Markieren', keys: ['I'], text: 'Issue: gewählte Markierung, sonst alle des Tools' },
     { group: 'Markieren', keys: [MOD, '↵'], text: 'Notiz speichern' },
     { group: 'Markieren', keys: ['⇧', MOD, '↵'], text: 'Notiz speichern + Issue' },
@@ -1603,6 +2139,7 @@
 
   const ACTIONS = {
     m: () => setMarking(!state.marking),
+    v: () => { voice.keyAt = Date.now(); if (voice.session) stopVoice(); else startVoice(); },
     i: issueShortcut,
     n: () => stepTool(1),
     p: () => stepTool(-1),
@@ -1622,23 +2159,34 @@
   }
 
   // A closed dialog can keep focus on its textarea when the previous focus target is gone; drop it.
-  for (const d of [els.dlg, els.keysDlg]) {
+  for (const d of [els.dlg, els.keysDlg, els.voiceDlg]) {
     d.addEventListener('close', () => { if (d.contains(document.activeElement)) document.activeElement.blur(); });
   }
 
   function onKey(ev) {
     if (ev.defaultPrevented || ev.isComposing || ev.metaKey || ev.ctrlKey || ev.altKey) return;
-    if (els.dlg.open || els.keysDlg.open) return; // dialogs handle their own keys
+    if (els.dlg.open || els.keysDlg.open || els.voiceDlg.open) return; // dialogs handle their own keys
     if (ev.key === 'Escape') {
-      if (els.panel.classList.contains('open')) openSheet(false);
+      if (voice.session) stopVoice(true);
+      else if (voice.armed) disarmVoice();
+      else if (els.panel.classList.contains('open')) openSheet(false);
       else if (state.marking) setMarking(false);
       return;
     }
     if (isTyping(ev.target)) return;
-    const fn = ACTIONS[ev.key.length === 1 ? ev.key.toLowerCase() : ''];
+    if (ev.key === 'Enter' && voice.session) { ev.preventDefault(); stopVoice(); return; }
+    const key = ev.key.length === 1 ? ev.key.toLowerCase() : '';
+    const fn = ACTIONS[key];
     if (!fn) return;
     ev.preventDefault();
+    if (ev.repeat && !'npjk'.includes(key)) return; // holding V must not toggle again
     fn();
+  }
+
+  // Hold-to-talk: V held longer than 700 ms stops on release.
+  function onKeyUp(ev) {
+    if (ev.key.toLowerCase() !== 'v' || !voice.session || isTyping(ev.target)) return;
+    if (Date.now() - voice.keyAt > 700) stopVoice();
   }
 
   function renderKeys() {
@@ -1699,6 +2247,12 @@
   new ResizeObserver(() => fit()).observe(els.stage);
   window.addEventListener('storage', (ev) => { if (ev.key === STORE_KEY) { loadMarks(); renderList(); renderPanel(); renderOverlay(); } });
   document.addEventListener('keydown', onKey);
+  document.addEventListener('keyup', onKeyUp);
+  els.voiceBtn.addEventListener('click', () => { if (voice.session) stopVoice(); else startVoice(); });
+  els.voiceCfgBtn.addEventListener('click', openVoiceCfg);
+  els.voiceStop.addEventListener('click', () => stopVoice());
+  els.voiceClose.addEventListener('click', () => els.voiceDlg.close());
+  els.voiceDlg.addEventListener('click', (ev) => { if (ev.target === els.voiceDlg) els.voiceDlg.close(); });
 
   // A shared link may carry markings in the hash: #import=<base64url JSON>.
   function importFromHash() {
@@ -1708,8 +2262,19 @@
     catch { toast('Markierung im Link ist beschädigt', { kind: 'warn' }); return 0; }
   }
 
+  // The bridge opens the overview with #voice=<port>.<token>; keep it per browser, drop it from the URL.
+  function pairFromHash() {
+    if (!location.hash.startsWith('#voice=')) return false;
+    const ok = pairWith(location.hash);
+    history.replaceState(null, '', location.pathname + location.search);
+    return ok;
+  }
+
   async function init() {
     loadMarks();
+    loadVoiceCfg();
+    const paired = pairFromHash();
+    renderVoiceBtn();
     renderThemeBtn();
     renderKeys();
     renderDialogKeys();
@@ -1730,6 +2295,7 @@
     else if (first) selectTool(first.file);
     renderPanel();
     if (imported) toast(`${imported} Markierung${imported > 1 ? 'en' : ''} aus dem Link übernommen`, { icon: 'download' });
+    if (paired) checkBridge().then((b) => toast(b === 'ok' ? 'Voice-Brücke gekoppelt · V drücken und sprechen' : bridgeProblem(), { kind: b === 'ok' ? 'ok' : 'warn', icon: 'plug' }));
     discover();
   }
   init();
