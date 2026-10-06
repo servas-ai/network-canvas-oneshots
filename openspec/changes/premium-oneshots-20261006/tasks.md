@@ -6,5 +6,5 @@
 - [x] 2.1 Capture and critically inspect every screenshot; correct failures and recapture. (Evidence: 15 final screenshots, screenshots/capture-log.json, qa/review-initial.md, qa/review-final.md, QG.md.)
 - [x] 2.2 Check standalone rendering, interaction, overflow, and strict validation. (Evidence: verification.json, browser-verification.json; strict validate passed.)
 ## 3. Delivery
-- [ ] 3.1 Commit and push feat/premium-oneshots.
-- [ ] 3.2 Deliver branch, serving URL, and fifteen explicit verdicts to L13.
+- [x] 3.1 Commit and push feat/premium-oneshots. (Evidence: remote branch includes 9e20fe1.)
+- [x] 3.2 Deliver branch, serving URL, and fifteen explicit verdicts to L13. (Evidence: qa/delivery.md; cmux workspace:1 / surface:1.)
