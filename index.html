@@ -1637,6 +1637,7 @@
     keyAt: 0,
     health: null,
     bridge: 'unknown',  // unknown | offline | unpaired | ok
+    lna: null,          // local-network-access permission state when offline
   };
 
   function loadVoiceCfg() {
@@ -1666,13 +1667,20 @@
     } catch {
       voice.health = null;
       voice.bridge = 'offline';
+      voice.lna = await localNetworkState();
     }
     renderVoiceCfg();
     return voice.bridge;
   }
 
+  // Chromium (Chrome 142+, Brave) asks before a public https page talks to 127.0.0.1 (Local Network Access).
+  async function localNetworkState() {
+    try { return (await navigator.permissions.query({ name: 'local-network-access' })).state; } catch { return null; }
+  }
+
   function bridgeProblem() {
-    if (voice.bridge === 'offline') return 'Voice-Brücke läuft nicht. Im Terminal: node scripts/voice-bridge.mjs --open';
+    if (voice.bridge === 'offline' && voice.lna === 'denied') return 'Der Browser sperrt den Zugriff auf 127.0.0.1. Schloss-Symbol neben der Adresse → Website-Einstellungen → „Lokales Netzwerk“ erlauben, dann neu laden.';
+    if (voice.bridge === 'offline') return 'Voice-Brücke läuft nicht. Im Terminal: node scripts/voice-bridge.mjs --open (fragt der Browser nach dem lokalen Netzwerk: Erlauben).';
     if (voice.bridge === 'unpaired') return 'Voice-Brücke läuft, ist aber nicht gekoppelt. Kopplungscode in den Sprach-Einstellungen eintragen.';
     return '';
   }
@@ -2035,7 +2043,7 @@
         h('span', { class: 'a-text' }, h('strong', { text: a.label }), h('span', { text: a.desc })),
         h('span', { class: 'a-state ' + cls, text }));
     }));
-    const st = { ok: ['ok', `Voice-Brücke verbunden · 127.0.0.1:${voice.cfg.port}`], unpaired: ['warn', 'Voice-Brücke läuft, nicht gekoppelt'], offline: ['warn', 'Voice-Brücke nicht erreichbar'], unknown: ['', 'Voice-Brücke: noch nicht geprüft'] }[voice.bridge];
+    const st = { ok: ['ok', `Voice-Brücke verbunden · 127.0.0.1:${voice.cfg.port}`], unpaired: ['warn', 'Voice-Brücke läuft, nicht gekoppelt'], offline: ['warn', voice.lna === 'denied' ? 'Browser sperrt das lokale Netzwerk (127.0.0.1)' : 'Voice-Brücke nicht erreichbar'], unknown: ['', 'Voice-Brücke: noch nicht geprüft'] }[voice.bridge];
     const input = h('input', { type: 'text', placeholder: 'Kopplungscode, z. B. 9395.Ab3…', 'aria-label': 'Kopplungscode', autocomplete: 'off', spellcheck: 'false' });
     els.bridgeBox.replaceChildren(
       h('span', { class: 'bridge-state ' + st[0] }, h('i'), st[1]),
