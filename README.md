@@ -15,7 +15,17 @@ A collection of **15 high-fidelity, self-contained single-file HTML one-shot pro
 - **Im Issue** steht ein Link „Markierung in der Übersicht öffnen“: er zeigt die Markierung auf jedem Gerät wieder an.
 - **Agenten** finden alle Review-Issues mit `gh issue list -R servas-ai/network-canvas-oneshots --search "[Review] in:title"`; der JSON-Block im Body hat das Schema `oneshots-review/markierungen@1`.
 - **Neue One-Shot hinzufügen:** `.html` + `screenshots/<name>.png` ins Repo-Root, dann `python3 scripts/update-manifest.py` (trägt sie mit Titel ein; Kategorie danach im Manifest anpassen).
-- **Planung:** OpenSpec [`oneshots-review-overview-20261006`](./openspec/changes/oneshots-review-overview-20261006/proposal.md). Die frühere statische Galerie liegt jetzt unter [`gallery.html`](./gallery.html).
+- **Thema:** Auto (System), Hell oder Dunkel über den Knopf oben rechts oder Taste `T`. Die Wahl bleibt im Browser.
+- **Planung:** OpenSpec [`oneshots-review-overview-20261006`](./openspec/changes/oneshots-review-overview-20261006/proposal.md), [`oneshots-review-ui-shortcuts-20261006`](./openspec/changes/oneshots-review-ui-shortcuts-20261006/proposal.md). Die frühere statische Galerie liegt jetzt unter [`gallery.html`](./gallery.html).
+
+### ⌨️ Tastenkürzel (`?` zeigt alle)
+
+- **Navigation:** `N` nächstes / `P` voriges One-Shot · `/` Suche (Enter öffnet den ersten Treffer) · `J` / `K` nächste / vorige Markierung
+- **Markieren:** `M` Markier-Modus · `I` Issue für die gewählte Markierung (sonst alle des Tools) · `⌘ Enter` speichern · `⇧ ⌘ Enter` speichern + Issue
+- **Ansicht:** `1` iPhone 390 · `2` iPhone 430 · `3` Tablet 820 · `4` Desktop 1440 · `R` quer/hochkant · `H` Markierungen ein/aus
+- **Allgemein:** `T` Thema · `?` Übersicht · `Esc` schließen bzw. Markieren beenden
+
+Die Kürzel wirken auch, wenn der Fokus im Prototyp liegt, nie aber beim Tippen in der Suche, in der Notiz oder in editierbaren Feldern des Prototyps.
 
 ---
 
