@@ -29,8 +29,7 @@ Ergebnis-Datei: [`2026-10-06_pages-e2e-result.json`](./2026-10-06_pages-e2e-resu
 ![Notiz-Dialog](./2026-10-06_pages-markieren-notiz-dialog.png)
 
 **Übersicht auf dem iPhone (390 px) · Markierungs-Liste als Sheet**
-![Mobil Übersicht](./2026-10-06_pages-mobil-390-uebersicht.png)
-![Mobil Liste](./2026-10-06_pages-mobil-390-markierungsliste.png)
+<img src="./2026-10-06_pages-mobil-390-uebersicht.png" alt="Mobil Übersicht" width="300"> <img src="./2026-10-06_pages-mobil-390-markierungsliste.png" alt="Mobil Liste" width="300">
 
 **CLI-Dashboards: OpenCodex Desktop 1440 · Tokscale Tablet 820**
 ![OpenCodex Desktop](./2026-10-06_pages-cli-opencodex-desktop.png)
