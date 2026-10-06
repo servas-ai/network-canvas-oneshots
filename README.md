@@ -28,11 +28,25 @@ A collection of **15 high-fidelity, self-contained single-file HTML one-shot pro
 - **Eigener Adapter:** `window.OneshotsVoice.register({ id, label, desc, available, start(cb), stop })`; `cb` hat `onSpeechStart(key)`, `onPartial(key, text)`, `onFinal(key, text)`, `onLevel(rms)`, `onError(msg)`.
 - **Sicherheit:** Die Brücke lauscht nur auf 127.0.0.1, nimmt nur `https://servas-ai.github.io` und Loopback an, braucht den Token dieses Starts (nie im Code) und prüft den Host-Header. Die Schutzregel des Voice-Harness bleibt unverändert; die Brücke spricht ihn serverseitig an. Optionen: `STT_URL` (OpenAI-kompatibel geht auch), `WHISPER_MODEL`, `GROK_VOICE_URL`.
 
+### 🔀 V1/V2 vergleichen
+
+- **`C` oder das Spalten-Symbol** öffnet den Vergleich des aktuellen One-Shots:
+  - **Nebeneinander:** jede Seite mit eigenem Gerät, Scrollen gekoppelt und abschaltbar
+  - **Schieber:** Trenner ziehen oder `←` `→`
+  - **Überblenden:** Regler A ↔ B
+- **Versionen:**
+  - Aktuell (Pages)
+  - die Refs aus `manifest.json` → `versions`, z. B. `feat/premium-oneshots` als „Premium (V2)“
+  - alle Branches, der Verlauf der Datei, oder ein beliebiger Branch/Commit
+  - Andere Versionen kommen über `raw.githubusercontent.com` als `srcdoc` mit gleicher Herkunft. Markieren und Sprach-Notizen funktionieren darum auch dort.
+- **„Auf B markieren“ (oder `M` im Vergleich)** öffnet B im Markier-Modus. Die Markierung speichert Ref und SHA, das Issue nennt die Version. Die Versions-Auswahl in der Leiste wählt die Version auch ohne Vergleich.
+- **„Vergleich als Issue“ (oder `I` im Vergleich)** nennt A und B mit Ref. Dazu kommen ein Link auf genau diese Ansicht (`?vergleich=<ref>&modus=schieber`) und eine Urteil-Checkliste.
+
 ### ⌨️ Tastenkürzel (`?` zeigt alle)
 
 - **Navigation:** `N` nächstes / `P` voriges One-Shot · `/` Suche (Enter öffnet den ersten Treffer) · `J` / `K` nächste / vorige Markierung
 - **Markieren:** `M` Markier-Modus · `V` Sprach-Notiz · `I` Issue für die gewählte Markierung (sonst alle des Tools) · `⌘ Enter` speichern · `⇧ ⌘ Enter` speichern + Issue
-- **Ansicht:** `1` iPhone 390 · `2` iPhone 430 · `3` Tablet 820 · `4` Desktop 1440 · `R` quer/hochkant · `H` Markierungen ein/aus
+- **Ansicht:** `1` iPhone 390 · `2` iPhone 430 · `3` Tablet 820 · `4` Desktop 1440 · `C` V1/V2 vergleichen · `←` `→` Schieber · `R` quer/hochkant · `H` Markierungen ein/aus
 - **Allgemein:** `T` Thema · `?` Übersicht · `Esc` schließen bzw. Markieren beenden
 
 Die Kürzel wirken auch, wenn der Fokus im Prototyp liegt, nie aber beim Tippen in der Suche, in der Notiz oder in editierbaren Feldern des Prototyps.

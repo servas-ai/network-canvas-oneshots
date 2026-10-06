@@ -7,6 +7,13 @@
     "index.html",
     "gallery.html"
   ],
+  "versions": [
+    {
+      "ref": "feat/premium-oneshots",
+      "label": "Premium (V2)",
+      "note": "Premium-Lane, ~/code/premium-oneshots"
+    }
+  ],
   "items": [
     {
       "file": "miro.html",

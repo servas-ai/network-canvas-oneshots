@@ -235,7 +235,7 @@
     }
     .nav-btns { display: flex; gap: 2px; }
     .stage-bar .title { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; flex: 1; }
-    .stage-bar .title strong { font-size: var(--fs-lg); font-weight: var(--fw-bold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .stage-bar .title strong { flex: none; font-size: var(--fs-lg); font-weight: var(--fw-bold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .cat-chip { flex: none; font-size: var(--fs-xs); font-weight: var(--fw-semi); color: var(--text-2); background: var(--surface-3); border-radius: var(--r-full); padding: 2px 9px; white-space: nowrap; }
     .stage-bar .form { color: var(--text-3); font-size: var(--fs-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .tools { display: flex; align-items: center; gap: 2px; }
@@ -441,6 +441,50 @@
     .pair-row input { flex: 1; min-width: 0; height: var(--ctl); padding: 0 var(--sp-3); border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface); font: var(--fs-sm) var(--mono); }
     .pair-row input:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
 
+    /* ================= Version compare ================= */
+    .vsel, .cmp-ref {
+      height: var(--ctl-sm); max-width: 240px; min-width: 0; padding: 0 var(--sp-2); border-radius: var(--r-sm);
+      border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-size: var(--fs-sm); font-weight: var(--fw-semi);
+    }
+    .vsel:focus, .cmp-ref:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
+    #versionSel { max-width: 180px; flex: none; }
+    .comparing .stage-bar .zoom, .comparing #versionSel, .comparing #rotateBtn, .comparing #oneBtn, .comparing #showBtn { display: none; }
+    .vsel.alt { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-text); }
+    .cmp-ref { width: 190px; font: var(--fs-xs) var(--mono); }
+    .compare-bar { flex: none; display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; padding: var(--sp-2) var(--sp-3); background: var(--surface); border-bottom: 1px solid var(--border); }
+    .compare-bar .grow { flex: 1; }
+    .cmp-side { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+    .cmp-tag { flex: none; width: 22px; height: 22px; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--surface-3); color: var(--text-2); font-size: var(--fs-xs); font-weight: var(--fw-bold); }
+    .cmp-tag.b { background: var(--accent-soft); color: var(--accent-text); }
+    .cmp-range { display: inline-flex; align-items: center; gap: 6px; color: var(--text-2); font-size: var(--fs-xs); }
+    .cmp-range input { width: 120px; accent-color: var(--accent); }
+    .compare {
+      flex: 1; min-height: 0; position: relative; overflow: hidden; display: flex; align-items: stretch; justify-content: center; gap: var(--sp-6);
+      padding: var(--sp-4) var(--sp-6); background-color: var(--stage); background-image: radial-gradient(var(--stage-dot) 1px, transparent 1.3px); background-size: 20px 20px;
+    }
+    .cside { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); }
+    .cside-head { display: flex; align-items: center; gap: 6px; max-width: 100%; color: var(--text-2); font-size: var(--fs-sm); font-weight: var(--fw-semi); white-space: nowrap; }
+    .cside-head .lbl { overflow: hidden; text-overflow: ellipsis; }
+    .cside-head .sha { color: var(--text-3); font: var(--fs-xs) var(--mono); }
+    .cside-head select { height: 24px; padding: 0 4px; border-radius: var(--r-xs); border: 1px solid var(--border); background: var(--surface); font-size: var(--fs-xs); }
+    .cside-stage { flex: 1; min-height: 0; width: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
+    .cmp-err { padding: var(--sp-4); border-radius: var(--r-lg); background: var(--surface); color: var(--warn); font-weight: var(--fw-semi); box-shadow: var(--shadow-md); }
+    .layer { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: var(--screen); }
+    .schieber .layer.b { clip-path: inset(0 0 0 var(--cut, 50%)); }
+    .ueberblenden .layer.b { opacity: var(--fade, .5); }
+    .dragging .layer { pointer-events: none; }
+    .cmp-divider { position: absolute; top: 0; bottom: 0; left: var(--cut, 50%); z-index: 3; width: 0; }
+    .cmp-divider::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(-1px * var(--inv, 1)); width: calc(2px * var(--inv, 1)); background: var(--accent); box-shadow: 0 0 0 calc(1px * var(--inv, 1)) var(--screen); }
+    .cmp-divider .knob {
+      position: absolute; top: 50%; left: 0; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%;
+      background: var(--accent); color: var(--accent-ink); box-shadow: var(--shadow-md); cursor: ew-resize; touch-action: none;
+      transform: translate(-50%, -50%) scale(var(--inv, 1));
+    }
+    .cmp-divider .knob:focus-visible { box-shadow: var(--ring), var(--shadow-md); }
+    .ab-tag { position: absolute; top: 10px; z-index: 4; padding: 2px 9px; border-radius: var(--r-full); background: var(--surface-inverse); color: var(--text-inverse); font-size: 12px; font-weight: var(--fw-bold); transform: scale(var(--inv, 1)); pointer-events: none; }
+    .ab-tag.a { left: 10px; transform-origin: 0 0; } .ab-tag.b { right: 10px; transform-origin: 100% 0; background: var(--accent); color: var(--accent-ink); }
+    .ver-chip { flex: none; font-size: var(--fs-xs); font-weight: var(--fw-semi); color: var(--accent-text); background: var(--accent-soft); border-radius: var(--r-full); padding: 2px 9px; white-space: nowrap; }
+
     /* ================= Medium screens ================= */
     @media (max-width: 1240px) {
       :root { --nav-w: 240px; --panel-w: 316px; }
@@ -489,6 +533,12 @@
       .marks-head { border-radius: var(--r-xl) var(--r-xl) 0 0; }
       .marks-head h2 .x { display: inline-flex; }
       .keys-grid { grid-template-columns: 1fr; }
+      .compare { padding: var(--sp-2); gap: var(--sp-2); }
+      .vsel { max-width: 150px; }
+      #versionSel { display: none; }
+      .compare-bar { gap: 6px; padding: 6px var(--sp-2); }
+      .compare-bar .seg button { padding: 0 6px; }
+      .cmp-range input { width: 90px; }
     }
     @media (prefers-reduced-motion: reduce) {
       aside.marks { transition: none; } .mk.flash, .toast, [data-tip]:hover::after { animation: none; }
@@ -538,6 +588,9 @@
       <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></symbol>
       <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
       <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0Z"/><path d="M12 18v4"/></symbol>
+      <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol>
+      <symbol id="i-split" viewBox="0 0 24 24"><path d="M12 3v18M8 8l-4 4 4 4M16 8l4 4-4 4"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></symbol>
       <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
     </defs>
   </svg>
@@ -589,10 +642,12 @@
           <button class="btn sm icon ghost" id="nextBtn" type="button" aria-label="Nächstes One-Shot (N)" aria-keyshortcuts="N" data-tip="Nächstes · N" data-tip-pos="start"><svg class="ic"><use href="#i-chev-r"/></svg></button>
         </div>
         <div class="title"><strong id="toolName">–</strong><span class="cat-chip" id="toolCat"></span><span class="form" id="toolForm"></span></div>
+        <select class="vsel" id="versionSel" aria-label="Version dieses One-Shots" title="Version dieses One-Shots"></select>
         <div class="tools">
           <span class="zoom" id="zoomLabel"></span>
           <button class="btn sm icon ghost" id="rotateBtn" type="button" aria-label="Quer oder hochkant (R)" aria-keyshortcuts="R" data-tip="Quer / hochkant · R"><svg class="ic"><use href="#i-rotate"/></svg></button>
           <button class="btn sm icon ghost" id="oneBtn" type="button" aria-label="1:1 statt Einpassen" aria-pressed="false" data-tip="1:1 statt Einpassen"><svg class="ic"><use href="#i-maximize"/></svg></button>
+          <button class="btn sm icon ghost" id="compareBtn" type="button" aria-label="Versionen vergleichen (C)" aria-keyshortcuts="C" aria-pressed="false" data-tip="V1/V2 vergleichen · C"><svg class="ic"><use href="#i-columns"/></svg></button>
           <button class="btn sm icon ghost" id="showBtn" type="button" aria-label="Markierungen ein oder aus (H)" aria-keyshortcuts="H" aria-pressed="true" data-tip="Markierungen ein/aus · H"><svg class="ic"><use href="#i-eye"/></svg></button>
           <span class="sep"></span>
           <button class="btn sm icon ghost" id="reloadBtn" type="button" aria-label="Prototyp neu laden" data-tip="Neu laden"><svg class="ic"><use href="#i-refresh"/></svg></button>
@@ -600,11 +655,13 @@
           <a class="btn sm icon ghost" id="srcLink" target="_blank" rel="noopener" aria-label="Quelltext auf GitHub" data-tip="Quelltext auf GitHub" data-tip-pos="end"><svg class="ic"><use href="#i-code"/></svg></a>
         </div>
       </div>
+      <div class="compare-bar" id="compareBar" hidden></div>
       <div class="hint" id="hint" hidden>
         <span><svg class="ic"><use href="#i-pointer"/></svg>Klicken = Element</span>
         <span><svg class="ic"><use href="#i-area"/></svg>Ziehen = Bereich</span>
         <span class="h-long"><kbd class="kbd">Esc</kbd> beendet</span>
       </div>
+      <div class="compare" id="compare" hidden></div>
       <div class="stage" id="stage">
         <div class="voice-hud" id="voiceHud" role="status" aria-live="polite" hidden>
           <span class="rec-dot" aria-hidden="true"></span>
@@ -701,6 +758,7 @@
     { id: 'desktop', name: 'Desktop 1440', short: 'Desktop', w: 1440, h: 900, kind: 'desktop' },
   ];
   const DEFAULTS = {
+    versions: [],
     repo: 'servas-ai/network-canvas-oneshots',
     branch: 'feat/canvas-oneshots',
     pages: 'https://servas-ai.github.io/network-canvas-oneshots/',
@@ -736,6 +794,7 @@
     voiceBtn: $('#voiceBtn'), voiceCfgBtn: $('#voiceCfgBtn'), voiceHud: $('#voiceHud'), voiceVu: $('#voiceVu'), voiceState: $('#voiceState'),
     voiceLive: $('#voiceLive'), voiceMeta: $('#voiceMeta'), voiceStop: $('#voiceStop'),
     voiceDlg: $('#voiceDlg'), voiceClose: $('#voiceClose'), voiceAdapters: $('#voiceAdapters'), bridgeBox: $('#bridgeBox'),
+    versionSel: $('#versionSel'), compareBtn: $('#compareBtn'), compareBar: $('#compareBar'), compare: $('#compare'),
   };
 
   const state = {
@@ -755,6 +814,8 @@
     frameDoc: null,
     pendingScroll: null,
     scale: 1,
+    version: null,      // null = current Pages file, else { ref, sha, label }
+    compare: null,      // { a, b, mode, cut, fade, sync, devB }
   };
 
   /* ---------- small helpers ---------- */
@@ -891,6 +952,9 @@
       adapter: m.quelle === 'sprache' ? (str(m.adapter, 24).replace(/[^\w.-]/g, '') || null) : null,
       erstellt: str(m.erstellt, 40) || nowIso(),
       issueGeoeffnet: str(m.issueGeoeffnet, 40) || null,
+      version: m.version && /^(?!.*\.\.)[\w.\/-]{1,100}$/.test(m.version.ref || '')
+        ? { ref: m.version.ref, sha: /^[0-9a-f]{7,40}$/i.test(m.version.sha || '') ? m.version.sha.slice(0, 12) : null, label: str(m.version.label, 60) || m.version.ref }
+        : null,
     };
   }
 
@@ -915,6 +979,9 @@
       if (!res.ok) throw new Error(res.status);
       const data = await res.json();
       Object.assign(state.cfg, { repo: data.repo || DEFAULTS.repo, branch: data.branch || DEFAULTS.branch, pages: data.pages || DEFAULTS.pages, exclude: data.exclude || DEFAULTS.exclude });
+      state.cfg.versions = (Array.isArray(data.versions) ? data.versions : [])
+        .filter((v) => typeof v?.ref === 'string' && /^(?!.*\.\.)[\w.\/-]{1,100}$/.test(v.ref))
+        .map((v) => ({ ref: v.ref, label: compact(v.label || v.ref, 60) }));
       state.items = (data.items || []).filter((i) => FILE_RE.test(i.file || '')).map((i) => ({ ...i, source: 'manifest' }));
     } catch {
       els.listNote.textContent = 'manifest.json nicht ladbar. Seite über http öffnen (python3 -m http.server).';
@@ -1012,10 +1079,12 @@
     if (state.tool) p.set('tool', toolId(state.tool.file));
     p.set('geraet', state.device.id);
     if (state.landscape) p.set('quer', '1');
+    if (state.version) p.set('version', state.version.ref);
+    if (state.compare) { p.set('vergleich', state.compare.b?.ref || 'aktuell'); p.set('modus', state.compare.mode); if (state.compare.a) p.set('a', state.compare.a.ref); }
     history.replaceState(null, '', `${location.pathname}?${p}`);
   }
 
-  function selectTool(file, { keepScroll = false } = {}) {
+  function selectTool(file, { keepScroll = false, reload = false } = {}) {
     const item = itemOf(file);
     if (!item) return;
     const same = state.tool?.file === file;
@@ -1027,22 +1096,26 @@
     els.toolForm.textContent = item.form || item.file;
     els.openLink.href = item.file;
     els.srcLink.href = blobUrl(item.file);
-    els.chromeUrl.textContent = pagesUrl(item.file).replace(/^https?:\/\//, '');
-    if (!same) { state.frameDoc = null; els.frame.src = item.file; }
+    els.chromeUrl.textContent = state.version ? `raw · ${state.version.ref}/${item.file}` : pagesUrl(item.file).replace(/^https?:\/\//, '');
+    if (!same || reload) loadMainFrame();
     else applyPendingScroll();
+    renderVersionSel();
+    if (state.compare && !same) { renderCompareBar(); buildCompare(); }
     renderList();
     renderOverlay();
     renderPanel();
     syncUrl();
   }
 
-  function setDevice(id) {
+  function setDevice(id, { onlyA = false } = {}) {
     const d = deviceOf(id);
     if (!d) return;
     if (voice.session && d !== state.device) stopVoice();
     state.device = d;
     if (d.kind === 'desktop') state.landscape = false;
+    if (state.compare && !onlyA) state.compare.devB = d; // keys 1-4 switch both sides, side A's own picker only A
     applyFrame();
+    if (state.compare) buildCompare();
     renderDeviceSeg();
     renderOverlay();
     syncUrl();
@@ -1276,6 +1349,7 @@
       prozent: { x: rect.x / w * 100, y: rect.y / hgt * 100, breite: rect.w / w * 100, hoehe: rect.h / hgt * 100 },
       scroll: frameScroll(),
       element: target ? anchorOf(target, point) : null,
+      version: verOf(state.version),
       notiz: '', erstellt: nowIso(),
     });
     state.draft = { mode: 'new', mark, target, point };
@@ -1370,9 +1444,12 @@
     state.selected = id;
     state.landscape = m.geraet.quer;
     state.pendingScroll = m.scroll;
+    if (state.compare) closeCompare();
     if (state.device.id !== m.geraet.id) setDevice(m.geraet.id); else applyFrame();
     if (!state.showMarks) toggleShowMarks(true);
-    selectTool(m.file, { keepScroll: true });
+    const verChanged = !sameVersion(m.version, state.version);
+    if (verChanged) { state.version = m.version ? { ...m.version } : null; }
+    selectTool(m.file, { keepScroll: true, reload: verChanged });
     renderPanel();
     flash(id);
     if (matchMedia('(max-width: 900px)').matches) openSheet(false);
@@ -1387,7 +1464,7 @@
   function visibleMarks() {
     if (!state.tool) return [];
     const { w, h: hgt } = screenSize();
-    return state.marks.filter((m) => m.file === state.tool.file && m.geraet.id === state.device.id && m.geraet.breite === w && m.geraet.hoehe === hgt);
+    return state.marks.filter((m) => m.file === state.tool.file && sameVersion(m.version, state.version) && m.geraet.id === state.device.id && m.geraet.breite === w && m.geraet.hoehe === hgt);
   }
 
   function renderOverlay() {
@@ -1474,6 +1551,7 @@
           h('span', { class: 'meta-i' }, icon(ART_ICON[m.art], 'sm'), ART_WORD[m.art]),
           h('span', { class: 'meta-i' }, icon(KIND_ICON[kind], 'sm'), `${m.geraet.name}${m.geraet.quer ? ' quer' : ''}`),
           m.quelle === 'sprache' ? h('span', { class: 'meta-i', title: `Sprach-Notiz (${m.adapter || ''})` }, icon('mic', 'sm'), 'Sprache') : '',
+          m.version ? h('span', { class: 'meta-i', title: `${m.version.ref}${m.version.sha ? ' @ ' + m.version.sha : ''}` }, icon('columns', 'sm'), short(m.version.label, 18)) : '',
           m.issueGeoeffnet ? h('span', { class: 'ok meta-i', title: 'Issue-Formular wurde geöffnet' }, icon('check', 'sm'), 'Issue') : ''),
         h('div', { class: 'note' + (m.notiz ? '' : ' empty'), text: m.notiz || '(ohne Notiz)' }),
         el ? h('div', { class: 'el', title: el.selector }, h('span', { text: el.selector.split(' > ').slice(-2).join(' > ') + (el.text ? `  „${short(el.text, 60)}“` : '') })) : '',
@@ -1541,13 +1619,14 @@
 
   /* ---------- GitHub issue (prefilled link, no token) ---------- */
   function liteMark(m) {
-    const { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, quelle, adapter, erstellt } = m;
-    return { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, ...(quelle ? { quelle, adapter } : {}), erstellt };
+    const { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, quelle, adapter, version, erstellt } = m;
+    return { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, ...(quelle ? { quelle, adapter } : {}), ...(version ? { version } : {}), erstellt };
   }
 
   function deepLink(m, withData) {
     const p = new URLSearchParams({ tool: m.tool, geraet: m.geraet.id, m: m.id });
     if (m.geraet.quer) p.set('quer', '1');
+    if (m.version) p.set('version', m.version.ref);
     return pagesUrl(`?${p}`) + (withData ? '#import=' + b64urlEncode(JSON.stringify([liteMark(m)])) : '');
   }
 
@@ -1560,7 +1639,9 @@
       '',
       quote(m.notiz),
       '',
-      `- **Prototyp:** [${m.file}](${pagesUrl(m.file)}) · [Quelltext](${blobUrl(m.file)})`,
+      m.version
+        ? `- **Prototyp:** ${m.file} · **Version:** ${m.version.label} (\`${m.version.ref}\`${m.version.sha ? ' @ `' + m.version.sha + '`' : ''}) · [Quelltext](${refBlobUrl(m.version.ref, m.file)})`
+        : `- **Prototyp:** [${m.file}](${pagesUrl(m.file)}) · [Quelltext](${blobUrl(m.file)})`,
       `- **Gerät:** ${d.name} · ${d.breite} × ${d.hoehe} px${d.quer ? ' · quer' : ''}`,
       `- **Koordinaten:** x ${m.x} · y ${m.y} · ${m.breite} × ${m.hoehe} px (${p.x} % · ${p.y} % · ${p.breite} % × ${p.hoehe} %)${m.scroll.y || m.scroll.x ? ` · Scroll ${m.scroll.x}/${m.scroll.y}` : ''}`,
     ];
@@ -1573,7 +1654,7 @@
   function issueText(marks, opts) {
     const first = marks[0];
     const title = marks.length === 1
-      ? `[Review] ${first.name} #${first.nr} · ${short(first.notiz || ART_WORD[first.art] + ' markiert', 60)}`
+      ? `[Review] ${first.name}${first.version ? ` (${first.version.label})` : ''} #${first.nr} · ${short(first.notiz || ART_WORD[first.art] + ' markiert', 60)}`
       : `[Review] ${first.name} · ${marks.length} Markierungen`;
     const parts = marks.length === 1
       ? [markSection(first, '##', opts)]
@@ -1942,7 +2023,7 @@
           geraet: { id: state.device.id, breite: w, hoehe: hgt, quer: state.landscape },
           art: p.art, x: r.x, y: r.y, breite: r.w, hoehe: r.h,
           prozent: { x: r.x / w * 100, y: r.y / hgt * 100, breite: r.w / w * 100, hoehe: r.h / hgt * 100 },
-          scroll: p.scroll, element: p.element, notiz: t, quelle: 'sprache', adapter: s.adapter.id, erstellt: p.startedAt,
+          scroll: p.scroll, element: p.element, notiz: t, quelle: 'sprache', adapter: s.adapter.id, erstellt: p.startedAt, version: verOf(state.version),
         });
         state.marks.push(mark);
         s.byAnchor.set(p.key, mark.id);
@@ -2064,6 +2145,410 @@
     checkBridge();
   }
 
+  /* ---------- versions + compare ----------
+     Other versions of a one-shot (manifest refs, branches, file history, any ref) load from
+     raw.githubusercontent.com (CORS open) into a srcdoc frame: same origin, so marking works there too. */
+  const REF_RE = /^(?!.*\.\.)[\w.\/-]{1,100}$/;
+  const SHA_RE = /^[0-9a-f]{7,40}$/i;
+  const CMP_MODES = [
+    { id: 'nebeneinander', label: 'Nebeneinander', icon: 'columns' },
+    { id: 'schieber', label: 'Schieber', icon: 'split' },
+    { id: 'ueberblenden', label: 'Überblenden', icon: 'layers' },
+  ];
+  const ver = { raw: new Map(), sha: new Map(), branches: null, history: new Map() };
+  const sameVersion = (a, b) => (a?.ref || '') === (b?.ref || '');
+  const versionLabel = (v) => (v ? v.label || v.ref : 'Aktuell (Pages)');
+  const verOf = (v) => (v ? { ref: v.ref, sha: v.sha || null, label: versionLabel(v) } : null);
+  const rawUrl = (ref, file) => `https://raw.githubusercontent.com/${state.cfg.repo}/${ref.split('/').map(encodeURIComponent).join('/')}/${file}`;
+  const refBlobUrl = (ref, file) => `https://github.com/${state.cfg.repo}/blob/${ref}/${file}`;
+
+  function apiCached(key, url, ttl = 10 * 60 * 1000) {
+    try {
+      const c = JSON.parse(sessionStorage.getItem(key) || 'null');
+      if (c && Date.now() - c.at < ttl) return Promise.resolve(c.data);
+    } catch { /* storage blocked */ }
+    return fetch(url, { headers: { Accept: 'application/vnd.github+json' } }).then((r) => {
+      if (!r.ok) throw new Error('api ' + r.status);
+      return r.json();
+    }).then((data) => {
+      try { sessionStorage.setItem(key, JSON.stringify({ at: Date.now(), data })); } catch { /* ignore */ }
+      return data;
+    });
+  }
+
+  async function loadBranches() {
+    if (ver.branches) return ver.branches;
+    try {
+      const list = await apiCached('oneshots-review:branches', `https://api.github.com/repos/${state.cfg.repo}/branches?per_page=100`);
+      ver.branches = list.map((b) => b.name).filter((n) => REF_RE.test(n) && n !== state.cfg.branch);
+    } catch { ver.branches = []; }
+    return ver.branches;
+  }
+
+  async function loadHistory(file) {
+    if (ver.history.has(file)) return ver.history.get(file);
+    let list = [];
+    try {
+      const data = await apiCached('oneshots-review:hist:' + file, `https://api.github.com/repos/${state.cfg.repo}/commits?path=${encodeURIComponent(file)}&sha=${encodeURIComponent(state.cfg.branch)}&per_page=8`);
+      list = data.slice(1).map((c) => ({ ref: c.sha.slice(0, 12), sha: c.sha.slice(0, 7), label: `${c.sha.slice(0, 7)} · ${c.commit.author.date.slice(0, 10)} · ${short(c.commit.message.split('\n')[0], 40)}` }));
+    } catch { /* rate limit: manifest refs and free ref still work */ }
+    ver.history.set(file, list);
+    return list;
+  }
+
+  async function resolveSha(ref) {
+    if (SHA_RE.test(ref)) return ref.slice(0, 7);
+    if (ver.sha.has(ref)) return ver.sha.get(ref);
+    let sha = null;
+    try { sha = (await apiCached('oneshots-review:sha:' + ref, `https://api.github.com/repos/${state.cfg.repo}/commits/${encodeURIComponent(ref)}`, 5 * 60 * 1000)).sha.slice(0, 7); } catch { /* unknown */ }
+    ver.sha.set(ref, sha);
+    return sha;
+  }
+
+  async function versionHtml(ref, file) {
+    const key = ref + '|' + file;
+    if (!ver.raw.has(key)) {
+      ver.raw.set(key, fetch(rawUrl(ref, file)).then(async (r) => {
+        if (r.status === 404) throw new Error(`${file} gibt es in „${ref}“ nicht`);
+        if (!r.ok) throw new Error(`Version „${ref}“ nicht ladbar (${r.status})`);
+        return r.text();
+      }));
+      ver.raw.get(key).catch(() => ver.raw.delete(key));
+    }
+    return ver.raw.get(key);
+  }
+
+  // Relative links and screenshots of the other version resolve against Pages.
+  function srcdocOf(html) {
+    const base = `<base href="${pagesUrl()}">`;
+    return /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, (m) => m + base) : base + html;
+  }
+
+  async function loadInto(frame, version, file) {
+    if (!version) { frame.removeAttribute('srcdoc'); frame.src = file; return; }
+    const html = await versionHtml(version.ref, file);
+    frame.removeAttribute('src');
+    frame.srcdoc = srcdocOf(html);
+    if (!version.sha) resolveSha(version.ref).then((sha) => { if (sha) { version.sha = sha; renderVersionSel(); renderCompareBar(); } });
+  }
+
+  function loadMainFrame() {
+    state.frameDoc = null;
+    loadInto(els.frame, state.version, state.tool.file).catch((e) => {
+      toast(e.message + ' · zeige Aktuell', { kind: 'warn', icon: 'columns' });
+      state.version = null;
+      renderVersionSel();
+      els.frame.src = state.tool.file;
+      renderOverlay(); renderPanel(); syncUrl();
+    });
+  }
+
+  function setVersion(v) {
+    if (sameVersion(v, state.version)) return;
+    if (voice.session) stopVoice();
+    state.version = v ? { ref: v.ref, sha: v.sha || null, label: versionLabel(v) } : null;
+    state.pendingScroll = null;
+    renderVersionSel();
+    loadMainFrame();
+    renderOverlay(); renderPanel(); syncUrl();
+  }
+
+  // Version choices: current, manifest refs, branches, file history, free ref.
+  function versionChoices(file) {
+    const known = [{ ref: '', label: 'Aktuell (Pages)' }, ...state.cfg.versions];
+    const groups = [['Versionen', known]];
+    if (ver.branches?.length) groups.push(['Branches', ver.branches.filter((b) => !known.some((k) => k.ref === b)).map((b) => ({ ref: b, label: b }))]);
+    const hist = ver.history.get(file);
+    if (hist?.length) groups.push([`Verlauf ${file}`, hist]);
+    return groups;
+  }
+
+  function fillVersionSelect(sel, current, file) {
+    const groups = versionChoices(file);
+    const all = groups.flatMap(([, l]) => l);
+    if (current && !all.some((v) => v.ref === current.ref)) groups.push(['Gewählt', [{ ref: current.ref, label: versionLabel(current) }]]);
+    sel.replaceChildren(...groups.map(([label, list]) => h('optgroup', { label }, list.map((v) => h('option', { value: v.ref, selected: (current?.ref || '') === v.ref, text: v.label })))),
+      h('optgroup', { label: 'Andere' }, h('option', { value: '__ref', text: 'Branch oder Commit eingeben …' })));
+    sel.classList.toggle('alt', !!current);
+    sel.title = current ? `${versionLabel(current)} · ${current.ref}${current.sha ? ' @ ' + current.sha : ''}` : 'Aktuell (Pages)';
+  }
+
+  function versionFromValue(value, file) {
+    if (!value) return null;
+    return versionChoices(file).flatMap(([, l]) => l).find((v) => v.ref === value) || { ref: value, label: value };
+  }
+
+  function askRef(onRef) {
+    const input = h('input', { class: 'cmp-ref', type: 'text', placeholder: 'Branch oder Commit', 'aria-label': 'Branch oder Commit', spellcheck: 'false' });
+    const go = () => { const ref = input.value.trim(); if (!REF_RE.test(ref)) { toast('Ungültige Ref', { kind: 'warn' }); return; } onRef({ ref, label: SHA_RE.test(ref) ? ref.slice(0, 7) : ref }); };
+    input.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); go(); } if (ev.key === 'Escape') { ev.preventDefault(); renderCompareBar(); renderVersionSel(); } });
+    return [input, h('button', { class: 'btn sm', type: 'button', onclick: go }, 'Laden')];
+  }
+
+  function renderVersionSel() {
+    if (!state.tool) return;
+    fillVersionSelect(els.versionSel, state.version, state.tool.file);
+  }
+
+  els.versionSel.addEventListener('focus', () => { Promise.all([loadBranches(), loadHistory(state.tool.file)]).then(renderVersionSel); });
+  els.versionSel.addEventListener('change', () => {
+    const value = els.versionSel.value;
+    if (value === '__ref') {
+      const [input, btn] = askRef((v) => { input.remove(); btn.remove(); els.versionSel.hidden = false; setVersion(v); });
+      els.versionSel.hidden = true;
+      els.versionSel.after(input, btn);
+      input.focus();
+      return;
+    }
+    setVersion(versionFromValue(value, state.tool.file));
+  });
+
+  /* -- compare view -- */
+  function defaultB() {
+    const m = state.cfg.versions[0];
+    return m ? { ref: m.ref, label: m.label } : null;
+  }
+
+  function openCompare(opts = {}) {
+    if (!state.tool) return;
+    if (state.marking) setMarking(false);
+    if (voice.session) stopVoice();
+    const b = opts.b !== undefined ? opts.b : state.compare?.b ?? defaultB();
+    state.compare = {
+      a: opts.a !== undefined ? opts.a : state.compare?.a ?? state.version,
+      b,
+      mode: opts.mode || state.compare?.mode || (matchMedia('(max-width: 900px)').matches ? 'schieber' : 'nebeneinander'),
+      cut: 50, fade: 50, sync: state.compare?.sync ?? true,
+      devB: state.compare?.devB || state.device,
+    };
+    els.stage.hidden = true;
+    els.hint.hidden = true;
+    els.compareBar.hidden = false;
+    els.compare.hidden = false;
+    els.compareBtn.setAttribute('aria-pressed', 'true');
+    document.body.classList.add('comparing');
+    renderCompareBar();
+    buildCompare();
+    syncUrl();
+    Promise.all([loadBranches(), loadHistory(state.tool.file)]).then(() => { if (state.compare) renderCompareBar(); });
+  }
+
+  function closeCompare() {
+    if (!state.compare) return;
+    state.compare = null;
+    els.compare.replaceChildren();
+    els.compare.hidden = true;
+    els.compareBar.hidden = true;
+    els.stage.hidden = false;
+    els.compareBtn.setAttribute('aria-pressed', 'false');
+    document.body.classList.remove('comparing');
+    fit(); syncUrl();
+  }
+
+  function renderCompareBar() {
+    const c = state.compare;
+    if (!c) return;
+    const side = (key, tag) => {
+      const sel = h('select', { class: 'vsel', 'aria-label': `Version ${tag}` });
+      fillVersionSelect(sel, c[key], state.tool.file);
+      sel.addEventListener('change', () => {
+        if (sel.value === '__ref') { sel.replaceWith(...askRef((v) => { c[key] = v; renderCompareBar(); buildCompare(); syncUrl(); })); return; }
+        c[key] = versionFromValue(sel.value, state.tool.file);
+        renderCompareBar(); buildCompare(); syncUrl();
+      });
+      return h('span', { class: 'cmp-side' }, h('span', { class: 'cmp-tag' + (key === 'b' ? ' b' : ''), text: tag }), sel);
+    };
+    const modes = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': 'Vergleichs-Ansicht' }, CMP_MODES.map((m) => h('button', {
+      type: 'button', role: 'radio', 'aria-checked': String(c.mode === m.id), 'data-mode': m.id,
+      onclick: () => { c.mode = m.id; renderCompareBar(); buildCompare(); syncUrl(); },
+    }, icon(m.icon), h('span', { class: 's-long', text: m.label }), h('span', { class: 's-short', text: m.label.slice(0, 6) }))));
+    const extra = c.mode === 'ueberblenden'
+      ? h('label', { class: 'cmp-range' }, 'A', h('input', { type: 'range', min: '0', max: '100', value: String(Math.round(c.fade)), 'aria-label': 'Überblenden A zu B', oninput: (ev) => { c.fade = +ev.target.value; applyCut(); } }), 'B')
+      : c.mode === 'nebeneinander'
+        ? h('button', { class: 'btn sm', type: 'button', 'aria-pressed': String(c.sync), title: 'Scrollen gekoppelt', onclick: () => { c.sync = !c.sync; renderCompareBar(); } }, icon('refresh', 'sm'), 'Scroll gekoppelt')
+        : '';
+    els.compareBar.replaceChildren(
+      side('a', 'A'), modes, side('b', 'B'), extra, h('span', { class: 'grow' }),
+      h('button', { class: 'btn sm', type: 'button', title: 'Version B im Markier-Modus öffnen (M)', onclick: () => markOnSide('b') }, icon('pen', 'sm'), 'Auf B markieren'),
+      h('button', { class: 'btn sm primary', type: 'button', title: 'Vergleich als Issue (I)', onclick: openCompareIssue }, icon('issue', 'sm'), 'Vergleich als Issue'),
+      h('button', { class: 'btn sm icon ghost', type: 'button', 'aria-label': 'Vergleich schließen (Esc)', title: 'Schließen (Esc)', onclick: closeCompare }, icon('x')));
+  }
+
+  const cmp = { frames: [], dev: [], fits: [] };
+
+  function cmpFrame(cls, version, file) {
+    const f = h('iframe', { class: 'layer ' + cls, title: `Version ${cls.toUpperCase()}: ${versionLabel(version)}` });
+    loadInto(f, version, file).catch((e) => { f.replaceWith(h('div', { class: 'cmp-err', text: e.message })); });
+    f.addEventListener('load', () => {
+      try {
+        f.contentWindow.addEventListener('scroll', () => syncScroll(f), { passive: true });
+        f.contentWindow.addEventListener('keydown', onKey);
+      } catch { /* other origin */ }
+    });
+    return f;
+  }
+
+  let syncing = false;
+  function syncScroll(src) {
+    const c = state.compare;
+    if (!c || syncing || (c.mode === 'nebeneinander' && !c.sync)) return;
+    syncing = true;
+    try {
+      const { scrollX, scrollY } = src.contentWindow;
+      for (const f of cmp.frames) if (f !== src) f.contentWindow?.scrollTo(scrollX, scrollY);
+    } catch { /* ignore */ }
+    requestAnimationFrame(() => { syncing = false; });
+  }
+
+  function deviceBox(d, landscape) {
+    const swap = landscape && d.kind !== 'desktop';
+    return { w: swap ? d.h : d.w, h: swap ? d.w : d.h };
+  }
+
+  function makeDevice(d, screenKids) {
+    const { w, h: hgt } = deviceBox(d, state.landscape);
+    const screen = h('div', { class: 'screen' }, ...screenKids);
+    Object.assign(screen.style, { width: w + 'px', height: hgt + 'px' });
+    const dev = h('div', { class: 'device ' + d.kind }, h('div', { class: 'chrome', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'), h('div', { class: 'url' }, h('span', { text: state.tool.file }))), screen);
+    const fitBox = h('div', { class: 'fit' }, dev);
+    return { fitBox, dev, screen };
+  }
+
+  function buildCompare() {
+    const c = state.compare;
+    if (!c) return;
+    const file = state.tool.file;
+    cmp.frames = []; cmp.dev = []; cmp.fits = [];
+    els.compare.className = 'compare ' + c.mode;
+    if (c.mode === 'nebeneinander') {
+      const sides = [['a', c.a, state.device], ['b', c.b, c.devB]].map(([key, v, d]) => {
+        const f = cmpFrame(key, v, file);
+        cmp.frames.push(f);
+        const { fitBox, dev } = makeDevice(d, [f]);
+        cmp.dev.push(dev); cmp.fits.push(fitBox);
+        const devSel = h('select', { 'aria-label': `Gerät ${key.toUpperCase()}`, onchange: (ev) => { const nd = deviceOf(ev.target.value); if (key === 'a') setDevice(nd.id, { onlyA: true }); else { c.devB = nd; buildCompare(); } } },
+          DEVICES.map((x) => h('option', { value: x.id, selected: x.id === d.id, text: x.name })));
+        return h('section', { class: 'cside', 'data-side': key },
+          h('div', { class: 'cside-head' }, h('span', { class: 'cmp-tag' + (key === 'b' ? ' b' : ''), text: key.toUpperCase() }), h('span', { class: 'lbl', text: versionLabel(v) }),
+            v?.sha ? h('span', { class: 'sha', text: '@' + v.sha }) : '', devSel),
+          h('div', { class: 'cside-stage' }, fitBox));
+      });
+      els.compare.replaceChildren(...sides);
+    } else {
+      const fa = cmpFrame('a', c.a, file), fb = cmpFrame('b', c.b, file);
+      cmp.frames.push(fa, fb);
+      const knob = h('button', { class: 'knob', type: 'button', 'aria-label': 'Trenner A | B (Pfeiltasten)', title: 'Ziehen oder ← →' }, icon('split', 'sm'));
+      const divider = h('div', { class: 'cmp-divider' }, knob);
+      const kids = [fa, fb, h('span', { class: 'ab-tag a', text: 'A · ' + short(versionLabel(c.a), 24) }), h('span', { class: 'ab-tag b', text: 'B · ' + short(versionLabel(c.b), 24) })];
+      if (c.mode === 'schieber') kids.push(divider);
+      const { fitBox, dev, screen } = makeDevice(state.device, kids);
+      cmp.dev.push(dev); cmp.fits.push(fitBox);
+      if (c.mode === 'schieber') wireDivider(knob, screen);
+      els.compare.replaceChildren(h('section', { class: 'cside' }, h('div', { class: 'cside-stage' }, fitBox)));
+    }
+    applyCut();
+    requestAnimationFrame(layoutCompare);
+  }
+
+  function wireDivider(knob, screen) {
+    const c = state.compare;
+    const move = (ev) => {
+      const r = screen.getBoundingClientRect();
+      c.cut = Math.max(0, Math.min(100, (ev.clientX - r.left) / r.width * 100));
+      applyCut();
+    };
+    knob.addEventListener('pointerdown', (ev) => {
+      ev.preventDefault();
+      knob.setPointerCapture(ev.pointerId);
+      els.compare.classList.add('dragging');
+      const up = () => { els.compare.classList.remove('dragging'); knob.removeEventListener('pointermove', move); };
+      knob.addEventListener('pointermove', move);
+      knob.addEventListener('pointerup', up, { once: true });
+      knob.addEventListener('pointercancel', up, { once: true });
+    });
+    knob.addEventListener('keydown', (ev) => {
+      if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') { ev.preventDefault(); nudgeCompare(ev.key === 'ArrowLeft' ? -5 : 5); }
+    });
+  }
+
+  function applyCut() {
+    const c = state.compare;
+    if (!c) return;
+    els.compare.style.setProperty('--cut', c.cut + '%');
+    els.compare.style.setProperty('--fade', String(c.fade / 100));
+  }
+
+  function nudgeCompare(step) {
+    const c = state.compare;
+    if (!c) return;
+    if (c.mode === 'schieber') c.cut = Math.max(0, Math.min(100, c.cut + step));
+    else if (c.mode === 'ueberblenden') { c.fade = Math.max(0, Math.min(100, c.fade + step * 2)); renderCompareBar(); }
+    applyCut();
+  }
+
+  function layoutCompare() {
+    if (!state.compare) return;
+    cmp.dev.forEach((dev, i) => {
+      const stage = cmp.fits[i].parentElement;
+      const r = stage.getBoundingClientRect();
+      const s = Math.max(0.1, Math.min(1, r.width / dev.offsetWidth, r.height / dev.offsetHeight));
+      dev.style.transform = `scale(${s})`;
+      dev.style.setProperty('--inv', String(1 / s));
+      cmp.fits[i].style.width = dev.offsetWidth * s + 'px';
+      cmp.fits[i].style.height = dev.offsetHeight * s + 'px';
+    });
+  }
+  new ResizeObserver(() => layoutCompare()).observe(els.compare);
+
+  function markOnSide(key) {
+    const c = state.compare;
+    if (!c) return;
+    const v = c[key];
+    const d = key === 'b' && c.mode === 'nebeneinander' ? c.devB : state.device;
+    closeCompare();
+    if (d !== state.device) setDevice(d.id);
+    setVersion(v);
+    setMarking(true);
+    toast(`Markieren auf ${key.toUpperCase()} · ${versionLabel(v)}`, { icon: 'pen', kind: 'info' });
+  }
+
+  function compareLink(c) {
+    const p = new URLSearchParams({ tool: state.tool ? toolId(state.tool.file) : '', geraet: state.device.id, vergleich: c.b?.ref || 'aktuell', modus: c.mode });
+    if (c.a) p.set('a', c.a.ref);
+    return pagesUrl(`?${p}`);
+  }
+
+  function openCompareIssue() {
+    const c = state.compare;
+    if (!c || !state.tool) return;
+    const file = state.tool.file;
+    const side = (tag, v) => v
+      ? `- **${tag}:** ${versionLabel(v)} · \`${v.ref}\`${v.sha ? ' @ `' + v.sha + '`' : ''} · [Datei](${refBlobUrl(v.ref, file)})`
+      : `- **${tag}:** Aktuell (Pages) · [${file}](${pagesUrl(file)}) · [Quelltext](${blobUrl(file)})`;
+    const marks = toolMarks().filter((m) => sameVersion(m.version, c.a) || sameVersion(m.version, c.b));
+    const title = `[Review] ${state.tool.name} · Vergleich ${versionLabel(c.a)} ↔ ${versionLabel(c.b)}`;
+    const build = (withMarks) => [
+      `## 🔀 ${state.tool.name}: ${versionLabel(c.a)} ↔ ${versionLabel(c.b)}`,
+      '',
+      side('A', c.a),
+      side('B', c.b),
+      `- **Ansicht:** [Vergleich öffnen (${CMP_MODES.find((m) => m.id === c.mode).label}, ${state.device.name})](${compareLink(c)})`,
+      '',
+      '### Urteil',
+      '- [ ] B ist besser',
+      '- [ ] A bleibt',
+      '- Begründung: ',
+      ...(withMarks && marks.length ? ['', `### 📍 Markierungen (${marks.length})`, '', ...marks.map((m) => markSection(m, '####', { withData: false }) + '\n')] : []),
+      '',
+      `_Erstellt mit der [One-Shot-Review-Übersicht](${pagesUrl()}) · ${new Date().toLocaleString('de-AT', { dateStyle: 'medium', timeStyle: 'short' })}_`,
+    ].join('\n');
+    let url = issueUrl(title, build(true));
+    if (url.length > MAX_URL) url = issueUrl(title, build(false));
+    const win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    toast(win ? 'GitHub-Formular für den Vergleich geöffnet' : 'Pop-up blockiert', { icon: 'issue', kind: win ? 'ok' : 'warn' });
+  }
+
   /* ---------- theme ---------- */
   const currentTheme = () => document.documentElement.dataset.theme || 'auto';
 
@@ -2143,6 +2628,8 @@
     { group: 'Ansicht', keys: ['2'], text: 'iPhone 430' },
     { group: 'Ansicht', keys: ['3'], text: 'Tablet 820' },
     { group: 'Ansicht', keys: ['4'], text: 'Desktop 1440' },
+    { group: 'Ansicht', keys: ['C'], text: 'V1/V2 vergleichen (Esc schließt)' },
+    { group: 'Ansicht', keys: ['←', '→'], text: 'Vergleich: Schieber / Überblenden bewegen' },
     { group: 'Ansicht', keys: ['R'], text: 'Quer / hochkant' },
     { group: 'Ansicht', keys: ['H'], text: 'Markierungen ein / aus' },
     { group: 'Allgemein', keys: ['T'], text: 'Thema: Auto → Hell → Dunkel' },
@@ -2151,9 +2638,10 @@
   ];
 
   const ACTIONS = {
-    m: () => setMarking(!state.marking),
+    m: () => (state.compare ? markOnSide('b') : setMarking(!state.marking)),
+    c: () => (state.compare ? closeCompare() : openCompare()),
     v: () => { voice.keyAt = Date.now(); if (voice.session) stopVoice(); else startVoice(); },
-    i: issueShortcut,
+    i: () => (state.compare ? openCompareIssue() : issueShortcut()),
     n: () => stepTool(1),
     p: () => stepTool(-1),
     j: () => stepMark(1),
@@ -2168,7 +2656,7 @@
 
   function isTyping(t) {
     if (!t || t.closest?.('dialog:not([open])')) return false; // stale focus inside a closed dialog
-    return t.isContentEditable || !!t.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
+    return t.isContentEditable || !!t.closest?.('input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="button"]), textarea, select, [contenteditable]:not([contenteditable="false"])');
   }
 
   // A closed dialog can keep focus on its textarea when the previous focus target is gone; drop it.
@@ -2180,7 +2668,8 @@
     if (ev.defaultPrevented || ev.isComposing || ev.metaKey || ev.ctrlKey || ev.altKey) return;
     if (els.dlg.open || els.keysDlg.open || els.voiceDlg.open) return; // dialogs handle their own keys
     if (ev.key === 'Escape') {
-      if (voice.session) stopVoice(true);
+      if (state.compare) closeCompare();
+      else if (voice.session) stopVoice(true);
       else if (voice.armed) disarmVoice();
       else if (els.panel.classList.contains('open')) openSheet(false);
       else if (state.marking) setMarking(false);
@@ -2188,6 +2677,7 @@
     }
     if (isTyping(ev.target)) return;
     if (ev.key === 'Enter' && voice.session) { ev.preventDefault(); stopVoice(); return; }
+    if (state.compare && (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight')) { ev.preventDefault(); nudgeCompare(ev.key === 'ArrowLeft' ? -5 : 5); return; }
     const key = ev.key.length === 1 ? ev.key.toLowerCase() : '';
     const fn = ACTIONS[key];
     if (!fn) return;
@@ -2221,7 +2711,8 @@
   els.rotateBtn.addEventListener('click', rotate);
   els.oneBtn.addEventListener('click', () => { state.oneToOne = !state.oneToOne; els.oneBtn.setAttribute('aria-pressed', String(state.oneToOne)); fit(); });
   els.showBtn.addEventListener('click', () => toggleShowMarks());
-  els.reloadBtn.addEventListener('click', () => { try { els.frame.contentWindow.location.reload(); } catch { els.frame.src = state.tool.file; } });
+  els.reloadBtn.addEventListener('click', () => { if (state.version) { loadMainFrame(); return; } try { els.frame.contentWindow.location.reload(); } catch { els.frame.src = state.tool.file; } });
+  els.compareBtn.addEventListener('click', () => (state.compare ? closeCompare() : openCompare()));
   els.prevBtn.addEventListener('click', () => stepTool(-1));
   els.nextBtn.addEventListener('click', () => stepTool(1));
   els.themeBtn.addEventListener('click', cycleTheme);
@@ -2304,8 +2795,15 @@
     renderDeviceSeg();
     applyFrame();
     const first = itemOf((params.get('tool') || '') + '.html') || state.items[0];
+    const vRef = params.get('version');
+    if (vRef && /^(?!.*\.\.)[\w.\/-]{1,100}$/.test(vRef)) state.version = state.cfg.versions.find((v) => v.ref === vRef) ? { ...state.cfg.versions.find((v) => v.ref === vRef) } : { ref: vRef, label: vRef };
     if (wanted) showMark(wanted.id);
     else if (first) selectTool(first.file);
+    const cmpRef = params.get('vergleich');
+    if (cmpRef && !wanted && state.tool) {
+      const pick = (r) => (!r || r === 'aktuell' ? null : state.cfg.versions.find((v) => v.ref === r) || (/^(?!.*\.\.)[\w.\/-]{1,100}$/.test(r) ? { ref: r, label: r } : null));
+      openCompare({ a: pick(params.get('a')), b: pick(cmpRef), mode: CMP_MODES.some((m) => m.id === params.get('modus')) ? params.get('modus') : undefined });
+    }
     renderPanel();
     if (imported) toast(`${imported} Markierung${imported > 1 ? 'en' : ''} aus dem Link übernommen`, { icon: 'download' });
     if (paired) checkBridge().then((b) => toast(b === 'ok' ? 'Voice-Brücke gekoppelt · V drücken und sprechen' : bridgeProblem(), { kind: b === 'ok' ? 'ok' : 'warn', icon: 'plug' }));
