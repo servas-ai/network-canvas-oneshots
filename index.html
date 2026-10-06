@@ -1,510 +1,1259 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Network Canvas & CLI Dashboard Gallery (15 Prototypes)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>One-Shot Review</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232457F5'/%3E%3Cpath d='M9 22l5-5 3 3 6-8' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <meta name="description" content="Alle One-Shot-Prototypen in iPhone-, Tablet- und Desktop-Größe ansehen, live markieren und als GitHub-Issue melden.">
   <style>
     :root {
-      --bg: #090D16;
-      --card-bg: #121927;
-      --border: #1E293B;
-      --border-hover: #38BDF8;
-      --text: #F8FAFC;
-      --text-muted: #94A3B8;
-      --accent: #38BDF8;
-      --accent-purple: #818CF8;
-      --green: #10B981;
+      --bg: #F4F5F7;
+      --panel: #FFFFFF;
+      --panel-2: #F0F2F5;
+      --line: #E2E5EA;
+      --text: #16181D;
+      --muted: #5B6270;
+      --accent: #2457F5;
+      --accent-ink: #FFFFFF;
+      --accent-soft: #E8EEFF;
+      --mark: #E5175F;
+      --mark-soft: rgba(229, 23, 95, 0.10);
+      --ok: #0E7A45;
+      --ok-soft: #E3F5EB;
+      --stage: #E8EBF0;
+      --dot: #D0D5DD;
+      --device: #15171C;
+      --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 6px 20px rgba(16, 24, 40, 0.07);
+      --radius: 12px;
+      color-scheme: light;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 32px 24px; min-height: 100vh; }
-
-    .container { max-width: 1300px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
-
-    /* Hero Header */
-    header.gallery-header {
-      text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
-      padding-bottom: 24px; border-bottom: 1px solid var(--border);
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0F1115; --panel: #171A20; --panel-2: #1F232B; --line: #2A2F39; --text: #ECEEF2; --muted: #9AA3B2;
+        --accent: #7A97FF; --accent-ink: #0B0D12; --accent-soft: #1D2640; --mark: #FF4D8D; --mark-soft: rgba(255, 77, 141, 0.14);
+        --ok: #4ADE80; --ok-soft: #12291C; --stage: #12151A; --dot: #262B34; --device: #000000;
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+        color-scheme: dark;
+      }
     }
-    .hero-badge {
-      background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3);
-      color: var(--accent); padding: 6px 16px; border-radius: 9999px; font-size: 13px; font-weight: 700;
-      letter-spacing: 0.05em; text-transform: uppercase;
-    }
-    h1 { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; }
-    p.subtitle { font-size: 16px; color: var(--text-muted); max-width: 720px; line-height: 1.5; }
-
-    /* Category Filter Tabs */
-    .filter-bar {
-      display: flex; justify-content: center; gap: 10px; margin-top: 8px;
-    }
-    .filter-tab {
-      background: #1E293B; border: 1px solid var(--border); color: #94A3B8;
-      padding: 8px 18px; border-radius: 9999px; font-size: 13px; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .filter-tab:hover { background: #334155; color: white; }
-    .filter-tab.active { background: var(--accent); color: #090D16; font-weight: 700; }
-
-    /* Card Grid */
-    .gallery-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px;
-    }
-    .prototype-card {
-      background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
-      overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    }
-    .prototype-card:hover {
-      transform: translateY(-4px); border-color: var(--border-hover);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    :root[data-theme="dark"] {
+      --bg: #0F1115; --panel: #171A20; --panel-2: #1F232B; --line: #2A2F39; --text: #ECEEF2; --muted: #9AA3B2;
+      --accent: #7A97FF; --accent-ink: #0B0D12; --accent-soft: #1D2640; --mark: #FF4D8D; --mark-soft: rgba(255, 77, 141, 0.14);
+      --ok: #4ADE80; --ok-soft: #12291C; --stage: #12151A; --dot: #262B34; --device: #000000;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+      color-scheme: dark;
     }
 
-    /* Thumbnail Image Container */
-    .card-thumb-container {
-      width: 100%; aspect-ratio: 16 / 9; background: #070A10; overflow: hidden;
-      position: relative; border-bottom: 1px solid var(--border);
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      height: 100dvh; display: flex; flex-direction: column; overflow: hidden;
+      background: var(--bg); color: var(--text);
+      font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    .card-thumb {
-      width: 100%; height: 100%; object-fit: cover; object-position: top center;
-      transition: transform 0.3s;
-    }
-    .prototype-card:hover .card-thumb { transform: scale(1.03); }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--accent); }
+    [hidden] { display: none !important; }
 
-    .card-form-pill {
-      position: absolute; top: 12px; left: 12px;
-      background: rgba(9, 13, 22, 0.85); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #FFF; font-size: 11px; font-weight: 700;
-      padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      height: 34px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--line);
+      background: var(--panel); font-weight: 600; font-size: 13px; white-space: nowrap; text-decoration: none; color: var(--text);
+    }
+    .btn:hover { background: var(--panel-2); }
+    .btn:focus-visible, .seg button:focus-visible, .item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+    .btn.primary:hover { filter: brightness(1.08); }
+    .btn.mark-on { background: var(--mark); border-color: var(--mark); color: #fff; }
+    .btn.small { height: 28px; padding: 0 9px; font-size: 12px; border-radius: 7px; }
+    .btn.icon { width: 34px; padding: 0; }
+    .btn.small.icon { width: 28px; }
+    .btn.ghost { border-color: transparent; background: transparent; }
+    .btn.ghost:hover { background: var(--panel-2); }
+    .btn.danger { color: var(--mark); }
+    .btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+    /* Segmented device switch */
+    .seg { display: inline-flex; padding: 3px; gap: 2px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; }
+    .seg button {
+      height: 28px; padding: 0 11px; border: 0; border-radius: 7px; background: transparent;
+      font-weight: 600; font-size: 13px; color: var(--muted); white-space: nowrap;
+    }
+    .seg button:hover { color: var(--text); }
+    .seg button[aria-checked="true"] { background: var(--panel); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+    .seg .s-short { display: none; }
+
+    /* Header */
+    header.top {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line);
+      padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right));
+    }
+    .brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+    .brand h1 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
+    .brand .count { color: var(--muted); font-size: 13px; white-space: nowrap; }
+    .top .spacer { flex: 1; }
+    .top .row { display: contents; }
+    #pick { display: none; }
+    #sheetBtn { display: none; }
+    .badge {
+      display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px;
+      border-radius: 999px; background: var(--mark); color: #fff; font-size: 11px; font-weight: 800;
+    }
+    .badge.zero { background: var(--panel-2); color: var(--muted); }
+
+    /* Layout */
+    .app { flex: 1; min-height: 0; display: grid; grid-template-columns: 264px minmax(0, 1fr) 340px; }
+
+    /* Prototype list */
+    nav.list { overflow: auto; background: var(--panel); border-right: 1px solid var(--line); padding: 12px 10px 24px; }
+    .search { width: 100%; height: 34px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); margin-bottom: 8px; }
+    .group-title { display: flex; justify-content: space-between; margin: 14px 6px 6px; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .item {
+      display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 10px;
+      width: 100%; padding: 6px; border: 1px solid transparent; border-radius: 10px; background: transparent; text-align: left;
+    }
+    .item:hover { background: var(--panel-2); }
+    .item[aria-current="true"] { background: var(--accent-soft); border-color: var(--accent); }
+    .item img, .item .noimg { width: 52px; height: 34px; border-radius: 6px; object-fit: cover; object-position: top center; background: var(--panel-2); border: 1px solid var(--line); }
+    .item .t { display: block; font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item .f { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .chip-new { font-size: 10px; font-weight: 800; color: var(--ok); background: var(--ok-soft); border-radius: 4px; padding: 1px 5px; margin-left: 4px; }
+    .list-note { margin: 16px 6px 0; color: var(--muted); font-size: 12px; }
+
+    /* Stage */
+    main.stage-wrap { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+    .stage-bar {
+      display: flex; align-items: center; gap: 8px; padding: 8px 14px; min-height: 48px;
+      background: var(--panel); border-bottom: 1px solid var(--line); flex-wrap: wrap;
+    }
+    .stage-bar .title { display: flex; align-items: baseline; gap: 8px; min-width: 0; flex: 1; }
+    .stage-bar .title strong { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .stage-bar .title span { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+    .stage-bar .tools { display: flex; align-items: center; gap: 4px; }
+    .zoom { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .hint {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 7px 14px;
+      background: var(--mark); color: #fff; font-size: 13px; font-weight: 600;
+    }
+    .hint kbd { background: rgba(255,255,255,.2); border-radius: 4px; padding: 0 5px; font: inherit; font-size: 12px; }
+    .stage {
+      flex: 1; min-height: 0; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      background-color: var(--stage);
+      background-image: radial-gradient(var(--dot) 1px, transparent 1px); background-size: 18px 18px;
+    }
+    .stage.one { overflow: auto; align-items: flex-start; justify-content: flex-start; }
+    .fit { position: relative; flex: none; }
+    .stage.one .fit { margin: auto; }
+
+    /* Device frames */
+    .device { position: absolute; left: 0; top: 0; transform-origin: 0 0; background: var(--device); box-shadow: 0 30px 60px rgba(0,0,0,.18), 0 0 0 1px rgba(255,255,255,.06) inset; }
+    .device.phone { padding: 12px; border-radius: 56px; }
+    .device.phone::before { /* side buttons */
+      content: ""; position: absolute; right: -3px; top: 180px; width: 3px; height: 90px; border-radius: 0 3px 3px 0; background: var(--device);
+    }
+    .device.phone::after {
+      content: ""; position: absolute; left: -3px; top: 150px; width: 3px; height: 56px; border-radius: 3px 0 0 3px; background: var(--device);
+      box-shadow: 0 74px 0 var(--device);
+    }
+    .device.phone .screen { border-radius: 44px; }
+    .device.tablet { padding: 20px; border-radius: 34px; }
+    .device.tablet .screen { border-radius: 16px; }
+    .device.desktop { padding: 0; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
+    .device.desktop .screen { border-radius: 0 0 12px 12px; }
+    .chrome { display: none; height: 36px; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 1px solid var(--line); background: var(--panel-2); border-radius: 12px 12px 0 0; }
+    .device.desktop .chrome { display: flex; }
+    .chrome i { width: 11px; height: 11px; border-radius: 50%; background: #FF5F57; }
+    .chrome i:nth-child(2) { background: #FEBC2E; } .chrome i:nth-child(3) { background: #28C840; }
+    .chrome .url { margin-left: 14px; flex: 1; max-width: 520px; height: 24px; border-radius: 6px; background: var(--panel); border: 1px solid var(--line); display: flex; align-items: center; padding: 0 10px; color: var(--muted); font-size: 12px; overflow: hidden; white-space: nowrap; }
+    .screen { position: relative; overflow: hidden; background: #fff; }
+    .screen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+
+    /* Overlay + marks */
+    .overlay { position: absolute; inset: 0; pointer-events: none; }
+    .marking .overlay { pointer-events: auto; cursor: crosshair; touch-action: none; }
+    .marking .device { box-shadow: 0 0 0 6px var(--mark), 0 30px 60px rgba(0,0,0,.18); }
+    .overlay.hide-marks .mk:not(.draft) { display: none; }
+    .mk {
+      position: absolute; border: 2px solid var(--mark); background: var(--mark-soft); border-radius: 4px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.9), 0 0 0 3px rgba(0,0,0,.18);
+    }
+    .mk.punkt { border-radius: 50%; }
+    .mk.draft { border-style: dashed; background: rgba(229,23,95,.16); }
+    .mk.issue { border-color: var(--ok); background: rgba(14,122,69,.08); }
+    .mk.flash { animation: flash 1.2s ease-in-out 2; }
+    @keyframes flash { 50% { box-shadow: 0 0 0 1px #fff, 0 0 0 10px rgba(229,23,95,.35); } }
+    .mk-badge {
+      position: absolute; left: -2px; top: -26px; height: 22px; min-width: 22px; padding: 0 7px; border-radius: 6px 6px 6px 0;
+      background: var(--mark); color: #fff; font: 800 12px/22px -apple-system, system-ui, sans-serif; white-space: nowrap;
+      pointer-events: auto; cursor: pointer; max-width: 240px; overflow: hidden; text-overflow: ellipsis;
+    }
+    .mk.issue .mk-badge { background: var(--ok); }
+    .mk.low .mk-badge { top: auto; bottom: -26px; border-radius: 0 6px 6px 6px; }
+    .mk.right .mk-badge { left: auto; right: -2px; border-radius: 6px 6px 0 6px; }
+    .mk.low.right .mk-badge { border-radius: 6px 0 6px 6px; }
+    .hover-box { position: absolute; border: 2px solid var(--accent); background: rgba(36, 87, 245, .08); border-radius: 3px; pointer-events: none; }
+    .hover-box span { position: absolute; left: -2px; top: -22px; background: var(--accent); color: #fff; font: 700 11px/20px ui-monospace, Menlo, monospace; padding: 0 6px; border-radius: 4px; white-space: nowrap; max-width: 320px; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Marks panel */
+    aside.marks { overflow: auto; background: var(--panel); border-left: 1px solid var(--line); display: flex; flex-direction: column; }
+    .marks-head { position: sticky; top: 0; z-index: 2; background: var(--panel); padding: 12px 14px 10px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+    .marks-head h2 { margin: 0; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    .marks-head h2 .x { margin-left: auto; display: none; }
+    .marks-head .seg { width: 100%; }
+    .marks-head .seg button { flex: 1; }
+    .marks-list { list-style: none; margin: 0; padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .card { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; background: var(--panel); display: flex; flex-direction: column; gap: 8px; }
+    .card.sel { border-color: var(--mark); box-shadow: 0 0 0 3px var(--mark-soft); }
+    .card-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+    .card-top .nr { background: var(--mark); color: #fff; font-weight: 800; border-radius: 6px; padding: 1px 7px; font-size: 12px; }
+    .card.issued .card-top .nr { background: var(--ok); }
+    .card-top .tool { font-weight: 700; color: var(--text); }
+    .card-top .ok { color: var(--ok); font-weight: 700; }
+    .card .note { font-size: 14px; font-weight: 600; white-space: pre-wrap; word-break: break-word; }
+    .card .note.empty { color: var(--muted); font-weight: 400; font-style: italic; }
+    .card .el { font: 12px/1.4 ui-monospace, Menlo, monospace; color: var(--muted); word-break: break-all; }
+    .card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .card-actions .btn.primary { flex: 1; }
+    .empty-state { padding: 18px 16px; color: var(--muted); }
+    .empty-state ol { padding-left: 20px; margin: 8px 0 0; display: flex; flex-direction: column; gap: 6px; color: var(--text); }
+    .marks-foot { position: sticky; bottom: 0; background: var(--panel); border-top: 1px solid var(--line); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+    .marks-foot .row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .marks-foot .row .btn { flex: 1; }
+    .storage-warn { margin: 0; font-size: 12px; color: var(--mark); }
+
+    /* Note dialog */
+    dialog#noteDlg { width: min(500px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: 16px; padding: 0; background: var(--panel); color: var(--text); box-shadow: var(--shadow); }
+    dialog#noteDlg::backdrop { background: rgba(10, 12, 16, .28); }
+    .dlg { display: flex; flex-direction: column; gap: 12px; padding: 16px; }
+    .dlg h3 { margin: 0; font-size: 16px; }
+    .dlg .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+    .dlg .meta code { font: 12px ui-monospace, Menlo, monospace; color: var(--text); background: var(--panel-2); padding: 2px 6px; border-radius: 5px; word-break: break-all; }
+    .dlg label { font-weight: 700; font-size: 13px; }
+    .dlg textarea { width: 100%; min-height: 96px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--panel-2); font-size: 15px; }
+    .dlg textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+    .dlg .actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+    .dlg .keys { color: var(--muted); font-size: 12px; margin-top: -6px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 50;
+      display: flex; align-items: center; gap: 12px; max-width: calc(100vw - 32px);
+      background: var(--text); color: var(--bg); padding: 10px 14px; border-radius: 10px; box-shadow: var(--shadow); font-weight: 600; font-size: 13.5px;
+    }
+    .toast button { background: transparent; border: 1px solid currentColor; color: inherit; border-radius: 6px; padding: 3px 8px; font-weight: 700; }
+
+    /* Medium screens */
+    @media (max-width: 1240px) {
+      .app { grid-template-columns: 232px minmax(0, 1fr) 300px; }
+      .seg .s-long { display: none; } .seg .s-short { display: inline; }
     }
 
-    /* Card Body */
-    .card-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-    .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
-    .card-title { font-size: 18px; font-weight: 700; color: #FFF; }
-    .qg-badge {
-      font-size: 11px; font-weight: 700; background: rgba(16, 185, 129, 0.15);
-      color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 2px 8px; border-radius: 9999px; white-space: nowrap;
+    /* Phone + small tablet */
+    @media (max-width: 900px) {
+      header.top { gap: 8px; padding-top: max(10px, env(safe-area-inset-top)); }
+      .top .row { display: flex; align-items: center; gap: 8px; width: 100%; }
+      .brand .count { display: none; }
+      #pick { display: block; width: 100%; height: 38px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); font-weight: 600; }
+      #sheetBtn { display: inline-flex; margin-left: auto; }
+      .top .spacer { display: none; }
+      .top .seg { flex: 1; min-width: 0; }
+      .top .seg button { flex: 1; min-width: 0; padding: 0 2px; font-size: 12px; }
+      .stage-bar .title { display: none; }
+      .stage-bar .tools { width: 100%; }
+      .stage-bar .zoom { margin-right: auto; }
+      #oneBtn { display: none; }
+      .hint { font-size: 12.5px; padding: 6px 10px; gap: 6px; }
+      .hint .h-long { display: none; }
+      .toast { top: max(12px, env(safe-area-inset-top)); bottom: auto; }
+      .dlg .keys { display: none; }
+      .app { display: flex; flex-direction: column; }
+      nav.list { display: none; }
+      main.stage-wrap { flex: 1; }
+      .stage { padding: 12px; }
+      .stage-bar { padding: 6px 10px; gap: 6px; min-height: 42px; }
+      .stage-bar .title span.form { display: none; }
+      aside.marks {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; max-height: 78dvh;
+        border-left: 0; border-top: 1px solid var(--line); border-radius: 18px 18px 0 0; box-shadow: 0 -12px 40px rgba(0,0,0,.18);
+        transform: translateY(105%); transition: transform .22s ease; padding-bottom: env(safe-area-inset-bottom);
+      }
+      aside.marks.open { transform: none; }
+      .marks-head { border-radius: 18px 18px 0 0; }
+      .marks-head h2 .x { display: inline-flex; }
     }
-
-    .card-description { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
-
-    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; }
-    .tag {
-      font-size: 11px; background: #0F172A; color: #94A3B8; border: 1px solid #1E293B;
-      padding: 2px 8px; border-radius: 4px;
-    }
-
-    /* Card Action Footer */
-    .card-footer {
-      padding: 14px 20px; background: #0D1320; border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .btn-open {
-      display: inline-flex; align-items: center; gap: 6px; background: var(--accent);
-      color: #090D16; text-decoration: none; font-size: 12.5px; font-weight: 700;
-      padding: 7px 14px; border-radius: 6px; transition: background 0.15s;
-    }
-    .btn-open:hover { background: #7DD3FC; }
-    .file-ref { font-family: monospace; font-size: 11px; color: var(--text-muted); }
+    @media (prefers-reduced-motion: reduce) { aside.marks { transition: none; } .mk.flash { animation: none; } }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="gallery-header">
-      <div class="hero-badge">One-Shot Prototype Fleet</div>
-      <h1>Network Canvas & CLI Dashboard Gallery</h1>
-      <p class="subtitle">
-        Comprehensive showroom of 15 fully self-contained, zero-dependency HTML one-shot prototypes: 5 proprietary whiteboard canvases + 10 CLI proxy and usage dashboards.
-      </p>
-
-      <!-- Category Filter -->
-      <div class="filter-bar">
-        <button class="filter-tab active" onclick="filterGallery('all')">All Prototypes (15)</button>
-        <button class="filter-tab" onclick="filterGallery('canvas')">Canvas Whiteboards (5)</button>
-        <button class="filter-tab" onclick="filterGallery('dashboard')">CLI Dashboards & Trays (10)</button>
+  <header class="top">
+    <div class="row">
+      <div class="brand">
+        <h1>🔍 One-Shot Review</h1>
+        <span class="count" id="countLabel">lädt …</span>
       </div>
-    </header>
-
-    <!-- Main Grid -->
-    <div class="gallery-grid" id="galleryGrid">
-      <!-- 1. Miro -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/miro.png" alt="Miro Canvas" class="card-thumb">
-          <span class="card-form-pill">Infinite Canvas</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Miro</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Collaborative strategy board with pan/zoom engine, colored draggable sticky notes, frames, zoom controls, and simulated live cursor sync.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Miro</span><span class="tag">Sticky Notes</span><span class="tag">Live Cursor</span><span class="tag">Pan & Zoom</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">miro.html</span>
-          <a href="miro.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 2. FigJam -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/figjam.png" alt="FigJam Canvas" class="card-thumb">
-          <span class="card-form-pill">Whiteboard</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">FigJam</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Playful Figma-style whiteboard with floating bottom dock, section containers, sticky notes with author chips, and clickable reaction stamps.
-          </p>
-          <div class="tag-row">
-            <span class="tag">FigJam</span><span class="tag">Dock</span><span class="tag">Stamps</span><span class="tag">Sections</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">figjam.html</span>
-          <a href="figjam.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 3. Lucidchart -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/lucidchart.png" alt="Lucidchart Canvas" class="card-thumb">
-          <span class="card-form-pill">Diagramming</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Lucidchart</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Enterprise cloud architecture diagram with left shape library dock, top formatting ribbon, right inspector panel, and orthogonal elbow connectors.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Lucidchart</span><span class="tag">Flowchart</span><span class="tag">Orthogonal</span><span class="tag">Inspector</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">lucidchart.html</span>
-          <a href="lucidchart.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 4. Whimsical -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/whimsical.png" alt="Whimsical Canvas" class="card-thumb">
-          <span class="card-form-pill">Mind Map & Flow</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Whimsical</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Speed-first workflow canvas with mode switcher, card nodes with status badges, and smooth branching bezier curves connecting trees.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Whimsical</span><span class="tag">Mind Map</span><span class="tag">Bezier</span><span class="tag">SaaS Flow</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">whimsical.html</span>
-          <a href="whimsical.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 5. Mural -->
-      <div class="prototype-card" data-category="canvas">
-        <div class="card-thumb-container">
-          <img src="screenshots/mural.png" alt="Mural Canvas" class="card-thumb">
-          <span class="card-form-pill">Facilitation</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Mural</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Facilitation suite with live countdown timer, voting tools, right session outline, 2x2 matrix framework, and color-coded stickies with vote dots.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Mural</span><span class="tag">Facilitator</span><span class="tag">Timer</span><span class="tag">Voting</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">mural.html</span>
-          <a href="mural.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 6. OpenCodex -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/opencodex.png" alt="OpenCodex" class="card-thumb">
-          <span class="card-form-pill">Web + Tray</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">OpenCodex</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Multi-account router with 5h rolling & weekly quota bars per account, auto-switch engine on 429 errors, and simulated macOS tray popover preview.
-          </p>
-          <div class="tag-row">
-            <span class="tag">OpenCodex</span><span class="tag">Auto-Switch</span><span class="tag">5h Limits</span><span class="tag">Tray</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">opencodex.html</span>
-          <a href="opencodex.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 7. CPA-Manager-Plus -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cpa-manager-plus.png" alt="CPA-Manager-Plus" class="card-thumb">
-          <span class="card-form-pill">Web Ops</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">CPA-Manager-Plus</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            High-density operations cockpit with proxy node health raster (6 nodes), live traffic frequency chart, token mix spectrum, and real-time request logs.
-          </p>
-          <div class="tag-row">
-            <span class="tag">CPA Plus</span><span class="tag">Health Matrix</span><span class="tag">Token Mix</span><span class="tag">Telemetry</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cpa-manager-plus.html</span>
-          <a href="cpa-manager-plus.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 8. Magpie -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/magpie.png" alt="Magpie" class="card-thumb">
-          <span class="card-form-pill">Desktop / TUI</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Magpie</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Zero-config dynamic model switch and routing groups builder. Select active CLI targets and inspect fallback chains without editing config files.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Magpie</span><span class="tag">Model Switch</span><span class="tag">Routing Groups</span><span class="tag">TUI</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">magpie.html</span>
-          <a href="magpie.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 9. EasyCLIProxy -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/easycliproxy.png" alt="EasyCLIProxy" class="card-thumb">
-          <span class="card-form-pill">Desktop App</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">EasyCLIProxy</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Clean desktop manager featuring OAuth provider cards (OpenAI, Anthropic, Google, xAI), local proxy endpoint routing table, and instant quota inspector.
-          </p>
-          <div class="tag-row">
-            <span class="tag">EasyCLIProxy</span><span class="tag">OAuth 2.0</span><span class="tag">Endpoints</span><span class="tag">Inspector</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">easycliproxy.html</span>
-          <a href="easycliproxy.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 10. CLIProxy Quota Tray -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cliproxy-quota-tray.png" alt="CLIProxy Quota Tray" class="card-thumb">
-          <span class="card-form-pill">macOS Tray</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">CLIProxy Quota Tray</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Compact macOS menubar popover tracking Codex Pro 5-hour rolling limits, Grok weekly & monthly quota progress bars, reset countdowns, and quick actions.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Quota Tray</span><span class="tag">Menubar</span><span class="tag">Codex Pro</span><span class="tag">Grok</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cliproxy-quota-tray.html</span>
-          <a href="cliproxy-quota-tray.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 11. CC Switch -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cc-switch.png" alt="CC Switch" class="card-thumb">
-          <span class="card-form-pill">Desktop App</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">CC Switch</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Provider switcher displaying both 5-hour rolling limit and 7-day quota percentages directly in each provider row, with instant profile activation.
-          </p>
-          <div class="tag-row">
-            <span class="tag">CC Switch</span><span class="tag">5h & 7d Gauge</span><span class="tag">Profile Switch</span><span class="tag">Claude</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cc-switch.html</span>
-          <a href="cc-switch.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 12. 9Router -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/9router.png" alt="9Router" class="card-thumb">
-          <span class="card-form-pill">Web Gateway</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">9Router</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Three-stage fallback cascade: Stage 1 (Flatrate Abo), Stage 2 (Cheap Pay-As-You-Go), Stage 3 (Local / Free Tier), with interactive request test dispatch.
-          </p>
-          <div class="tag-row">
-            <span class="tag">9Router</span><span class="tag">3-Stage</span><span class="tag">Cost Optimizer</span><span class="tag">Simulator</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">9router.html</span>
-          <a href="9router.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 13. Claude Code Router -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/claude-code-router.png" alt="Claude Code Router" class="card-thumb">
-          <span class="card-form-pill">Control Plane</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Claude Code Router</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Dedicated control plane for Claude Code sessions featuring context window gauge (200k tokens), tool interceptor hooks, and RPM/TPM rate-limit wardens.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Claude Code</span><span class="tag">Control Plane</span><span class="tag">Context Gauge</span><span class="tag">Hooks</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">claude-code-router.html</span>
-          <a href="claude-code-router.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 14. cliproxyapi-usage-dashboard -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/cliproxyapi-usage.png" alt="CLIProxyAPI Usage" class="card-thumb">
-          <span class="card-form-pill">Web Analytics</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">cliproxyapi-usage</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Aggregated dashboard reporting 5h and 7-day residual allowances across all active Codex accounts alongside local machine token burn broken down by CLI.
-          </p>
-          <div class="tag-row">
-            <span class="tag">CLIProxyAPI</span><span class="tag">Multi-Account</span><span class="tag">Token Burn</span><span class="tag">Analytics</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">cliproxyapi-usage.html</span>
-          <a href="cliproxyapi-usage.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
-
-      <!-- 15. Tokscale -->
-      <div class="prototype-card" data-category="dashboard">
-        <div class="card-thumb-container">
-          <img src="screenshots/tokscale.png" alt="Tokscale Terminal" class="card-thumb">
-          <span class="card-form-pill">Terminal / TUI</span>
-        </div>
-        <div class="card-body">
-          <div class="card-header-row">
-            <h2 class="card-title">Tokscale</h2>
-            <span class="qg-badge">🟢 QG PASS</span>
-          </div>
-          <p class="card-description">
-            Retro terminal token monitor featuring a 52-week GitHub-style contribution heatmap grid, 24-hour hourly burn spectrum, and local agent consumption stats.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Tokscale</span><span class="tag">Heatmap</span><span class="tag">Tagesraster</span><span class="tag">Terminal TUI</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="file-ref">tokscale.html</span>
-          <a href="tokscale.html" class="btn-open">Open Prototype ↗</a>
-        </div>
-      </div>
+      <button class="btn small" id="sheetBtn" type="button" aria-controls="marksPanel" aria-expanded="false">📋 Markierungen <span class="badge zero" id="sheetCount">0</span></button>
     </div>
+    <div class="row"><select id="pick" aria-label="Prototyp wählen"></select></div>
+    <div class="spacer"></div>
+    <div class="row">
+      <div class="seg" role="radiogroup" aria-label="Gerätegröße" id="deviceSeg"></div>
+      <button class="btn" id="markBtn" type="button" aria-pressed="false" title="Markier-Modus (Taste M)">✏️ Markieren</button>
+    </div>
+  </header>
+
+  <div class="app">
+    <nav class="list" aria-label="Prototypen">
+      <input class="search" id="search" type="search" placeholder="Suchen …" aria-label="Prototypen suchen">
+      <div id="list"></div>
+      <p class="list-note" id="listNote"></p>
+    </nav>
+
+    <main class="stage-wrap">
+      <div class="stage-bar">
+        <div class="title"><strong id="toolName">–</strong><span class="form" id="toolForm"></span></div>
+        <div class="tools">
+          <span class="zoom" id="zoomLabel"></span>
+          <button class="btn small icon ghost" id="rotateBtn" type="button" title="Quer / hochkant" aria-label="Quer oder hochkant">⟳</button>
+          <button class="btn small icon ghost" id="oneBtn" type="button" title="1:1 statt Einpassen" aria-label="1:1 statt Einpassen" aria-pressed="false">⤢</button>
+          <button class="btn small icon ghost" id="showBtn" type="button" title="Markierungen ein/aus" aria-label="Markierungen ein oder aus" aria-pressed="true">👁</button>
+          <button class="btn small icon ghost" id="reloadBtn" type="button" title="Prototyp neu laden" aria-label="Prototyp neu laden">↻</button>
+          <a class="btn small icon ghost" id="openLink" target="_blank" rel="noopener" title="In neuem Tab öffnen" aria-label="In neuem Tab öffnen">↗</a>
+          <a class="btn small icon ghost" id="srcLink" target="_blank" rel="noopener" title="Quelltext auf GitHub" aria-label="Quelltext auf GitHub">&lt;/&gt;</a>
+        </div>
+      </div>
+      <div class="hint" id="hint" hidden>
+        <span class="h-long">✏️ Markier-Modus ·</span> <span>👆 Klicken = Element</span> · <span>✋ Ziehen = Bereich</span><span class="h-long"> · <kbd>Esc</kbd> beendet</span>
+      </div>
+      <div class="stage" id="stage">
+        <div class="fit" id="fit">
+          <div class="device phone" id="device">
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><div class="url" id="chromeUrl"></div></div>
+            <div class="screen" id="screen">
+              <iframe id="frame" title="Prototyp-Vorschau"></iframe>
+              <div class="overlay" id="overlay"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="marks" id="marksPanel" aria-label="Markierungen">
+      <div class="marks-head">
+        <h2>📋 Markierungen <span class="badge zero" id="panelCount">0</span>
+          <button class="btn small icon ghost x" id="sheetClose" type="button" aria-label="Schließen">✕</button>
+        </h2>
+        <div class="seg" role="radiogroup" aria-label="Welche Markierungen">
+          <button type="button" role="radio" aria-checked="true" data-scope="tool" id="scopeTool">Dieses Tool</button>
+          <button type="button" role="radio" aria-checked="false" data-scope="all" id="scopeAll">Alle</button>
+        </div>
+      </div>
+      <ul class="marks-list" id="marksList"></ul>
+      <div class="marks-foot">
+        <button class="btn primary" id="bundleBtn" type="button">🐞 Alle von diesem Tool als 1 Issue</button>
+        <div class="row">
+          <button class="btn small" id="exportBtn" type="button" title="Als Datei speichern">⬇ JSON</button>
+          <button class="btn small" id="copyBtn" type="button" title="In die Zwischenablage">📋 Kopieren</button>
+          <button class="btn small" id="importBtn" type="button" title="JSON-Datei laden">⬆ Laden</button>
+          <input type="file" id="importFile" accept="application/json,.json" hidden>
+        </div>
+        <p class="storage-warn" id="storageWarn" hidden>⚠️ Browser-Speicher gesperrt: Markierungen gehen beim Schließen verloren. Vorher ⬇ JSON.</p>
+      </div>
+    </aside>
   </div>
 
+  <dialog id="noteDlg" aria-labelledby="noteTitle">
+    <form class="dlg" id="noteForm" method="dialog">
+      <h3 id="noteTitle">✏️ Markierung</h3>
+      <div class="meta" id="noteMeta"></div>
+      <label for="noteText">Notiz</label>
+      <textarea id="noteText" placeholder="Was soll sich ändern? z. B. „Knopf zu klein, Text abgeschnitten“"></textarea>
+      <span class="keys">⌘/Strg + Enter speichert · Esc bricht ab</span>
+      <div class="actions">
+        <button class="btn" type="button" id="noteCancel">Abbrechen</button>
+        <button class="btn" type="button" id="noteIssue">🐞 Speichern + Issue</button>
+        <button class="btn primary" type="submit" id="noteSave">Speichern</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
   <script>
-    function filterGallery(category) {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      event.target.classList.add('active');
-      const cards = document.querySelectorAll('.prototype-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+  'use strict';
+
+  const DEVICES = [
+    { id: 'iphone-390', name: 'iPhone 390', short: '390', icon: '📱', w: 390, h: 844, kind: 'phone' },
+    { id: 'iphone-430', name: 'iPhone 430', short: '430', icon: '📱', w: 430, h: 932, kind: 'phone' },
+    { id: 'tablet', name: 'Tablet 820', short: 'Tablet', icon: '📲', w: 820, h: 1180, kind: 'tablet' },
+    { id: 'desktop', name: 'Desktop 1440', short: 'Desktop', icon: '🖥️', w: 1440, h: 900, kind: 'desktop' },
+  ];
+  const DEFAULTS = {
+    repo: 'servas-ai/network-canvas-oneshots',
+    branch: 'feat/canvas-oneshots',
+    pages: 'https://servas-ai.github.io/network-canvas-oneshots/',
+    exclude: ['index.html', 'gallery.html'],
+  };
+  const STORE_KEY = 'oneshots-review:v1';
+  const API_CACHE_KEY = 'oneshots-review:api';
+  const SCHEMA = 'oneshots-review/markierungen@1';
+  const MAX_URL = 7000;
+  const FILE_RE = /^[A-Za-z0-9][\w.-]*\.html$/;
+
+  const $ = (sel) => document.querySelector(sel);
+  const els = {
+    count: $('#countLabel'), pick: $('#pick'), list: $('#list'), listNote: $('#listNote'), search: $('#search'),
+    deviceSeg: $('#deviceSeg'), markBtn: $('#markBtn'), hint: $('#hint'),
+    toolName: $('#toolName'), toolForm: $('#toolForm'), zoom: $('#zoomLabel'),
+    rotateBtn: $('#rotateBtn'), oneBtn: $('#oneBtn'), showBtn: $('#showBtn'), reloadBtn: $('#reloadBtn'), openLink: $('#openLink'), srcLink: $('#srcLink'),
+    stage: $('#stage'), fit: $('#fit'), device: $('#device'), screen: $('#screen'), frame: $('#frame'), overlay: $('#overlay'), chromeUrl: $('#chromeUrl'),
+    panel: $('#marksPanel'), panelCount: $('#panelCount'), sheetBtn: $('#sheetBtn'), sheetCount: $('#sheetCount'), sheetClose: $('#sheetClose'),
+    scopeTool: $('#scopeTool'), scopeAll: $('#scopeAll'), marksList: $('#marksList'),
+    bundleBtn: $('#bundleBtn'), exportBtn: $('#exportBtn'), copyBtn: $('#copyBtn'), importBtn: $('#importBtn'), importFile: $('#importFile'), storageWarn: $('#storageWarn'),
+    dlg: $('#noteDlg'), dlgForm: $('#noteForm'), dlgTitle: $('#noteTitle'), dlgMeta: $('#noteMeta'), dlgText: $('#noteText'),
+    dlgCancel: $('#noteCancel'), dlgIssue: $('#noteIssue'), toast: $('#toast'),
+  };
+
+  const state = {
+    cfg: { ...DEFAULTS },
+    items: [],
+    tool: null,
+    device: DEVICES[0],
+    landscape: false,
+    oneToOne: false,
+    marking: false,
+    showMarks: true,
+    scope: 'tool',
+    marks: [],
+    storageOk: true,
+    selected: null,
+    draft: null,        // { mode: 'new'|'edit', mark, target }
+    frameDoc: null,
+    pendingScroll: null,
+    scale: 1,
+  };
+
+  /* ---------- small helpers ---------- */
+  function h(tag, attrs, ...kids) {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k === 'class') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? '' : v);
     }
+    for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid);
+    return el;
+  }
+  const compact = (v, max = 160) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, max);
+  const short = (v, max) => { const s = compact(v, 1000); return s.length > max ? s.slice(0, max - 1) + '…' : s; };
+  const round1 = (n) => Math.round(n * 10) / 10;
+  const toolId = (file) => file.replace(/\.html$/, '');
+  const nowIso = () => new Date().toISOString();
+  const deviceOf = (id) => DEVICES.find((d) => d.id === id);
+  const pagesUrl = (path = '') => new URL(path, state.cfg.pages).href;
+  const blobUrl = (file) => `https://github.com/${state.cfg.repo}/blob/${state.cfg.branch}/${file}`;
+  const itemOf = (file) => state.items.find((i) => i.file === file);
+  const ART = { element: '🎯 Element', bereich: '▭ Bereich', punkt: '📍 Punkt' };
+  const ART_WORD = { element: 'Element', bereich: 'Bereich', punkt: 'Punkt' };
+
+  function screenSize() {
+    const d = state.device;
+    const swap = state.landscape && d.kind !== 'desktop';
+    return { w: swap ? d.h : d.w, h: swap ? d.w : d.h };
+  }
+
+  let toastTimer;
+  function toast(msg, action) {
+    clearTimeout(toastTimer);
+    els.toast.replaceChildren(h('span', { text: msg }), action ? h('button', { type: 'button', text: action.label, onclick: () => { els.toast.hidden = true; action.run(); } }) : '');
+    els.toast.hidden = false;
+    toastTimer = setTimeout(() => { els.toast.hidden = true; }, action ? 6000 : 3200);
+  }
+
+  function b64urlEncode(str) {
+    let bin = '';
+    for (const byte of new TextEncoder().encode(str)) bin += String.fromCharCode(byte);
+    return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function b64urlDecode(b64) {
+    const bin = atob(b64.replace(/-/g, '+').replace(/_/g, '/'));
+    return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
+  }
+
+  // Synchronous copy keeps the click's user activation for a following window.open.
+  function copyText(text) {
+    const ta = h('textarea', { style: 'position:fixed;top:-1000px;opacity:0', 'aria-hidden': 'true' });
+    ta.value = text;
+    document.body.append(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    ta.remove();
+    if (!ok && navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+    return ok || !!navigator.clipboard;
+  }
+
+  /* ---------- storage ---------- */
+  function loadMarks() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      const data = raw ? JSON.parse(raw) : null;
+      state.marks = Array.isArray(data?.markierungen) ? data.markierungen.map(cleanMark).filter(Boolean) : [];
+      state.storageOk = true;
+    } catch {
+      state.storageOk = false;
+    }
+    els.storageWarn.hidden = state.storageOk;
+  }
+  function saveMarks() {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({ schema: SCHEMA, markierungen: state.marks }));
+      state.storageOk = true;
+    } catch {
+      state.storageOk = false;
+    }
+    els.storageWarn.hidden = state.storageOk;
+  }
+
+  // Imported and stored data is untrusted: keep only known fields with sane values.
+  function cleanMark(m) {
+    if (!m || typeof m !== 'object' || !FILE_RE.test(m.file || '')) return null;
+    const num = (v) => (Number.isFinite(v) ? Math.round(v) : 0);
+    const str = (v, max) => (typeof v === 'string' ? v.slice(0, max) : '');
+    const dev = deviceOf(m.geraet?.id) || DEVICES[0];
+    const el = m.element && typeof m.element === 'object' ? {
+      tag: str(m.element.tag, 40), selector: str(m.element.selector, 400), text: str(m.element.text, 160),
+      name: str(m.element.name, 160), role: str(m.element.role, 40), id: str(m.element.id, 120), testid: str(m.element.testid, 120),
+      offset: { x: round1(+m.element.offset?.x || 0), y: round1(+m.element.offset?.y || 0) },
+    } : null;
+    return {
+      id: str(m.id, 40) || 'm-' + Math.random().toString(36).slice(2, 10),
+      nr: Math.max(1, num(m.nr)),
+      tool: toolId(m.file),
+      name: str(m.name, 80) || toolId(m.file),
+      file: m.file,
+      geraet: { id: dev.id, name: dev.name, breite: num(m.geraet?.breite) || dev.w, hoehe: num(m.geraet?.hoehe) || dev.h, quer: !!m.geraet?.quer },
+      art: ['element', 'bereich', 'punkt'].includes(m.art) ? m.art : 'bereich',
+      x: num(m.x), y: num(m.y), breite: Math.max(1, num(m.breite)), hoehe: Math.max(1, num(m.hoehe)),
+      prozent: { x: round1(+m.prozent?.x || 0), y: round1(+m.prozent?.y || 0), breite: round1(+m.prozent?.breite || 0), hoehe: round1(+m.prozent?.hoehe || 0) },
+      scroll: { x: num(m.scroll?.x), y: num(m.scroll?.y) },
+      element: el,
+      notiz: str(m.notiz, 4000),
+      erstellt: str(m.erstellt, 40) || nowIso(),
+      issueGeoeffnet: str(m.issueGeoeffnet, 40) || null,
+    };
+  }
+
+  function mergeMarks(list) {
+    let added = 0;
+    for (const raw of list) {
+      const m = cleanMark(raw);
+      if (!m || state.marks.some((x) => x.id === m.id)) continue;
+      const taken = state.marks.filter((x) => x.file === m.file);
+      if (taken.some((x) => x.nr === m.nr)) m.nr = 1 + Math.max(...taken.map((x) => x.nr));
+      state.marks.push(m);
+      added++;
+    }
+    if (added) saveMarks();
+    return added;
+  }
+
+  /* ---------- prototype list ---------- */
+  async function loadManifest() {
+    try {
+      const res = await fetch('manifest.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      Object.assign(state.cfg, { repo: data.repo || DEFAULTS.repo, branch: data.branch || DEFAULTS.branch, pages: data.pages || DEFAULTS.pages, exclude: data.exclude || DEFAULTS.exclude });
+      state.items = (data.items || []).filter((i) => FILE_RE.test(i.file || '')).map((i) => ({ ...i, source: 'manifest' }));
+    } catch {
+      els.listNote.textContent = '⚠️ manifest.json nicht ladbar. Seite über http öffnen (python3 -m http.server).';
+    }
+  }
+
+  // Files on the Pages branch that the manifest does not know yet (public API, no token).
+  async function discover() {
+    if (!/^https?:$/.test(location.protocol)) return;
+    let names = null;
+    try {
+      const cached = JSON.parse(sessionStorage.getItem(API_CACHE_KEY) || 'null');
+      if (cached && Date.now() - cached.at < 10 * 60 * 1000 && cached.branch === state.cfg.branch) names = cached.names;
+    } catch { /* storage blocked: just ask the API */ }
+    if (!names) {
+      try {
+        const res = await fetch(`https://api.github.com/repos/${state.cfg.repo}/contents/?ref=${encodeURIComponent(state.cfg.branch)}`, { headers: { Accept: 'application/vnd.github+json' } });
+        if (!res.ok) return;
+        names = (await res.json()).filter((f) => f.type === 'file').map((f) => f.name);
+        try { sessionStorage.setItem(API_CACHE_KEY, JSON.stringify({ at: Date.now(), branch: state.cfg.branch, names })); } catch { /* ignore */ }
+      } catch { return; }
+    }
+    const known = new Set([...state.items.map((i) => i.file), ...state.cfg.exclude]);
+    const fresh = names.filter((n) => FILE_RE.test(n) && !known.has(n)).slice(0, 30);
+    for (const file of fresh) {
+      let name = toolId(file);
+      try {
+        const html = await (await fetch(file, { cache: 'no-cache' })).text();
+        const title = new DOMParser().parseFromString(html, 'text/html').title;
+        if (title) name = compact(title.split(/[—–|-]/)[0], 60) || name;
+      } catch { /* keep file name */ }
+      state.items.push({ file, name, category: 'Neu', form: 'nicht im Manifest', description: '', tags: [], screenshot: 'screenshots/' + toolId(file) + '.png', source: 'api' });
+    }
+    if (fresh.length) { renderList(); renderCount(); }
+  }
+
+  function renderCount() {
+    const by = {};
+    for (const i of state.items) by[i.category] = (by[i.category] || 0) + 1;
+    els.count.textContent = `${state.items.length} Prototypen · ` + Object.entries(by).map(([k, v]) => `${v} ${k}`).join(' · ');
+  }
+
+  function markCount(file) { return state.marks.filter((m) => m.file === file).length; }
+
+  function renderList() {
+    const q = els.search.value.trim().toLowerCase();
+    const groups = new Map();
+    for (const i of state.items) {
+      const hay = [i.name, i.file, i.form, i.category, ...(i.tags || [])].join(' ').toLowerCase();
+      if (q && !hay.includes(q)) continue;
+      if (!groups.has(i.category)) groups.set(i.category, []);
+      groups.get(i.category).push(i);
+    }
+    const out = [];
+    for (const [cat, items] of groups) {
+      out.push(h('div', { class: 'group-title' }, h('span', { text: cat }), h('span', { text: String(items.length) })));
+      for (const i of items) {
+        const n = markCount(i.file);
+        const img = h('img', { src: i.screenshot, alt: '', loading: 'lazy' });
+        img.addEventListener('error', () => img.replaceWith(h('span', { class: 'noimg' })), { once: true });
+        out.push(h('button', { class: 'item', type: 'button', 'aria-current': i.file === state.tool?.file ? 'true' : 'false', title: i.description || i.name, onclick: () => selectTool(i.file) },
+          img,
+          h('span', {}, h('span', { class: 't' }, i.name, i.source === 'api' ? h('span', { class: 'chip-new', text: 'NEU' }) : ''), h('span', { class: 'f', text: i.form || i.file })),
+          h('span', { class: 'badge' + (n ? '' : ' zero'), text: String(n), title: `${n} Markierungen` })));
+      }
+    }
+    if (!out.length) out.push(h('p', { class: 'list-note', text: 'Nichts gefunden.' }));
+    els.list.replaceChildren(...out);
+
+    els.pick.replaceChildren(...[...new Set(state.items.map((i) => i.category))].map((cat) =>
+      h('optgroup', { label: cat }, state.items.filter((i) => i.category === cat).map((i) => {
+        const n = markCount(i.file);
+        return h('option', { value: i.file, selected: i.file === state.tool?.file, text: `${i.name}${n ? ` · ${n} ✏️` : ''}` });
+      }))));
+  }
+
+  /* ---------- stage ---------- */
+  function renderDeviceSeg() {
+    els.deviceSeg.replaceChildren(...DEVICES.map((d) => h('button', {
+      type: 'button', role: 'radio', 'aria-checked': d.id === state.device.id ? 'true' : 'false', title: `${d.name} · ${d.w} × ${d.h}`,
+      onclick: () => setDevice(d.id),
+    }, h('span', { class: 's-long', text: `${d.icon} ${d.name}` }), h('span', { class: 's-short', text: d.short }))));
+  }
+
+  function syncUrl() {
+    const p = new URLSearchParams();
+    if (state.tool) p.set('tool', toolId(state.tool.file));
+    p.set('geraet', state.device.id);
+    if (state.landscape) p.set('quer', '1');
+    history.replaceState(null, '', `${location.pathname}?${p}`);
+  }
+
+  function selectTool(file, { keepScroll = false } = {}) {
+    const item = itemOf(file);
+    if (!item) return;
+    const same = state.tool?.file === file;
+    state.tool = item;
+    if (!keepScroll) state.pendingScroll = null;
+    els.toolName.textContent = item.name;
+    els.toolForm.textContent = `${item.category} · ${item.form || item.file}`;
+    els.openLink.href = item.file;
+    els.srcLink.href = blobUrl(item.file);
+    els.chromeUrl.textContent = pagesUrl(item.file).replace(/^https?:\/\//, '');
+    if (!same) { state.frameDoc = null; els.frame.src = item.file; }
+    else applyPendingScroll();
+    renderList();
+    renderOverlay();
+    renderPanel();
+    syncUrl();
+  }
+
+  function setDevice(id) {
+    const d = deviceOf(id);
+    if (!d) return;
+    state.device = d;
+    if (d.kind === 'desktop') state.landscape = false;
+    applyFrame();
+    renderDeviceSeg();
+    renderOverlay();
+    syncUrl();
+  }
+
+  function applyFrame() {
+    const { w, h: hgt } = screenSize();
+    els.device.className = 'device ' + state.device.kind;
+    els.screen.style.width = w + 'px';
+    els.screen.style.height = hgt + 'px';
+    els.rotateBtn.disabled = state.device.kind === 'desktop';
+    els.rotateBtn.setAttribute('aria-pressed', String(state.landscape));
+    fit();
+  }
+
+  function fit() {
+    const { w, h: hgt } = screenSize();
+    const fw = els.device.offsetWidth, fh = els.device.offsetHeight;
+    let s = 1;
+    if (!state.oneToOne) {
+      const st = els.stage.getBoundingClientRect();
+      const pad = parseFloat(getComputedStyle(els.stage).paddingLeft) || 0;
+      s = Math.min(1, (st.width - pad * 2) / fw, (st.height - pad * 2) / fh);
+      s = Math.max(0.12, s);
+    }
+    state.scale = s;
+    els.device.style.transform = `scale(${s})`;
+    els.fit.style.width = fw * s + 'px';
+    els.fit.style.height = fh * s + 'px';
+    els.stage.classList.toggle('one', state.oneToOne);
+    els.zoom.textContent = `${w} × ${hgt} · ${Math.round(s * 100)} %`;
+  }
+
+  function frameScroll() {
+    try { const win = els.frame.contentWindow; return { x: Math.round(win.scrollX), y: Math.round(win.scrollY) }; }
+    catch { return { x: 0, y: 0 }; }
+  }
+
+  function applyPendingScroll() {
+    if (!state.pendingScroll) return;
+    try { els.frame.contentWindow.scrollTo(state.pendingScroll.x, state.pendingScroll.y); } catch { /* cross-origin */ }
+    state.pendingScroll = null;
+  }
+
+  els.frame.addEventListener('load', () => {
+    state.frameDoc = null;
+    try {
+      state.frameDoc = els.frame.contentDocument;
+      els.frame.contentWindow.addEventListener('scroll', () => requestAnimationFrame(renderOverlay), { passive: true });
+    } catch { /* cross-origin: area marks still work, element anchors do not */ }
+    applyPendingScroll();
+    renderOverlay();
+    if (state.selected) flash(state.selected);
+  });
+
+  /* ---------- element anchors ----------
+     Kept small from servas-ai/agent-installer apps/studio/canvas/anchors.mjs (@8b121524):
+     semantic identity (tag, id, data-testid, role, name, text) instead of geometry. */
+  const INLINE = new Set(['SPAN', 'B', 'I', 'EM', 'STRONG', 'SMALL', 'CODE', 'KBD', 'SUB', 'SUP', 'MARK', 'U', 'S', 'BR']);
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  function pickTarget(el) {
+    const body = el?.ownerDocument?.body;
+    while (el && el !== body && el.parentElement) {
+      if (el.namespaceURI === SVG_NS && el.tagName.toLowerCase() !== 'svg') {
+        const r = el.getBoundingClientRect();
+        if (r.width >= 8 && r.height >= 8) return el;
+        el = el.ownerSVGElement || el.parentElement;
+        continue;
+      }
+      if (INLINE.has(el.tagName)) { el = el.parentElement; continue; }
+      return el;
+    }
+    return el;
+  }
+
+  function selectorOf(el) {
+    const parts = [];
+    for (let n = el; n && n.nodeType === 1 && n.tagName !== 'HTML' && parts.length < 5; n = n.parentElement) {
+      const tag = n.tagName.toLowerCase();
+      if (n.id && /^[A-Za-z][\w-]*$/.test(n.id)) { parts.unshift(`${tag}#${n.id}`); break; }
+      if (tag === 'body') { parts.unshift('body'); break; }
+      const cls = [...n.classList].filter((c) => /^[A-Za-z_][\w-]*$/.test(c)).slice(0, 2).map((c) => '.' + c).join('');
+      const peers = n.parentElement ? [...n.parentElement.children].filter((c) => c.tagName === n.tagName) : [];
+      const nth = peers.length > 1 ? `:nth-of-type(${peers.indexOf(n) + 1})` : '';
+      parts.unshift(tag + cls + nth);
+    }
+    return parts.join(' > ');
+  }
+
+  function anchorOf(el, point) {
+    const r = el.getBoundingClientRect();
+    const role = el.getAttribute('role') || ({ BUTTON: 'button', A: 'link', IMG: 'img', INPUT: 'textbox' })[el.tagName] || '';
+    // Never collect typed form values. Visible contenteditable text (sticky notes) is kept.
+    const text = el.matches('input,textarea,select') ? '' : compact(el.innerText || el.textContent || el.getAttribute('alt'));
+    return {
+      tag: el.tagName.toLowerCase(),
+      selector: selectorOf(el),
+      text,
+      name: compact(el.getAttribute('aria-label') || el.getAttribute('title') || el.getAttribute('alt') || ''),
+      role: compact(role, 40),
+      id: compact(el.id, 120),
+      testid: compact(el.getAttribute('data-testid'), 120),
+      offset: {
+        x: point && r.width ? round1(Math.max(0, Math.min(1, (point.x - r.left) / r.width))) : 0.5,
+        y: point && r.height ? round1(Math.max(0, Math.min(1, (point.y - r.top) / r.height))) : 0.5,
+      },
+    };
+  }
+
+  function elementAt(x, y) {
+    const doc = state.frameDoc;
+    if (!doc) return null;
+    try { return pickTarget(doc.elementFromPoint(x, y)); } catch { return null; }
+  }
+
+  /* ---------- marking ---------- */
+  function setMarking(on) {
+    state.marking = on;
+    document.body.classList.toggle('marking', on);
+    els.markBtn.classList.toggle('mark-on', on);
+    els.markBtn.setAttribute('aria-pressed', String(on));
+    els.markBtn.textContent = on ? '✅ Fertig' : '✏️ Markieren';
+    els.hint.hidden = !on;
+    hideHover();
+    if (on && !state.showMarks) toggleShowMarks(true);
+    fit();
+  }
+
+  function toFramePoint(ev) {
+    const r = els.overlay.getBoundingClientRect();
+    const { w, h: hgt } = screenSize();
+    return {
+      x: Math.max(0, Math.min(w, (ev.clientX - r.left) * (w / r.width))),
+      y: Math.max(0, Math.min(hgt, (ev.clientY - r.top) * (hgt / r.height))),
+    };
+  }
+
+  let drag = null;
+  let hoverBox = null;
+  let hoverRaf = 0;
+
+  function hideHover() { hoverBox?.remove(); hoverBox = null; }
+
+  function showHover(p) {
+    const el = elementAt(p.x, p.y);
+    if (!el) return hideHover();
+    const r = el.getBoundingClientRect();
+    if (!hoverBox) { hoverBox = h('div', { class: 'hover-box' }, h('span')); els.overlay.append(hoverBox); }
+    Object.assign(hoverBox.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
+    hoverBox.firstChild.textContent = selectorOf(el).split(' > ').pop();
+  }
+
+  els.overlay.addEventListener('pointerdown', (ev) => {
+    if (!state.marking || ev.button > 0 || ev.target.closest('.mk-badge')) return;
+    ev.preventDefault();
+    els.overlay.setPointerCapture(ev.pointerId);
+    drag = { start: toFramePoint(ev), box: null, moved: false };
+    hideHover();
+  });
+
+  els.overlay.addEventListener('pointermove', (ev) => {
+    if (!state.marking) return;
+    const p = toFramePoint(ev);
+    if (!drag) {
+      if (ev.pointerType === 'mouse') { cancelAnimationFrame(hoverRaf); hoverRaf = requestAnimationFrame(() => showHover(p)); }
+      return;
+    }
+    const dx = p.x - drag.start.x, dy = p.y - drag.start.y;
+    if (!drag.moved && Math.hypot(dx, dy) < 6) return;
+    drag.moved = true;
+    if (!drag.box) { drag.box = h('div', { class: 'mk draft' }); els.overlay.append(drag.box); }
+    Object.assign(drag.box.style, {
+      left: Math.min(p.x, drag.start.x) + 'px', top: Math.min(p.y, drag.start.y) + 'px',
+      width: Math.abs(dx) + 'px', height: Math.abs(dy) + 'px',
+    });
+  });
+
+  els.overlay.addEventListener('pointerup', (ev) => {
+    if (!drag) return;
+    const p = toFramePoint(ev);
+    const d = drag;
+    drag = null;
+    d.box?.remove();
+    const rect = { x: Math.min(p.x, d.start.x), y: Math.min(p.y, d.start.y), w: Math.abs(p.x - d.start.x), h: Math.abs(p.y - d.start.y) };
+    if (d.moved && rect.w >= 8 && rect.h >= 8) startDraft('bereich', rect, { x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 });
+    else startDraft('element', null, d.start);
+  });
+  els.overlay.addEventListener('pointercancel', () => { drag?.box?.remove(); drag = null; });
+  els.overlay.addEventListener('pointerleave', () => { if (!drag) hideHover(); });
+
+  function startDraft(art, rect, point) {
+    if (!state.tool) return;
+    const { w, h: hgt } = screenSize();
+    let target = elementAt(point.x, point.y);
+    if (art === 'element') {
+      const r = target?.getBoundingClientRect();
+      // Clicking empty canvas or a huge container: mark the spot instead of the whole element.
+      if (!r || r.width * r.height > 0.5 * w * hgt) {
+        art = 'punkt';
+        rect = { x: point.x - 12, y: point.y - 12, w: 24, h: 24 };
+      } else {
+        rect = { x: r.left, y: r.top, w: r.width, h: r.height };
+      }
+    } else if (target) {
+      const r = target.getBoundingClientRect();
+      if (r.width * r.height > 4 * rect.w * rect.h) target = null;
+    }
+    const tool = state.tool;
+    const mark = cleanMark({
+      id: 'm-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      nr: 1 + Math.max(0, ...state.marks.filter((m) => m.file === tool.file).map((m) => m.nr)),
+      name: tool.name, file: tool.file,
+      geraet: { id: state.device.id, breite: w, hoehe: hgt, quer: state.landscape },
+      art, x: rect.x, y: rect.y, breite: rect.w, hoehe: rect.h,
+      prozent: { x: rect.x / w * 100, y: rect.y / hgt * 100, breite: rect.w / w * 100, hoehe: rect.h / hgt * 100 },
+      scroll: frameScroll(),
+      element: target ? anchorOf(target, point) : null,
+      notiz: '', erstellt: nowIso(),
+    });
+    state.draft = { mode: 'new', mark, target, point };
+    renderOverlay();
+    openDialog();
+  }
+
+  function growDraft() {
+    const d = state.draft;
+    const parent = d?.target?.parentElement;
+    if (!parent || parent.tagName === 'HTML') return;
+    const { w, h: hgt } = screenSize();
+    const r = parent.getBoundingClientRect();
+    d.target = parent;
+    Object.assign(d.mark, { art: 'element', x: Math.round(r.left), y: Math.round(r.top), breite: Math.round(r.width), hoehe: Math.round(r.height),
+      prozent: { x: round1(r.left / w * 100), y: round1(r.top / hgt * 100), breite: round1(r.width / w * 100), hoehe: round1(r.height / hgt * 100) },
+      element: anchorOf(parent, d.point) });
+    renderOverlay();
+    renderDialogMeta();
+  }
+
+  function renderDialogMeta() {
+    const { mark, target, mode } = state.draft;
+    const el = mark.element;
+    els.dlgTitle.textContent = `${mode === 'edit' ? '📝 Notiz ändern' : '✏️ Neue Markierung'} · #${mark.nr} ${mark.name}`;
+    const canGrow = mode === 'new' && mark.art === 'element' && target?.parentElement && target.parentElement.tagName !== 'HTML';
+    els.dlgMeta.replaceChildren(
+      h('span', { text: ART[mark.art] }),
+      h('span', { text: `📐 ${mark.geraet.name}${mark.geraet.quer ? ' quer' : ''} · ${mark.breite} × ${mark.hoehe} px` }),
+      el ? h('code', { text: el.selector.split(' > ').slice(-2).join(' > ') + (el.text ? ` „${short(el.text, 40)}“` : '') }) : '',
+      canGrow ? h('button', { class: 'btn small', type: 'button', text: '⬆ Größeres Element', onclick: growDraft }) : '');
+  }
+
+  function openDialog() {
+    renderDialogMeta();
+    els.dlgText.value = state.draft.mark.notiz;
+    els.dlg.showModal();
+    els.dlgText.focus();
+  }
+
+  function closeDialog(save, thenIssue = false) {
+    const d = state.draft;
+    if (!d) return;
+    state.draft = null;
+    if (els.dlg.open) els.dlg.close();
+    if (save) {
+      d.mark.notiz = els.dlgText.value.trim().slice(0, 4000);
+      if (d.mode === 'new') state.marks.push(d.mark);
+      else Object.assign(state.marks.find((m) => m.id === d.mark.id) || {}, { notiz: d.mark.notiz });
+      state.selected = d.mark.id;
+      saveMarks();
+      renderList();
+      renderPanel();
+      if (thenIssue) openIssue([state.marks.find((m) => m.id === d.mark.id)]);
+      else toast(d.mode === 'new' ? `✅ Markierung #${d.mark.nr} gespeichert` : '✅ Notiz geändert');
+    }
+    renderOverlay();
+  }
+
+  els.dlgForm.addEventListener('submit', (ev) => { ev.preventDefault(); closeDialog(true); });
+  els.dlgCancel.addEventListener('click', () => closeDialog(false));
+  els.dlgIssue.addEventListener('click', () => closeDialog(true, true));
+  els.dlg.addEventListener('cancel', (ev) => { ev.preventDefault(); closeDialog(false); });
+  els.dlgText.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' && (ev.metaKey || ev.ctrlKey)) { ev.preventDefault(); closeDialog(true); } });
+
+  function editMark(id) {
+    const m = state.marks.find((x) => x.id === id);
+    if (!m) return;
+    state.draft = { mode: 'edit', mark: { ...m }, target: null };
+    openDialog();
+  }
+
+  function deleteMark(id) {
+    const i = state.marks.findIndex((m) => m.id === id);
+    if (i < 0) return;
+    const [removed] = state.marks.splice(i, 1);
+    saveMarks(); renderList(); renderPanel(); renderOverlay();
+    toast(`🗑 #${removed.nr} gelöscht`, { label: 'Rückgängig', run: () => { state.marks.splice(i, 0, removed); saveMarks(); renderList(); renderPanel(); renderOverlay(); } });
+  }
+
+  function showMark(id) {
+    const m = state.marks.find((x) => x.id === id);
+    if (!m) return;
+    state.selected = id;
+    state.landscape = m.geraet.quer;
+    state.pendingScroll = m.scroll;
+    if (state.device.id !== m.geraet.id) setDevice(m.geraet.id); else applyFrame();
+    if (!state.showMarks) toggleShowMarks(true);
+    selectTool(m.file, { keepScroll: true });
+    renderPanel();
+    flash(id);
+    if (matchMedia('(max-width: 900px)').matches) openSheet(false);
+  }
+
+  function flash(id) {
+    const box = els.overlay.querySelector(`[data-id="${CSS.escape(id)}"]`);
+    if (!box) return;
+    box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+  }
+
+  function visibleMarks() {
+    if (!state.tool) return [];
+    const { w, h: hgt } = screenSize();
+    return state.marks.filter((m) => m.file === state.tool.file && m.geraet.id === state.device.id && m.geraet.breite === w && m.geraet.hoehe === hgt);
+  }
+
+  function renderOverlay() {
+    const cur = frameScroll();
+    const { w } = screenSize();
+    const boxes = [];
+    const list = [...visibleMarks()];
+    if (state.draft?.mode === 'new') list.push(state.draft.mark);
+    for (const m of list) {
+      const isDraft = state.draft?.mark === m;
+      const left = m.x + m.scroll.x - cur.x, top = m.y + m.scroll.y - cur.y;
+      const box = h('div', { class: `mk ${m.art}${isDraft ? ' draft' : ''}${m.issueGeoeffnet ? ' issue' : ''}${top < 28 ? ' low' : ''}${left + 180 > w ? ' right' : ''}`, 'data-id': m.id });
+      Object.assign(box.style, { left: left + 'px', top: top + 'px', width: m.breite + 'px', height: m.hoehe + 'px' });
+      box.append(h('span', { class: 'mk-badge', title: m.notiz || '(ohne Notiz)', text: `#${m.nr}${m.notiz ? ' ' + short(m.notiz, 28) : ''}`,
+        onclick: (ev) => { ev.stopPropagation(); if (!isDraft) selectInPanel(m.id); } }));
+      boxes.push(box);
+    }
+    els.overlay.replaceChildren(...boxes);
+    hoverBox = null;
+    els.overlay.classList.toggle('hide-marks', !state.showMarks);
+  }
+
+  function selectInPanel(id) {
+    state.selected = id;
+    renderPanel();
+    if (matchMedia('(max-width: 900px)').matches) openSheet(true);
+    els.marksList.querySelector(`[data-id="${CSS.escape(id)}"]`)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  function toggleShowMarks(force) {
+    state.showMarks = typeof force === 'boolean' ? force : !state.showMarks;
+    els.showBtn.setAttribute('aria-pressed', String(state.showMarks));
+    renderOverlay();
+  }
+
+  /* ---------- panel ---------- */
+  function renderPanel() {
+    const forTool = state.tool ? state.marks.filter((m) => m.file === state.tool.file) : [];
+    const list = state.scope === 'tool' ? forTool : state.marks;
+    els.scopeTool.textContent = `Dieses Tool (${forTool.length})`;
+    els.scopeAll.textContent = `Alle (${state.marks.length})`;
+    els.scopeTool.setAttribute('aria-checked', String(state.scope === 'tool'));
+    els.scopeAll.setAttribute('aria-checked', String(state.scope === 'all'));
+    for (const b of [els.panelCount, els.sheetCount]) { b.textContent = String(state.marks.length); b.classList.toggle('zero', !state.marks.length); }
+    els.bundleBtn.textContent = `🐞 Alle von ${state.tool?.name || 'diesem Tool'} als 1 Issue (${forTool.length})`;
+    els.bundleBtn.disabled = forTool.length === 0;
+    els.exportBtn.disabled = els.copyBtn.disabled = state.marks.length === 0;
+
+    if (!list.length) {
+      els.marksList.replaceChildren(h('li', { class: 'empty-state' },
+        h('strong', { text: state.marks.length ? 'Für dieses Tool noch keine Markierung.' : 'Noch keine Markierungen.' }),
+        h('ol', {}, h('li', { text: 'Oben ✏️ Markieren drücken (oder Taste M).' }), h('li', { text: 'Im Prototyp klicken (Element) oder ziehen (Bereich), Notiz schreiben.' }), h('li', { text: '🐞 Issue erstellen: GitHub öffnet ein fertig ausgefülltes Formular.' }))));
+      return;
+    }
+    const sorted = [...list].sort((a, b) => (a.file === b.file ? a.nr - b.nr : a.file.localeCompare(b.file)));
+    els.marksList.replaceChildren(...sorted.map((m) => {
+      const el = m.element;
+      return h('li', { class: `card${m.id === state.selected ? ' sel' : ''}${m.issueGeoeffnet ? ' issued' : ''}`, 'data-id': m.id },
+        h('div', { class: 'card-top' },
+          h('span', { class: 'nr', text: '#' + m.nr }),
+          state.scope === 'all' ? h('span', { class: 'tool', text: m.name }) : '',
+          h('span', { text: ART[m.art] }),
+          h('span', { text: `📐 ${m.geraet.name}${m.geraet.quer ? ' quer' : ''}` }),
+          m.issueGeoeffnet ? h('span', { class: 'ok', text: '🐞 Issue geöffnet' }) : ''),
+        h('div', { class: 'note' + (m.notiz ? '' : ' empty'), text: m.notiz || '(ohne Notiz)' }),
+        el ? h('div', { class: 'el', title: el.selector, text: el.selector.split(' > ').slice(-2).join(' > ') + (el.text ? `  „${short(el.text, 60)}“` : '') }) : '',
+        h('div', { class: 'card-actions' },
+          h('button', { class: 'btn small primary', type: 'button', text: m.issueGeoeffnet ? '🐞 Nochmal als Issue' : '🐞 Issue erstellen', onclick: () => openIssue([m]) }),
+          h('button', { class: 'btn small', type: 'button', text: '🎯 Zeigen', onclick: () => showMark(m.id) }),
+          h('button', { class: 'btn small icon', type: 'button', title: 'Notiz ändern', 'aria-label': `Notiz von #${m.nr} ändern`, text: '📝', onclick: () => editMark(m.id) }),
+          h('button', { class: 'btn small icon danger', type: 'button', title: 'Löschen', 'aria-label': `#${m.nr} löschen`, text: '🗑', onclick: () => deleteMark(m.id) })));
+    }));
+  }
+
+  function openSheet(open) {
+    els.panel.classList.toggle('open', open);
+    els.sheetBtn.setAttribute('aria-expanded', String(open));
+  }
+
+  /* ---------- export / import ---------- */
+  function exportData() {
+    return { schema: SCHEMA, repo: state.cfg.repo, branch: state.cfg.branch, exportiert: nowIso(), quelle: pagesUrl(), markierungen: state.marks };
+  }
+
+  els.exportBtn.addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(exportData(), null, 2)], { type: 'application/json' });
+    const a = h('a', { href: URL.createObjectURL(blob), download: `oneshots-markierungen-${new Date().toISOString().slice(0, 10)}.json` });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    toast(`⬇ ${state.marks.length} Markierungen als JSON gespeichert`);
+  });
+  els.copyBtn.addEventListener('click', () => {
+    copyText(JSON.stringify(exportData(), null, 2));
+    toast(`📋 ${state.marks.length} Markierungen als JSON kopiert`);
+  });
+  els.importBtn.addEventListener('click', () => els.importFile.click());
+  els.importFile.addEventListener('change', async () => {
+    const file = els.importFile.files[0];
+    els.importFile.value = '';
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      const n = mergeMarks(Array.isArray(data) ? data : data.markierungen || []);
+      renderList(); renderPanel(); renderOverlay();
+      toast(n ? `⬆ ${n} Markierungen übernommen` : 'Keine neuen Markierungen in der Datei');
+    } catch {
+      toast('⚠️ Datei ist kein gültiges Markierungs-JSON');
+    }
+  });
+
+  /* ---------- GitHub issue (prefilled link, no token) ---------- */
+  function liteMark(m) {
+    const { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, erstellt } = m;
+    return { id, nr, file, name, geraet, art, x, y, breite, hoehe, prozent, scroll, element, notiz, erstellt };
+  }
+
+  function deepLink(m, withData) {
+    const p = new URLSearchParams({ tool: m.tool, geraet: m.geraet.id, m: m.id });
+    if (m.geraet.quer) p.set('quer', '1');
+    return pagesUrl(`?${p}`) + (withData ? '#import=' + b64urlEncode(JSON.stringify([liteMark(m)])) : '');
+  }
+
+  function quote(text) { return (text || '(ohne Notiz)').split('\n').map((l) => '> ' + l).join('\n'); }
+
+  function markSection(m, level, opts) {
+    const p = m.prozent, el = m.element, d = m.geraet;
+    const lines = [
+      `${level} 📍 #${m.nr} · ${m.name} · ${ART[m.art]}`,
+      '',
+      quote(m.notiz),
+      '',
+      `- **Prototyp:** [${m.file}](${pagesUrl(m.file)}) · [Quelltext](${blobUrl(m.file)})`,
+      `- **Gerät:** ${d.name} · ${d.breite} × ${d.hoehe} px${d.quer ? ' · quer' : ''}`,
+      `- **Koordinaten:** x ${m.x} · y ${m.y} · ${m.breite} × ${m.hoehe} px (${p.x} % · ${p.y} % · ${p.breite} % × ${p.hoehe} %)${m.scroll.y || m.scroll.x ? ` · Scroll ${m.scroll.x}/${m.scroll.y}` : ''}`,
+    ];
+    if (el) lines.push(`- **Element:** \`${el.selector}\`${el.text ? ` „${short(el.text, 80)}“` : ''}`);
+    lines.push(`- **Ansehen:** [Markierung in der Übersicht öffnen](${deepLink(m, opts.withData)})`);
+    return lines.join('\n');
+  }
+
+  function issueText(marks, opts) {
+    const first = marks[0];
+    const title = marks.length === 1
+      ? `[Review] ${first.name} #${first.nr} · ${short(first.notiz || ART_WORD[first.art] + ' markiert', 60)}`
+      : `[Review] ${first.name} · ${marks.length} Markierungen`;
+    const parts = marks.length === 1
+      ? [markSection(first, '##', opts)]
+      : [`## 🔍 ${first.name} · ${marks.length} Markierungen`, '', ...marks.map((m) => markSection(m, '###', opts) + '\n')];
+    if (opts.withJson) {
+      parts.push('', '<details><summary>📦 Markierungs-JSON</summary>', '', '```json', JSON.stringify({ schema: SCHEMA, markierungen: marks.map(liteMark) }, null, 1), '```', '', '</details>');
+    }
+    parts.push('', `_Erstellt mit der [One-Shot-Review-Übersicht](${pagesUrl()}) · ${new Date().toLocaleString('de-AT', { dateStyle: 'medium', timeStyle: 'short' })}_`);
+    return { title, body: parts.join('\n') };
+  }
+
+  function issueUrl(title, body) {
+    const p = new URLSearchParams({ title });
+    if (body != null) p.set('body', body);
+    return `https://github.com/${state.cfg.repo}/issues/new?${p}`;
+  }
+
+  function openIssue(marks) {
+    marks = marks.filter(Boolean);
+    if (!marks.length) return;
+    let text, url;
+    // Shrink step by step so the link stays below GitHub's URL limit.
+    for (const opts of [{ withJson: true, withData: marks.length === 1 }, { withJson: true, withData: false }, { withJson: false, withData: false }]) {
+      text = issueText(marks, opts);
+      url = issueUrl(text.title, text.body);
+      if (url.length <= MAX_URL) break;
+    }
+    let viaClipboard = false;
+    if (url.length > MAX_URL) {
+      text = issueText(marks, { withJson: true, withData: false });
+      copyText(text.body);
+      url = issueUrl(text.title, null);
+      viaClipboard = true;
+    }
+    const win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    const stamp = nowIso();
+    for (const m of marks) { const s = state.marks.find((x) => x.id === m.id); if (s) s.issueGeoeffnet = stamp; }
+    saveMarks(); renderPanel(); renderOverlay();
+    if (viaClipboard) toast('📋 Body in Zwischenablage, im Issue mit ⌘V / Strg+V einfügen');
+    else if (!win) toast('⚠️ Pop-up blockiert. Link wurde kopiert.', { label: 'Öffnen', run: () => { location.href = url; } });
+    else toast(`🐞 GitHub-Formular geöffnet · dort „Create“ drücken`);
+    if (!win) copyText(url);
+  }
+
+  els.bundleBtn.addEventListener('click', () => {
+    if (!state.tool) return;
+    openIssue(state.marks.filter((m) => m.file === state.tool.file).sort((a, b) => a.nr - b.nr));
+  });
+
+  /* ---------- wiring ---------- */
+  els.markBtn.addEventListener('click', () => setMarking(!state.marking));
+  els.rotateBtn.addEventListener('click', () => { state.landscape = !state.landscape; applyFrame(); renderOverlay(); syncUrl(); });
+  els.oneBtn.addEventListener('click', () => { state.oneToOne = !state.oneToOne; els.oneBtn.setAttribute('aria-pressed', String(state.oneToOne)); fit(); });
+  els.showBtn.addEventListener('click', () => toggleShowMarks());
+  els.reloadBtn.addEventListener('click', () => { try { els.frame.contentWindow.location.reload(); } catch { els.frame.src = state.tool.file; } });
+  els.search.addEventListener('input', renderList);
+  els.pick.addEventListener('change', () => selectTool(els.pick.value));
+  els.sheetBtn.addEventListener('click', () => openSheet(!els.panel.classList.contains('open')));
+  els.sheetClose.addEventListener('click', () => openSheet(false));
+  els.scopeTool.addEventListener('click', () => { state.scope = 'tool'; renderPanel(); });
+  els.scopeAll.addEventListener('click', () => { state.scope = 'all'; renderPanel(); });
+  new ResizeObserver(() => fit()).observe(els.stage);
+  window.addEventListener('storage', (ev) => { if (ev.key === STORE_KEY) { loadMarks(); renderList(); renderPanel(); renderOverlay(); } });
+  document.addEventListener('keydown', (ev) => {
+    if (els.dlg.open || ev.metaKey || ev.ctrlKey || ev.altKey || ev.target.closest('input,textarea,select')) return;
+    if (ev.key === 'm' || ev.key === 'M') { ev.preventDefault(); setMarking(!state.marking); }
+    else if (ev.key === 'Escape' && state.marking) setMarking(false);
+  });
+
+  // A shared link may carry markings in the hash: #import=<base64url JSON>.
+  function importFromHash() {
+    const m = /^#import=([\w-]+)$/.exec(location.hash);
+    if (!m) return 0;
+    try { return mergeMarks(JSON.parse(b64urlDecode(m[1]))); }
+    catch { toast('⚠️ Markierung im Link ist beschädigt'); return 0; }
+  }
+
+  async function init() {
+    loadMarks();
+    renderDeviceSeg();
+    await loadManifest();
+    const imported = importFromHash();
+    const params = new URLSearchParams(location.search);
+    const dev = deviceOf(params.get('geraet'));
+    if (dev) state.device = dev;
+    state.landscape = params.get('quer') === '1' && state.device.kind !== 'desktop';
+    const wanted = params.get('m') && state.marks.find((x) => x.id === params.get('m'));
+    renderCount();
+    renderDeviceSeg();
+    applyFrame();
+    const first = itemOf((params.get('tool') || '') + '.html') || state.items[0];
+    if (wanted) showMark(wanted.id);
+    else if (first) selectTool(first.file);
+    renderPanel();
+    if (imported) toast(`📥 ${imported} Markierung${imported > 1 ? 'en' : ''} aus dem Link übernommen`);
+    discover();
+  }
+  init();
   </script>
 </body>
 </html>

@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "repo": "servas-ai/network-canvas-oneshots",
+  "branch": "feat/canvas-oneshots",
+  "pages": "https://servas-ai.github.io/network-canvas-oneshots/",
+  "exclude": [
+    "index.html",
+    "gallery.html"
+  ],
+  "items": [
+    {
+      "file": "miro.html",
+      "name": "Miro",
+      "category": "Canvas",
+      "form": "Infinite Canvas",
+      "description": "Collaborative strategy board with pan/zoom engine, colored draggable sticky notes, frames, zoom controls, and simulated live cursor sync.",
+      "tags": [
+        "Miro",
+        "Sticky Notes",
+        "Live Cursor",
+        "Pan & Zoom"
+      ],
+      "screenshot": "screenshots/miro.png"
+    },
+    {
+      "file": "figjam.html",
+      "name": "FigJam",
+      "category": "Canvas",
+      "form": "Whiteboard",
+      "description": "Playful Figma-style whiteboard with floating bottom dock, section containers, sticky notes with author chips, and clickable reaction stamps.",
+      "tags": [
+        "FigJam",
+        "Dock",
+        "Stamps",
+        "Sections"
+      ],
+      "screenshot": "screenshots/figjam.png"
+    },
+    {
+      "file": "lucidchart.html",
+      "name": "Lucidchart",
+      "category": "Canvas",
+      "form": "Diagramming",
+      "description": "Enterprise cloud architecture diagram with left shape library dock, top formatting ribbon, right inspector panel, and orthogonal elbow connectors.",
+      "tags": [
+        "Lucidchart",
+        "Flowchart",
+        "Orthogonal",
+        "Inspector"
+      ],
+      "screenshot": "screenshots/lucidchart.png"
+    },
+    {
+      "file": "whimsical.html",
+      "name": "Whimsical",
+      "category": "Canvas",
+      "form": "Mind Map & Flow",
+      "description": "Speed-first workflow canvas with mode switcher, card nodes with status badges, and smooth branching bezier curves connecting trees.",
+      "tags": [
+        "Whimsical",
+        "Mind Map",
+        "Bezier",
+        "SaaS Flow"
+      ],
+      "screenshot": "screenshots/whimsical.png"
+    },
+    {
+      "file": "mural.html",
+      "name": "Mural",
+      "category": "Canvas",
+      "form": "Facilitation",
+      "description": "Facilitation suite with live countdown timer, voting tools, right session outline, 2x2 matrix framework, and color-coded stickies with vote dots.",
+      "tags": [
+        "Mural",
+        "Facilitator",
+        "Timer",
+        "Voting"
+      ],
+      "screenshot": "screenshots/mural.png"
+    },
+    {
+      "file": "opencodex.html",
+      "name": "OpenCodex",
+      "category": "CLI-Dashboard",
+      "form": "Web + Tray",
+      "description": "Multi-account router with 5h rolling & weekly quota bars per account, auto-switch engine on 429 errors, and simulated macOS tray popover preview.",
+      "tags": [
+        "OpenCodex",
+        "Auto-Switch",
+        "5h Limits",
+        "Tray"
+      ],
+      "screenshot": "screenshots/opencodex.png"
+    },
+    {
+      "file": "cpa-manager-plus.html",
+      "name": "CPA-Manager-Plus",
+      "category": "CLI-Dashboard",
+      "form": "Web Ops",
+      "description": "High-density operations cockpit with proxy node health raster (6 nodes), live traffic frequency chart, token mix spectrum, and real-time request logs.",
+      "tags": [
+        "CPA Plus",
+        "Health Matrix",
+        "Token Mix",
+        "Telemetry"
+      ],
+      "screenshot": "screenshots/cpa-manager-plus.png"
+    },
+    {
+      "file": "magpie.html",
+      "name": "Magpie",
+      "category": "CLI-Dashboard",
+      "form": "Desktop / TUI",
+      "description": "Zero-config dynamic model switch and routing groups builder. Select active CLI targets and inspect fallback chains without editing config files.",
+      "tags": [
+        "Magpie",
+        "Model Switch",
+        "Routing Groups",
+        "TUI"
+      ],
+      "screenshot": "screenshots/magpie.png"
+    },
+    {
+      "file": "easycliproxy.html",
+      "name": "EasyCLIProxy",
+      "category": "CLI-Dashboard",
+      "form": "Desktop App",
+      "description": "Clean desktop manager featuring OAuth provider cards (OpenAI, Anthropic, Google, xAI), local proxy endpoint routing table, and instant quota inspector.",
+      "tags": [
+        "EasyCLIProxy",
+        "OAuth 2.0",
+        "Endpoints",
+        "Inspector"
+      ],
+      "screenshot": "screenshots/easycliproxy.png"
+    },
+    {
+      "file": "cliproxy-quota-tray.html",
+      "name": "CLIProxy Quota Tray",
+      "category": "CLI-Dashboard",
+      "form": "macOS Tray",
+      "description": "Compact macOS menubar popover tracking Codex Pro 5-hour rolling limits, Grok weekly & monthly quota progress bars, reset countdowns, and quick actions.",
+      "tags": [
+        "Quota Tray",
+        "Menubar",
+        "Codex Pro",
+        "Grok"
+      ],
+      "screenshot": "screenshots/cliproxy-quota-tray.png"
+    },
+    {
+      "file": "cc-switch.html",
+      "name": "CC Switch",
+      "category": "CLI-Dashboard",
+      "form": "Desktop App",
+      "description": "Provider switcher displaying both 5-hour rolling limit and 7-day quota percentages directly in each provider row, with instant profile activation.",
+      "tags": [
+        "CC Switch",
+        "5h & 7d Gauge",
+        "Profile Switch",
+        "Claude"
+      ],
+      "screenshot": "screenshots/cc-switch.png"
+    },
+    {
+      "file": "9router.html",
+      "name": "9Router",
+      "category": "CLI-Dashboard",
+      "form": "Web Gateway",
+      "description": "Three-stage fallback cascade: Stage 1 (Flatrate Abo), Stage 2 (Cheap Pay-As-You-Go), Stage 3 (Local / Free Tier), with interactive request test dispatch.",
+      "tags": [
+        "9Router",
+        "3-Stage",
+        "Cost Optimizer",
+        "Simulator"
+      ],
+      "screenshot": "screenshots/9router.png"
+    },
+    {
+      "file": "claude-code-router.html",
+      "name": "Claude Code Router",
+      "category": "CLI-Dashboard",
+      "form": "Control Plane",
+      "description": "Dedicated control plane for Claude Code sessions featuring context window gauge (200k tokens), tool interceptor hooks, and RPM/TPM rate-limit wardens.",
+      "tags": [
+        "Claude Code",
+        "Control Plane",
+        "Context Gauge",
+        "Hooks"
+      ],
+      "screenshot": "screenshots/claude-code-router.png"
+    },
+    {
+      "file": "cliproxyapi-usage.html",
+      "name": "cliproxyapi-usage",
+      "category": "CLI-Dashboard",
+      "form": "Web Analytics",
+      "description": "Aggregated dashboard reporting 5h and 7-day residual allowances across all active Codex accounts alongside local machine token burn broken down by CLI.",
+      "tags": [
+        "CLIProxyAPI",
+        "Multi-Account",
+        "Token Burn",
+        "Analytics"
+      ],
+      "screenshot": "screenshots/cliproxyapi-usage.png"
+    },
+    {
+      "file": "tokscale.html",
+      "name": "Tokscale",
+      "category": "CLI-Dashboard",
+      "form": "Terminal / TUI",
+      "description": "Retro terminal token monitor featuring a 52-week GitHub-style contribution heatmap grid, 24-hour hourly burn spectrum, and local agent consumption stats.",
+      "tags": [
+        "Tokscale",
+        "Heatmap",
+        "Tagesraster",
+        "Terminal TUI"
+      ],
+      "screenshot": "screenshots/tokscale.png"
+    }
+  ]
+}

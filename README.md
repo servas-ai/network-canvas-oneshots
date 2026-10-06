@@ -2,7 +2,20 @@
 
 A collection of **15 high-fidelity, self-contained single-file HTML one-shot prototypes** covering top proprietary whiteboard canvases, proxy control planes, and usage dashboards.
 
-Explore the live visual gallery: **[`index.html`](./index.html)**.
+## 🔍 Review-Übersicht (live markieren → GitHub-Issue)
+
+**Öffnen:** https://servas-ai.github.io/network-canvas-oneshots/ · Quelltext [`index.html`](./index.html)
+
+1. **Prototyp wählen** (Liste links, auf dem Handy oben im Menü). Alle One-Shots kommen aus [`manifest.json`](./manifest.json); neue `.html`-Dateien im Branch ergänzt die GitHub-API automatisch.
+2. **Gerät wählen:** 📱 iPhone 390 · 📱 iPhone 430 · 📲 Tablet 820 · 🖥️ Desktop 1440. Der Prototyp läuft in echter Breite, nur die Anzeige wird eingepasst. ⟳ dreht auf quer, ⤢ zeigt 1:1.
+3. **✏️ Markieren** (oder Taste `M`): **Klicken** markiert ein Element, **Ziehen** einen Bereich. Notiz schreiben, Speichern.
+4. **🐞 Issue erstellen:** GitHub öffnet ein fertig ausgefülltes Formular (Tool, Gerät, Koordinaten, Element, Notiz, JSON). Nur noch „Create“ drücken. Kein Token, kein Server.
+
+- **Markierungen abholen:** Liste rechts · ⬇ JSON (Datei) · 📋 Kopieren · ⬆ Laden. Sie bleiben im Browser gespeichert (localStorage).
+- **Im Issue** steht ein Link „Markierung in der Übersicht öffnen“: er zeigt die Markierung auf jedem Gerät wieder an.
+- **Agenten** finden alle Review-Issues mit `gh issue list -R servas-ai/network-canvas-oneshots --search "[Review] in:title"`; der JSON-Block im Body hat das Schema `oneshots-review/markierungen@1`.
+- **Neue One-Shot hinzufügen:** `.html` + `screenshots/<name>.png` ins Repo-Root, dann `python3 scripts/update-manifest.py` (trägt sie mit Titel ein; Kategorie danach im Manifest anpassen).
+- **Planung:** OpenSpec [`oneshots-review-overview-20261006`](./openspec/changes/oneshots-review-overview-20261006/proposal.md). Die frühere statische Galerie liegt jetzt unter [`gallery.html`](./gallery.html).
 
 ---
 
@@ -37,4 +50,4 @@ Explore the live visual gallery: **[`index.html`](./index.html)**.
 
 ## 🖼️ Gallery Project Showroom
 
-The complete visual showroom is located at [`index.html`](./index.html), featuring interactive category filtering, live prototype links, and high-resolution screenshots generated via `opencli browser screenshot`.
+The static visual showroom is located at [`gallery.html`](./gallery.html), featuring interactive category filtering, live prototype links, and high-resolution screenshots generated via `opencli browser screenshot`.
