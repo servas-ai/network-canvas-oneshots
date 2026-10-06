@@ -78,5 +78,60 @@
     "tool": "index",
     "command": "opencli browser uqsbxvfe screenshot screenshots/index.png --width 1440 --height 1000 --full-page",
     "timestamp": "2026-10-06T22:38:52+0200"
+  },
+  {
+    "tool": "whimsical",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/whimsical.png --width 1440 --height 1000",
+    "timestamp": "2026-10-06T22:43:28+0200"
+  },
+  {
+    "tool": "opencodex",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/opencodex.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:43:57+0200"
+  },
+  {
+    "tool": "cpa-manager-plus",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cpa-manager-plus.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:45:06+0200"
+  },
+  {
+    "tool": "easycliproxy",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/easycliproxy.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:45:55+0200"
+  },
+  {
+    "tool": "cliproxy-quota-tray",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cliproxy-quota-tray.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:46:08+0200"
+  },
+  {
+    "tool": "9router",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/9router.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:46:38+0200"
+  },
+  {
+    "tool": "cliproxyapi-usage",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cliproxyapi-usage.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:47:08+0200"
+  },
+  {
+    "tool": "tokscale",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/tokscale.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:47:36+0200"
+  },
+  {
+    "tool": "index",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/index.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:47:48+0200"
+  },
+  {
+    "tool": "opencodex",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/opencodex.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:48:09+0200"
+  },
+  {
+    "tool": "cpa-manager-plus",
+    "command": "opencli browser uqsbxvfe screenshot screenshots/cpa-manager-plus.png --width 1440 --height 1000 --full-page",
+    "timestamp": "2026-10-06T22:48:27+0200"
   }
 ]

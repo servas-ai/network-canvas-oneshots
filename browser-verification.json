@@ -1,0 +1,206 @@
+[
+  {
+    "file": "miro.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "note creation",
+      "canvas zoom"
+    ],
+    "errors": []
+  },
+  {
+    "file": "figjam.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "note creation",
+      "canvas zoom"
+    ],
+    "errors": []
+  },
+  {
+    "file": "lucidchart.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "canvas zoom"
+    ],
+    "errors": []
+  },
+  {
+    "file": "whimsical.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "note creation",
+      "canvas zoom"
+    ],
+    "errors": []
+  },
+  {
+    "file": "mural.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "note creation",
+      "canvas zoom"
+    ],
+    "errors": []
+  },
+  {
+    "file": "opencodex.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle",
+      "provider activation",
+      "cooldown lockout",
+      "routing badge sync"
+    ],
+    "errors": []
+  },
+  {
+    "file": "cpa-manager-plus.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle",
+      "page-specific export totals"
+    ],
+    "errors": []
+  },
+  {
+    "file": "magpie.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle"
+    ],
+    "errors": []
+  },
+  {
+    "file": "easycliproxy.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle",
+      "protocol endpoint copying"
+    ],
+    "errors": []
+  },
+  {
+    "file": "cliproxy-quota-tray.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG"
+    ],
+    "errors": []
+  },
+  {
+    "file": "cc-switch.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle",
+      "provider activation",
+      "tool filter"
+    ],
+    "errors": []
+  },
+  {
+    "file": "9router.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle",
+      "primary and fallback simulation"
+    ],
+    "errors": []
+  },
+  {
+    "file": "claude-code-router.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle"
+    ],
+    "errors": []
+  },
+  {
+    "file": "cliproxyapi-usage.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle",
+      "page-specific export totals"
+    ],
+    "errors": []
+  },
+  {
+    "file": "tokscale.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "page-specific export totals"
+    ],
+    "errors": []
+  },
+  {
+    "file": "index.html",
+    "width": 1088,
+    "result": "pass",
+    "checks": [
+      "render",
+      "no horizontal overflow",
+      "inline SVG",
+      "theme toggle"
+    ],
+    "errors": []
+  }
+]

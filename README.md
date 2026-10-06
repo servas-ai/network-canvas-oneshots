@@ -1,40 +1,27 @@
-# Network Canvas & CLI Dashboard Prototypes
+# Premium product one-shots
 
-A collection of **15 high-fidelity, self-contained single-file HTML one-shot prototypes** covering top proprietary whiteboard canvases, proxy control planes, and usage dashboards.
+Fifteen original, self-contained HTML product UI studies: five collaborative canvas editors and ten CLI management/analytics tools. Each HTML embeds its styles, inline SVG geometry/icons, example content and local preview interactions. No backend or keys are required.
 
-Explore the live visual gallery: **[`index.html`](./index.html)**.
+Open [the gallery](index.html), [the visual quality report](QG.md), or [the product references](REFERENCES.md).
 
----
+## Run locally
 
-## 🎨 Suite 1: Proprietary Canvas & Whiteboard Prototypes (5)
+```sh
+python3 -m http.server 8873
+```
 
-| Tool | Prototype File | Form / Architecture | Vision QG |
-| :--- | :--- | :--- | :---: |
-| **Miro** | [`miro.html`](./miro.html) | Infinite Pan/Zoom Canvas, Draggable Sticky Notes, Frames, Collaborator Cursor | 🟢 **PASS** |
-| **FigJam** | [`figjam.html`](./figjam.html) | Playful Whiteboard, Floating Tool Dock, Section Containers, Reaction Stamps | 🟢 **PASS** |
-| **Lucidchart** | [`lucidchart.html`](./lucidchart.html) | Enterprise Diagramming Grid, Left Shape Dock, Inspector, Orthogonal Connectors | 🟢 **PASS** |
-| **Whimsical** | [`whimsical.html`](./whimsical.html) | High-Speed Mind Map, Mode Switcher, Card Status Badges, Branching Bezier Curves | 🟢 **PASS** |
-| **Mural** | [`mural.html`](./mural.html) | Facilitator Suite, Countdown Timer, Voting Session, 2x2 Matrix Template | 🟢 **PASS** |
+Open http://localhost:8873/. Product files also work directly as standalone files; clipboard access may require localhost or HTTPS.
 
----
+## Evidence
 
-## ⚡ Suite 2: CLI Proxy & Usage Dashboards (10)
+- `screenshots/<tool>.png`: final desktop evidence, captured using `opencli browser uqsbxvfe screenshot`.
+- `screenshots/round-1/`: rejected initial evidence, retained for audit.
+- `screenshots/capture-log.json`: capture commands and timestamps.
+- `verification.json`: single-file dependencies and JavaScript syntax checks.
+- `browser-verification.json`: live rendering/overflow and selected local interaction checks.
+- `qa/`: independent visual review findings and correction verdict.
+- OpenSpec change: `premium-oneshots-20261006`.
 
-| Tool | Prototype File | Form & Interactive Focus | Vision QG |
-| :--- | :--- | :--- | :---: |
-| **OpenCodex** | [`opencodex.html`](./opencodex.html) | Web + Tray: Multi-account pool, 5h/week bars, auto-switch engine on 429 | 🟢 **PASS** |
-| **CPA-Manager-Plus** | [`cpa-manager-plus.html`](./cpa-manager-plus.html) | Web Ops: 6-node health matrix, live traffic throughput chart, token mix spectrum | 🟢 **PASS** |
-| **Magpie** | [`magpie.html`](./magpie.html) | Desktop / TUI: Model switcher dropdown & routing groups builder without config edit | 🟢 **PASS** |
-| **EasyCLIProxy** | [`easycliproxy.html`](./easycliproxy.html) | Desktop App: OAuth cards (OpenAI, Anthropic, Google, xAI), endpoints & quota lookup | 🟢 **PASS** |
-| **CLIProxy Quota Tray** | [`cliproxy-quota-tray.html`](./cliproxy-quota-tray.html) | macOS Tray: Compact popover with Codex Pro 5h limit & Grok week/month gauges | 🟢 **PASS** |
-| **CC Switch** | [`cc-switch.html`](./cc-switch.html) | Desktop App: Provider row with dual 5h & 7-day quota percentages & instant switch | 🟢 **PASS** |
-| **9Router** | [`9router.html`](./9router.html) | Web Gateway: 3-stage fallback cascade (Abo → Günstig → Frei) with request simulator | 🟢 **PASS** |
-| **Claude Code Router** | [`claude-code-router.html`](./claude-code-router.html) | Control Plane: 200k context gauge, active tool interceptor hooks & rate-limit warden | 🟢 **PASS** |
-| **cliproxyapi-usage** | [`cliproxyapi-usage.html`](./cliproxyapi-usage.html) | Web Analytics: 5h & 7-day residual allowance per account + local machine burn breakdown | 🟢 **PASS** |
-| **Tokscale** | [`tokscale.html`](./tokscale.html) | Terminal / TUI: 52-week GitHub-style contribution heatmap & hourly Tagesraster | 🟢 **PASS** |
+## Scope
 
----
-
-## 🖼️ Gallery Project Showroom
-
-The complete visual showroom is located at [`index.html`](./index.html), featuring interactive category filtering, live prototype links, and high-resolution screenshots generated via `opencli browser screenshot`.
+The screenshots depict illustrative accounts, traffic, costs, quotas and collaborative work. Local preview interactions include provider activation, tool/gallery filtering, model selects, chart/routing simulation, theme changes, canvas note creation/dragging/zoom, timers, refresh feedback, endpoint copying and page-specific JSON export. Edit/configuration/navigation actions outside the demonstrated scene provide preview feedback; no live provider administration is implied. Desktop is the quality-gate scope.
