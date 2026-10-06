@@ -255,6 +255,8 @@
       display: flex; align-items: center; justify-content: center; padding: var(--sp-6);
       background-color: var(--stage); background-image: radial-gradient(var(--stage-dot) 1px, transparent 1.3px); background-size: 20px 20px;
     }
+    .renderer-status { position: absolute; bottom: 8px; right: 12px; z-index: 1; color: var(--text-3); font-size: 10px; pointer-events: none; }
+    .stage-renderer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .stage.one { overflow: auto; align-items: flex-start; justify-content: flex-start; }
     .fit { position: relative; flex: none; }
     .stage.one .fit { margin: auto; }
@@ -664,6 +666,7 @@
       </div>
       <div class="compare" id="compare" hidden></div>
       <div class="stage" id="stage">
+        <span class="renderer-status" id="rendererLabel" title="Bühnenhintergrund">CSS</span>
         <div class="voice-hud" id="voiceHud" role="status" aria-live="polite" hidden>
           <span class="rec-dot" aria-hidden="true"></span>
           <span class="vu" id="voiceVu" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
@@ -2812,5 +2815,6 @@
   }
   init();
   </script>
+<script src="scripts/stage-renderer.min.js" defer></script>
 </body>
 </html>

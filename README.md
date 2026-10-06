@@ -85,3 +85,11 @@ Die Kürzel wirken auch, wenn der Fokus im Prototyp liegt, nie aber beim Tippen 
 ## 🖼️ Gallery Project Showroom
 
 The static visual showroom is located at [`gallery.html`](./gallery.html), featuring interactive category filtering, live prototype links, and high-resolution screenshots generated via `opencli browser screenshot`.
+
+### WebGPU-Bühnenhintergrund
+
+Der Viewer nutzt auf HTTPS bei verfügbarem Adapter WebGPU für das Punktraster und einen kurzen Lichtimpuls beim Wechsel des One-Shots. Ohne WebGPU, bei Initialisierungsfehlern oder Geräteverlust ersetzt ein Canvas2D-Hintergrund die GPU-Fläche; CSS bleibt die letzte Rückfallebene. `?tool=miro&geraet=iphone-390&renderer=canvas2d` erzwingt den Fallback für die Prüfung. Das aktive Backend steht unten rechts auf der Bühne.
+
+Live-iframes, Einpassen und 1:1-Scrollen bleiben DOM/CSS; WebGPU rendert deren Inhalte nicht. Die GPU zeichnet nur bei Resize, Theme-Wechsel oder einem kurzen Übergang, pausiert in versteckten Tabs und respektiert reduzierte Bewegung. Grundlage: [WebGPU-Spezifikation](https://www.w3.org/TR/webgpu/). Kein Build erforderlich: statische HTML/JS-Dateien auf dem bestehenden Pages-Ziel.
+
+Reproduzierbarer Build des neuen Moduls: `npx --yes --package terser@5.44.0 terser scripts/stage-renderer.js --compress --mangle --output scripts/stage-renderer.min.js`. Die minifizierte Datei wird statisch eingebunden. Browserprüfung mit einer eigenen bcli-Cloud-Session: deren JSON-Antwort in einer privaten Datei ablegen, dann `BCLI_SESSION_FILE=/pfad/session.json node scripts/verify-stage-renderer.cjs` aus dem Repo-Root (Playwright auf dem Desk). Der Test verbindet sich ausschließlich per CDP, liefert lokale Dateien per Route auf der HTTPS-Pages-Herkunft aus und speichert tokenfreie Belege in `reports/`.
