@@ -131,7 +131,7 @@
     .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
     .btn.primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
     .btn.danger:hover:not(:disabled) { color: var(--mark); }
-    .btn[aria-pressed="true"]:not(.mark-btn) { background: var(--accent-soft); border-color: transparent; color: var(--accent-text); }
+    .btn[aria-pressed="true"]:not(.mark-btn):not(.voice-btn) { background: var(--accent-soft); border-color: transparent; color: var(--accent-text); }
     .btn .kbd { margin: 0 -4px 0 2px; }
     .mark-btn { min-width: 136px; }
     .mark-btn[aria-pressed="true"] { background: var(--mark); border-color: var(--mark); color: var(--mark-ink); }
@@ -417,6 +417,8 @@
     .vh-text span { max-width: 380px; color: var(--text-2); font-size: var(--fs-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .vh-meta { flex: none; color: var(--text-3); font-size: var(--fs-xs); white-space: nowrap; }
     .mk.voice { border-style: dashed; }
+    .mk.listening { animation: listen 1.1s ease-in-out infinite; }
+    @keyframes listen { 50% { box-shadow: 0 0 0 calc(6px * var(--inv, 1)) color-mix(in srgb, var(--mark) 35%, transparent); } }
     .dlg-sub { margin: 0; color: var(--text-2); font-size: var(--fs-sm); line-height: 1.5; }
     .dlg-sub .kbd { vertical-align: 1px; }
     .adapters { display: flex; flex-direction: column; gap: var(--sp-2); }
@@ -1394,8 +1396,11 @@
     const boxes = [];
     const list = [...visibleMarks()];
     if (state.draft?.mode === 'new') list.push(state.draft.mark);
+    const listening = new Set();
     if (voice.session?.tool === state.tool) {
       for (const p of voice.session.passages.values()) {
+        const existing = voice.session.byAnchor.get(p.key);
+        if (existing) { listening.add(existing); continue; } // same spot: the saved marking pulses, no second badge
         list.push({ id: 'voice-' + p.key, nr: '…', art: p.art, x: p.rect.x, y: p.rect.y, breite: p.rect.w, hoehe: p.rect.h, scroll: p.scroll, notiz: p.partial || 'hört zu …', voiceDraft: true });
       }
     }
@@ -1403,10 +1408,10 @@
     for (const m of list) {
       const isDraft = state.draft?.mark === m || !!m.voiceDraft;
       const left = m.x + m.scroll.x - cur.x, top = m.y + m.scroll.y - cur.y;
-      const cls = ['mk', m.art, isDraft && 'draft', m.voiceDraft && 'voice', m.issueGeoeffnet && 'issue', m.id === state.selected && !isDraft && 'sel', top < 28 * inv && 'low', left + 200 * inv > w && 'right'];
+      const cls = ['mk', m.art, isDraft && 'draft', m.voiceDraft && 'voice', listening.has(m.id) && 'listening', m.issueGeoeffnet && 'issue', m.id === state.selected && !isDraft && 'sel', top < 28 * inv && 'low', left + 200 * inv > w && 'right'];
       const box = h('div', { class: cls.filter(Boolean).join(' '), 'data-id': m.id });
       Object.assign(box.style, { left: left + 'px', top: top + 'px', width: m.breite + 'px', height: m.hoehe + 'px' });
-      box.append(h('span', { class: 'mk-badge', title: m.notiz || '(ohne Notiz)', text: `#${m.nr}${m.notiz ? ' ' + short(m.notiz, 28) : ''}`,
+      box.append(h('span', { class: 'mk-badge', title: m.notiz || '(ohne Notiz)', text: m.voiceDraft ? short(m.notiz, 32) : `#${m.nr}${m.notiz ? ' ' + short(m.notiz, 28) : ''}`,
         onclick: (ev) => { ev.stopPropagation(); if (!isDraft) selectInPanel(m.id); } }));
       boxes.push(box);
     }
