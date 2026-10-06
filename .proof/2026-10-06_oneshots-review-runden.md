@@ -58,10 +58,49 @@ Alle drei sind `validate --strict` grün.
 
 ---
 
-## 🔄 Runde 2 · Voice-Notiz (läuft)
+## ✅ Runde 2 · Voice-Notiz mit Zeiger-Position (Commits `4a1aee0` · `2626780` · `f9769bc`)
 
-- **Befund:** Der Grok-Voice-Harness auf `127.0.0.1:9381` lehnt fremde Origins bewusst ab (`requestAllowed`, `Sec-Fetch-Site: cross-site` → 403). Darum gibt es eine eigene Loopback-Brücke `scripts/voice-bridge.mjs` mit Allowlist und Token je Start. Sie leitet serverseitig an whisper.cpp und an den Harness weiter.
+**E2E gegen die echte Pages-URL: 27/27** ([`2026-10-06_r2-e2e-result.json`](./2026-10-06_r2-e2e-result.json)). Echte Brücke, echtes whisper.cpp (`ggml-base`), synthetische Sprache (macOS `say`, Stimme Anna) über ein Test-Mikrofon.
 
-## ⏳ Runde 3 · V1/V2-Vergleich (geplant)
+- 🟢 **AC1 Zeigen + Sprechen:** Satz 1 über dem Share-Knopf, Zeiger bewegt, Satz 2 über dem Haftnotiz-Werkzeug. Daraus werden 2 Markierungen auf 2 Elementen. Die Koordinaten sind exakt das Element-Rechteck zum Sprech-Zeitpunkt (`[323, 15, 64, 42]`).
+- 🟢 **AC2 Hook:** 4 Adapter (whisper, grok, browser, tippen). Ein eigener Adapter geht per `window.OneshotsVoice.register(…)`, im Test geprüft.
+- 🟢 **AC3 Brücke** `scripts/voice-bridge.mjs`:
+  - nur 127.0.0.1
+  - Allowlist und Token je Start, nie im Code
+  - Host-Prüfung, Private-Network-Preflight
+  - Der Harness-Schutz bleibt unangetastet.
+- 🟢 **AC4 whisper.cpp:** „Der Knopf ist viel zu klein.“ und „Hier fehlt eine Überschrift.“ wurden wörtlich erkannt.
+- 🟢 **AC5 Live:** Pegel, „Hört zu …“, Entwurfs-Rahmen am Element.
+- 🟢 **AC6 Rückfall:** Ohne Brücke kommt eine klare Meldung mit Startbefehl. Sperrt der Browser das lokale Netzwerk, sagt die Seite das. „Tippen“ öffnet die Notiz am Zeiger.
+- 🟠 **AC7 Grok:** Der echte Harness auf :9381 antwortet über die Brücke (Status, Einwilligung an). Eine Live-Sitzung habe ich nicht gestartet: Sie nutzt Martins Grok-Konto, und der Harness-Vertrag nennt ein AGB-Risiko.
+- 🐛 **Gefunden und behoben:**
+  - Brave 154 (Chromium 142+) fragt vor dem Zugriff einer https-Seite auf 127.0.0.1 (Local Network Access). Die Seite erkennt das jetzt.
+  - Der Aufnahme-Knopf war blau statt rot.
+  - Doppelte Abzeichen beim Anhängen sind weg.
 
-- **V2-Quelle:** Premium-Lane (`feat/premium-oneshots`, Sicherung `bf02f87`)
+**Live beim Sprechen** (Entwurf am Share-Knopf, Pegel-Leiste)
+![Sprechen live](./2026-10-06_r2-sprechen-live.png)
+
+**Ergebnis:** zwei Sprach-Notizen auf zwei Elementen, Chip „Sprache“
+![Sprach-Notizen](./2026-10-06_r2-sprach-notizen-liste.png)
+
+**Sprach-Einstellungen** (4 Adapter mit Status, Brücke verbunden)
+![Einstellungen](./2026-10-06_r2-sprach-einstellungen.png)
+
+**iPhone dunkel:** antippen, sprechen, Aufnahme rot · Brücke aus: klare Meldung
+<img src="./2026-10-06_r2-mobil-sprechen.png" alt="iPhone Sprechen" width="250"> <img src="./2026-10-06_r2-bruecke-offline.png" alt="Brücke offline" width="500">
+
+---
+
+## ✅ Zusatz · Ablauf-Ansicht: Issue je Knoten (servas-ai/radar, Branch `feat/ablauf-issue-overlay-20261006`, Commit `47f6249d`)
+
+- **Zuständigkeit geprüft:**
+  - `apps/ablauf-ur` und die Server :9275/:9272/:9261 gehören der Lane kira-linux-rahmen.
+  - `apps/ablauf-flow` ist gefroren.
+  - Darum baue ich **nichts an der App**, sondern ein Overlay: Der Proxy `apps/ablauf-issues/server.mjs` auf 127.0.0.1:9276 reicht :9275 samt HMR durch und blendet ein Skript ein.
+- **E2E gegen die laufende :9275: 26/26.** Alle 70 Knoten haben einen Issue-Knopf. Die vorausgefüllte Issue-URL enthält `labels=ablauf` und den Marker ``Ablauf-Knoten: `<id>` ``. Den Live-Status liest der Proxy über `gh` (radar ist privat): 49 Knoten offen, 21 ohne Issue. #220 ist laut Overlay offen, laut `gh issue view` OPEN.
+- **Beweisbilder:** im radar-Branch unter `.proof/2026-10-06_ablauf-*.png`, privat.
+
+## ⏳ Runde 3 · V1/V2-Vergleich (läuft)
+
+- **V2-Quelle:** `feat/premium-oneshots` (`bbb9e60`). Er wird per raw → `srcdoc` geladen, gleiche Herkunft, Markieren funktioniert.

@@ -1,0 +1,137 @@
+[
+ {
+  "check": "AC3 foreign origin -> 403",
+  "ok": true,
+  "detail": "{\"ok\":false,\"code\":\"origin_rejected\"}"
+ },
+ {
+  "check": "AC3 no token -> 403 token_required",
+  "ok": true,
+  "detail": "{\"ok\":false,\"code\":\"token_required\"}"
+ },
+ {
+  "check": "AC3 foreign Host (DNS rebinding) -> 403",
+  "ok": true,
+  "detail": "{\"ok\":false,\"code\":\"host_rejected\"}"
+ },
+ {
+  "check": "AC3 private-network preflight answered",
+  "ok": true,
+  "detail": "204"
+ },
+ {
+  "check": "AC3 token is random per start, not in code",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC4 bridge -> whisper.cpp transcribes German speech",
+  "ok": true,
+  "detail": "Der Knopf ist viel zu klein."
+ },
+ {
+  "check": "AC7 Grok status passes through from 127.0.0.1:9381",
+  "ok": true,
+  "detail": "200 consent=True login=unknown"
+ },
+ {
+  "check": "Pairing via #voice= stored, hash removed",
+  "ok": true,
+  "detail": "twork-canvas-oneshots/index.html?tool=miro&geraet=iphone-390"
+ },
+ {
+  "check": "Pairing toast says paired",
+  "ok": true,
+  "detail": "Voice-Brücke gekoppelt · V drücken und sprechen"
+ },
+ {
+  "check": "AC2 four adapters in the hook",
+  "ok": true,
+  "detail": "['whisper', 'grok', 'browser', 'tippen']"
+ },
+ {
+  "check": "Settings show bridge connected",
+  "ok": true,
+  "detail": "Voice-Brücke verbunden · 127.0.0.1:9396"
+ },
+ {
+  "check": "AC5 HUD visible while recording",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC5 level meter moves and state says listening",
+  "ok": true,
+  "detail": "bar=20px state='Hört zu …'"
+ },
+ {
+  "check": "V stops the session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC1 passage 1 -> marking on the element under the pointer (Share)",
+  "ok": true,
+  "detail": "{\"id\": \"m-mux75sw5nvt5\", \"nr\": 1, \"tool\": \"miro\", \"name\": \"Miro\", \"file\": \"miro.html\", \"geraet\": {\"id\": \"iphone-390\", \"name\": \"iPhone 390\", \"breite\": 390, \"hoehe\": 844, \"quer\": false}, \"art\": \"element"
+ },
+ {
+  "check": "AC1 pointer moved -> passage 2 on the new element (Sticky tool)",
+  "ok": true,
+  "detail": "Hier fehlt eine Überschrift."
+ },
+ {
+  "check": "AC1 coordinates = element rect at speaking time",
+  "ok": true,
+  "detail": "mark=[323, 15, 64, 42] el=[323, 15, 64, 42]"
+ },
+ {
+  "check": "Marking records source + adapter",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "Card shows the voice chip",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "Issue body names the voice source",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "No JS errors (voice)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC2 register(adapter) plugs in a custom STT",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "Esc cancels without saving the open passage",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "AC6 bridge offline / blocked -> clear message",
+  "ok": true,
+  "detail": "Der Browser sperrt den Zugriff auf 127.0.0.1. Schloss-Symbol neben der Adresse → Website-Einstellungen → „Lokales Netzwerk“ erlauben, dann neu laden.Einstellungen"
+ },
+ {
+  "check": "AC6 adapter \"tippen\" opens the note for the element under the pointer",
+  "ok": true,
+  "detail": "ElementiPhone 390 · 64 × 42 pxdiv.header-right:nth-of-type(2) > button.btn-share „+ Share“Größeres E"
+ },
+ {
+  "check": "Phone header with mic button fits 390 px",
+  "ok": true,
+  "detail": "scrollWidth=390 outside=0"
+ },
+ {
+  "check": "Phone: tap arms, tap sets the spot, speech becomes a marking",
+  "ok": true,
+  "detail": "armed=True notes=['Der Knopf ist viel zu klein. Hier fehlt einer Übung.']"
+ }
+]
