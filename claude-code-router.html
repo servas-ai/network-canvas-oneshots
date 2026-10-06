@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Router — Control Plane & Rate-Limit Warden</title>
+  <style>
+    :root {
+      --bg: #141413;
+      --card-bg: #1F1E1D;
+      --card-border: #32312E;
+      --text: #EDECE8;
+      --text-muted: #9E9C96;
+      --claude-coral: #D97706;
+      --claude-accent: #E06C43;
+      --green: #22C55E;
+      --blue: #38BDF8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px; min-height: 100vh; }
+
+    /* Top Control Bar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 16px 20px; margin-bottom: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-avatar {
+      width: 38px; height: 38px; background: linear-gradient(135deg, #CC5500, #E06C43);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 18px; color: white;
+    }
+    .brand-text h1 { font-size: 17px; font-weight: 700; }
+    .brand-text p { font-size: 12px; color: var(--text-muted); }
+
+    .status-badge {
+      display: flex; align-items: center; gap: 8px; background: #29241B;
+      border: 1px solid #78350F; padding: 6px 14px; border-radius: 9999px;
+      font-size: 12px; font-weight: 600; color: #FCD34D;
+    }
+
+    /* Main Grid */
+    .grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px; }
+
+    .panel-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .card-title {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--text-muted); display: flex; justify-content: space-between;
+    }
+
+    /* Context Gauge */
+    .context-box {
+      background: #141413; border: 1px solid var(--card-border); border-radius: 8px;
+      padding: 16px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .context-header { display: flex; justify-content: space-between; font-size: 13px; }
+    .context-bar { width: 100%; height: 10px; background: #262523; border-radius: 9999px; overflow: hidden; }
+    .context-fill { width: 71%; height: 100%; background: linear-gradient(90deg, #D97706, #E06C43); border-radius: 9999px; }
+
+    /* Active Tool Hooks List */
+    .hooks-list { display: flex; flex-direction: column; gap: 8px; }
+    .hook-row {
+      background: #141413; border: 1px solid var(--card-border); border-radius: 6px;
+      padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px;
+    }
+    .hook-name { font-weight: 600; font-family: monospace; color: #FCD34D; }
+
+    /* Right Column: Rate Limit Warden */
+    .warden-metrics { display: flex; flex-direction: column; gap: 12px; }
+    .metric-tile {
+      background: #141413; border: 1px solid var(--card-border); border-radius: 8px;
+      padding: 14px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .metric-val { font-size: 16px; font-weight: 700; color: #FFF; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-avatar">CC</div>
+      <div class="brand-text">
+        <h1>Claude Code Router & Control Plane</h1>
+        <p>Session Traffic Warden & Multi-CLI Terminal Arbiter</p>
+      </div>
+    </div>
+    <div class="status-badge">
+      <span>●</span> Active Session: #session-961ab30b
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- Left Column: Context Window & Tool Interceptors -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="panel-card">
+        <div class="card-title">
+          <span>Active Context Window Saturation</span>
+          <span style="color: var(--claude-coral);">200k Token Budget</span>
+        </div>
+        <div class="context-box">
+          <div class="context-header">
+            <span>Current Buffer Fill</span>
+            <strong style="font-family: monospace;">142,390 / 200,000 tokens (71.2%)</strong>
+          </div>
+          <div class="context-bar">
+            <div class="context-fill"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);">
+            <span>System + Prompt: 28k</span>
+            <span>File Diffs & History: 98k</span>
+            <span>Free Headroom: 57.6k</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="card-title">
+          <span>Tool Interceptor & Policy Hooks</span>
+          <span style="color: var(--green);">5 Active Hooks</span>
+        </div>
+        <div class="hooks-list">
+          <div class="hook-row">
+            <div>
+              <span class="hook-name">bash_command_interceptor</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Sandboxed execution filter for dangerous sudo / destructive cmds</div>
+            </div>
+            <span style="color: var(--green); font-weight: 700;">PASS</span>
+          </div>
+          <div class="hook-row">
+            <div>
+              <span class="hook-name">token_guard_auto_truncate</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Auto-folds massive log buffers > 800 lines into compact references</div>
+            </div>
+            <span style="color: var(--green); font-weight: 700;">ACTIVE</span>
+          </div>
+          <div class="hook-row">
+            <div>
+              <span class="hook-name">proxy_quota_failover</span>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Redirects Claude Code to secondary backup slot upon HTTP 429</div>
+            </div>
+            <span style="color: var(--blue); font-weight: 700;">READY</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Rate Limit Warden & Cost Tracker -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="panel-card">
+        <div class="card-title">
+          <span>Rate-Limit Warden</span>
+          <span style="color: var(--green);">Tier 4 Healthy</span>
+        </div>
+        <div class="warden-metrics">
+          <div class="metric-tile">
+            <div>
+              <div style="font-size: 11px; color: var(--text-muted);">RPM (Req / Min)</div>
+              <div style="font-size: 12px; color: #FFF;">Limit: 4,000</div>
+            </div>
+            <div class="metric-val" style="color: var(--green);">142 RPM</div>
+          </div>
+          <div class="metric-tile">
+            <div>
+              <div style="font-size: 11px; color: var(--text-muted);">TPM (Tokens / Min)</div>
+              <div style="font-size: 12px; color: #FFF;">Limit: 400,000</div>
+            </div>
+            <div class="metric-val" style="color: var(--claude-coral);">89,400 TPM</div>
+          </div>
+          <div class="metric-tile">
+            <div>
+              <div style="font-size: 11px; color: var(--text-muted);">Estimated Session Spend</div>
+              <div style="font-size: 12px; color: #FFF;">Claude Max Prepaid Pool</div>
+            </div>
+            <div class="metric-val" style="color: #60A5FA;">$3.84</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

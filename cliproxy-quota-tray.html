@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLIProxy Quota Tray — macOS Menubar Popover</title>
+  <style>
+    :root {
+      --tray-bg: rgba(28, 28, 30, 0.94);
+      --tray-border: rgba(255, 255, 255, 0.12);
+      --card-bg: rgba(44, 44, 46, 0.8);
+      --text: #FFFFFF;
+      --text-dim: #8E8E93;
+      --apple-blue: #0A84FF;
+      --apple-green: #30D158;
+      --apple-orange: #FF9F0A;
+      --apple-purple: #BF5AF2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif; }
+    body {
+      background: #111; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; min-height: 100vh; padding: 20px;
+    }
+
+    /* Simulated macOS Menu Bar */
+    .simulated-menubar {
+      width: 100%; max-width: 600px; height: 32px; background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px); border-radius: 8px 8px 0 0; display: flex;
+      justify-content: flex-end; align-items: center; padding: 0 16px; gap: 14px;
+      font-size: 12px; color: #E5E5EA; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .tray-icon-highlight {
+      background: rgba(255, 255, 255, 0.2); padding: 2px 8px; border-radius: 4px;
+      display: flex; align-items: center; gap: 5px; font-weight: 600;
+    }
+
+    /* Tray Popover Frame */
+    .tray-popover {
+      width: 380px; background: var(--tray-bg); backdrop-filter: blur(30px);
+      border: 1px solid var(--tray-border); border-radius: 14px; padding: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); display: flex; flex-direction: column;
+      gap: 16px; margin-top: 6px;
+    }
+
+    /* Popover Top */
+    .tray-top { display: flex; justify-content: space-between; align-items: center; }
+    .tray-heading { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .pulse-dot { width: 8px; height: 8px; background: var(--apple-green); border-radius: 50%; box-shadow: 0 0 6px var(--apple-green); }
+    .slot-badge {
+      font-size: 11px; background: rgba(10, 132, 255, 0.2); color: var(--apple-blue);
+      padding: 3px 8px; border-radius: 6px; font-weight: 600;
+    }
+
+    /* Quota Section */
+    .quota-card {
+      background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: center; }
+    .service-title { font-size: 13px; font-weight: 600; color: #FFF; display: flex; align-items: center; gap: 6px; }
+    .reset-clock { font-size: 11px; color: var(--apple-orange); font-weight: 600; }
+
+    /* Progress Bar */
+    .progress-box { display: flex; flex-direction: column; gap: 4px; }
+    .p-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); }
+    .p-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 9999px; overflow: hidden; }
+    .p-bar { height: 100%; border-radius: 9999px; }
+
+    /* Actions */
+    .tray-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #FFF; padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 500;
+      cursor: pointer; text-align: center; transition: background 0.15s;
+    }
+    .btn-action:hover { background: rgba(255, 255, 255, 0.16); }
+
+    .tray-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px; color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+  <!-- Simulated Mac Status Bar -->
+  <div class="simulated-menubar">
+    <span>WiFi</span>
+    <span>100% 🔋</span>
+    <span>Di. 6. Okt. 22:04</span>
+    <div class="tray-icon-highlight">
+      <span>⚡️ 78%</span>
+    </div>
+  </div>
+
+  <!-- Tray Window -->
+  <div class="tray-popover">
+    <!-- Popover Header -->
+    <div class="tray-top">
+      <div class="tray-heading">
+        <div class="pulse-dot"></div>
+        <span>CLIProxy Quota Tray</span>
+      </div>
+      <div class="slot-badge">Slot: Pro-Primary</div>
+    </div>
+
+    <!-- Codex Pro 5h Limit -->
+    <div class="quota-card">
+      <div class="card-header">
+        <div class="service-title">
+          <span>🤖 OpenAI Codex Pro</span>
+        </div>
+        <div class="reset-clock">⏱ Resets in 2h 14m</div>
+      </div>
+      <div class="progress-box">
+        <div class="p-label">
+          <span>5h Rolling Window</span>
+          <span style="color: #FFF; font-weight: 600;">38 / 50 req (76% used)</span>
+        </div>
+        <div class="p-track">
+          <div class="p-bar" style="width: 76%; background: var(--apple-orange);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grok Weekly & Monthly Allowance -->
+    <div class="quota-card">
+      <div class="card-header">
+        <div class="service-title">
+          <span>𝕏 xAI Grok-2 Quota</span>
+        </div>
+        <span style="font-size: 11px; color: var(--apple-green);">Healthy</span>
+      </div>
+      <div class="progress-box">
+        <div class="p-label">
+          <span>Weekly Allowance</span>
+          <span style="color: #FFF; font-weight: 600;">34% used</span>
+        </div>
+        <div class="p-track">
+          <div class="p-bar" style="width: 34%; background: var(--apple-blue);"></div>
+        </div>
+      </div>
+      <div class="progress-box" style="margin-top: 4px;">
+        <div class="p-label">
+          <span>Monthly Reserve</span>
+          <span style="color: #FFF; font-weight: 600;">58% used</span>
+        </div>
+        <div class="p-track">
+          <div class="p-bar" style="width: 58%; background: var(--apple-purple);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fast Action Buttons -->
+    <div class="tray-actions">
+      <button class="btn-action">🔄 Force Re-check</button>
+      <button class="btn-action">🔀 Switch Account</button>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="tray-bottom">
+      <span>Daemon: localhost:8080</span>
+      <span style="cursor: pointer; color: #FF453A;">Quit Proxy</span>
+    </div>
+  </div>
+</body>
+</html>

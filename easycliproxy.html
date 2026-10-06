@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyCLIProxy — Desktop Proxy Manager & OAuth Hub</title>
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --sidebar: #0F172A;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --brand: #2563EB;
+      --brand-light: #EFF6FF;
+      --green: #10B981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
+
+    /* Left App Sidebar */
+    aside {
+      width: 240px; background: var(--sidebar); color: white; display: flex; flex-direction: column;
+      justify-content: space-between; padding: 20px 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+    .brand-logo {
+      width: 32px; height: 32px; background: var(--brand); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px;
+    }
+    .nav-list { display: flex; flex-direction: column; gap: 6px; list-style: none; }
+    .nav-item {
+      padding: 10px 12px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      color: #94A3B8; cursor: pointer; display: flex; align-items: center; gap: 10px;
+      transition: all 0.15s;
+    }
+    .nav-item:hover { background: #1E293B; color: white; }
+    .nav-item.active { background: var(--brand); color: white; font-weight: 600; }
+
+    /* Main Area */
+    main { flex: 1; padding: 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
+
+    .header-row { display: flex; justify-content: space-between; align-items: center; }
+    .header-title h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+    .header-title p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Status Pill */
+    .status-pill {
+      background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46;
+      padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* OAuth Cards Grid */
+    .section-title { font-size: 14px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .oauth-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .oauth-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px; display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 160px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    .oauth-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .provider-logo {
+      width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; font-size: 16px; font-weight: 800; color: white;
+    }
+    .p-openai { background: #10A37F; }
+    .p-anthropic { background: #D97706; }
+    .p-google { background: #4285F4; }
+    .p-xai { background: #000000; }
+
+    .oauth-state {
+      font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px;
+      background: #DCFCE7; color: #15803D;
+    }
+    .provider-name { font-size: 14px; font-weight: 700; margin-top: 10px; }
+    .provider-meta { font-size: 12px; color: var(--text-muted); }
+    .oauth-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 10px; border-top: 1px solid var(--border); font-size: 11px;
+    }
+
+    /* Endpoints & Quota Lookup */
+    .split-row { display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 20px; }
+    .content-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .endpoints-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .endpoints-table th { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .endpoints-table td { padding: 10px 8px; border-bottom: 1px solid #F1F5F9; font-family: monospace; }
+    .ep-badge {
+      font-family: -apple-system, sans-serif; font-size: 10px; font-weight: 700;
+      padding: 2px 6px; border-radius: 4px; background: #EFF6FF; color: var(--brand);
+    }
+
+    /* Quota Lookup Form */
+    .lookup-box { display: flex; flex-direction: column; gap: 12px; }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .input-group label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+    .styled-input {
+      padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; outline: none;
+    }
+    .styled-input:focus { border-color: var(--brand); }
+    .btn-lookup {
+      background: var(--brand); color: white; border: none; padding: 10px; border-radius: 6px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside>
+    <div>
+      <div class="brand">
+        <div class="brand-logo">E</div>
+        <div>
+          <div style="font-weight: 700; font-size: 15px;">EasyCLIProxy</div>
+          <div style="font-size: 11px; color: #64748B;">Desktop Bridge v2.2</div>
+        </div>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item active">🏠 Dashboard</li>
+        <li class="nav-item">🔑 OAuth Accounts</li>
+        <li class="nav-item">🌐 Local Endpoints</li>
+        <li class="nav-item">📊 Quota Inspector</li>
+        <li class="nav-item">⚙️ Settings</li>
+      </ul>
+    </div>
+    <div style="font-size: 11px; color: #64748B; padding: 8px;">
+      Port: 8080 • Bound to loopback
+    </div>
+  </aside>
+
+  <!-- Main Workspace -->
+  <main>
+    <div class="header-row">
+      <div class="header-title">
+        <h1>Proxy Control Center</h1>
+        <p>Zero-friction OAuth token delegation & unified local AI gateways</p>
+      </div>
+      <div class="status-pill">
+        <span style="font-size: 10px;">🟢</span> Local Gateway Running
+      </div>
+    </div>
+
+    <!-- OAuth Accounts Grid -->
+    <div>
+      <div class="section-title">Connected OAuth Providers</div>
+      <div class="oauth-grid">
+        <!-- OpenAI -->
+        <div class="oauth-card">
+          <div class="oauth-top">
+            <div class="provider-logo p-openai">AI</div>
+            <span class="oauth-state">Active</span>
+          </div>
+          <div>
+            <div class="provider-name">OpenAI Codex</div>
+            <div class="provider-meta">2 Accounts Connected</div>
+          </div>
+          <div class="oauth-footer">
+            <span>OAuth 2.0 (PKCE)</span>
+            <span style="color: var(--brand); font-weight: 600; cursor: pointer;">Manage</span>
+          </div>
+        </div>
+
+        <!-- Anthropic -->
+        <div class="oauth-card">
+          <div class="oauth-top">
+            <div class="provider-logo p-anthropic">AN</div>
+            <span class="oauth-state">Active</span>
+          </div>
+          <div>
+            <div class="provider-name">Anthropic Claude</div>
+            <div class="provider-meta">Claude Max & Code CLI</div>
+          </div>
+          <div class="oauth-footer">
+            <span>Session Token</span>
+            <span style="color: var(--brand); font-weight: 600; cursor: pointer;">Manage</span>
+          </div>
+        </div>
+
+        <!-- Google -->
+        <div class="oauth-card">
+          <div class="oauth-top">
+            <div class="provider-logo p-google">G</div>
+            <span class="oauth-state">Active</span>
+          </div>
+          <div>
+            <div class="provider-name">Google Gemini</div>
+            <div class="provider-meta">Vertex / Studio Key</div>
+          </div>
+          <div class="oauth-footer">
+            <span>OAuth Service</span>
+            <span style="color: var(--brand); font-weight: 600; cursor: pointer;">Manage</span>
+          </div>
+        </div>
+
+        <!-- xAI -->
+        <div class="oauth-card">
+          <div class="oauth-top">
+            <div class="provider-logo p-xai">𝕏</div>
+            <span class="oauth-state">Active</span>
+          </div>
+          <div>
+            <div class="provider-name">xAI Grok</div>
+            <div class="provider-meta">Grok 2.0 Web Tier</div>
+          </div>
+          <div class="oauth-footer">
+            <span>Web Cookie Auth</span>
+            <span style="color: var(--brand); font-weight: 600; cursor: pointer;">Manage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Endpoints & Live Lookup -->
+    <div class="split-row">
+      <!-- Local Endpoints -->
+      <div class="content-card">
+        <div class="section-title">Active Local Endpoints</div>
+        <table class="endpoints-table">
+          <thead>
+            <tr>
+              <th>SERVICE</th>
+              <th>TARGET URI</th>
+              <th>ROUTE PROTOCOL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ep-badge">OpenAI Compatible</span></td>
+              <td>http://localhost:8080/v1/chat/completions</td>
+              <td>Codex Pool (Auto-Rotate)</td>
+            </tr>
+            <tr>
+              <td><span class="ep-badge">Claude Native</span></td>
+              <td>http://localhost:8080/anthropic/v1/messages</td>
+              <td>Claude Code Pass-through</td>
+            </tr>
+            <tr>
+              <td><span class="ep-badge">Gemini Endpoint</span></td>
+              <td>http://localhost:8080/gemini/v1beta/models</td>
+              <td>Antigravity Native Fast</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Quota Lookup -->
+      <div class="content-card">
+        <div class="section-title">Instant Quota Inspector</div>
+        <div class="lookup-box">
+          <div class="input-group">
+            <label>Select Provider / Account</label>
+            <select class="styled-input">
+              <option>OpenAI — martin-pro-primary</option>
+              <option>Anthropic — claude-max-sub</option>
+              <option>xAI — grok-premium-corp</option>
+            </select>
+          </div>
+          <div style="background: #F1F5F9; padding: 12px; border-radius: 6px; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>5h Window:</span>
+              <strong style="color: var(--green);">78% Headroom Remaining</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Estimated Reset:</span>
+              <span>In 3h 12m</span>
+            </div>
+          </div>
+          <button class="btn-lookup">Refresh Quota Live</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
