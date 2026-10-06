@@ -481,7 +481,8 @@
       transform: translate(-50%, -50%) scale(var(--inv, 1));
     }
     .cmp-divider .knob:focus-visible { box-shadow: var(--ring), var(--shadow-md); }
-    .ab-tag { position: absolute; top: 10px; z-index: 4; padding: 2px 9px; border-radius: var(--r-full); background: var(--surface-inverse); color: var(--text-inverse); font-size: 12px; font-weight: var(--fw-bold); transform: scale(var(--inv, 1)); pointer-events: none; }
+    .compare-bar .seg .s-short { display: none; }
+    .ab-tag { position: absolute; top: 10px; z-index: 4; max-width: calc(44% / var(--inv, 1)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px 9px; border-radius: var(--r-full); background: var(--surface-inverse); color: var(--text-inverse); font-size: 12px; font-weight: var(--fw-bold); transform: scale(var(--inv, 1)); pointer-events: none; }
     .ab-tag.a { left: 10px; transform-origin: 0 0; } .ab-tag.b { right: 10px; transform-origin: 100% 0; background: var(--accent); color: var(--accent-ink); }
     .ver-chip { flex: none; font-size: var(--fs-xs); font-weight: var(--fw-semi); color: var(--accent-text); background: var(--accent-soft); border-radius: var(--r-full); padding: 2px 9px; white-space: nowrap; }
 
@@ -2359,7 +2360,7 @@
       return h('span', { class: 'cmp-side' }, h('span', { class: 'cmp-tag' + (key === 'b' ? ' b' : ''), text: tag }), sel);
     };
     const modes = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': 'Vergleichs-Ansicht' }, CMP_MODES.map((m) => h('button', {
-      type: 'button', role: 'radio', 'aria-checked': String(c.mode === m.id), 'data-mode': m.id,
+      type: 'button', role: 'radio', 'aria-checked': String(c.mode === m.id), 'data-mode': m.id, 'aria-label': m.label, title: m.label,
       onclick: () => { c.mode = m.id; renderCompareBar(); buildCompare(); syncUrl(); },
     }, icon(m.icon), h('span', { class: 's-long', text: m.label }), h('span', { class: 's-short', text: m.label.slice(0, 6) }))));
     const extra = c.mode === 'ueberblenden'
