@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucidchart — Enterprise Cloud Architecture & Flowchart Prototype</title>
+  <style>
+    :root {
+      --lucid-orange: #F16521;
+      --lucid-dark: #293241;
+      --lucid-border: #D1D5DB;
+      --lucid-bg: #F3F4F6;
+      --lucid-canvas-bg: #FFFFFF;
+      --lucid-grid: #E5E7EB;
+      --lucid-selected: #2563EB;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--lucid-bg);
+      color: var(--lucid-dark);
+    }
+    /* Top Menu Bar */
+    header.lucid-topbar {
+      height: 40px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--lucid-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 100;
+    }
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .lucid-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--lucid-orange);
+    }
+    .lucid-icon-sq {
+      width: 22px;
+      height: 22px;
+      background: var(--lucid-orange);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .doc-name {
+      font-weight: 600;
+      font-size: 13px;
+      color: #374151;
+    }
+    .menu-items {
+      display: flex;
+      gap: 14px;
+      font-size: 12px;
+      color: #6B7280;
+      margin-left: 12px;
+    }
+    .menu-items span:hover {
+      color: var(--lucid-dark);
+      cursor: pointer;
+    }
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-share {
+      background: var(--lucid-orange);
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Secondary Format Ribbon */
+    .lucid-ribbon {
+      height: 38px;
+      background: #FAFAFA;
+      border-bottom: 1px solid var(--lucid-border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      font-size: 12px;
+      color: #4B5563;
+      z-index: 90;
+    }
+    .ribbon-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-right: 12px;
+      border-right: 1px solid #E5E7EB;
+    }
+    .ribbon-btn {
+      padding: 4px 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .ribbon-btn:hover {
+      background: #E5E7EB;
+    }
+
+    /* Main Workspace Layout */
+    .workspace-body {
+      display: flex;
+      height: calc(100% - 78px);
+      width: 100%;
+      position: relative;
+    }
+
+    /* Left Shapes Library Dock */
+    .left-dock {
+      width: 220px;
+      background: #FFFFFF;
+      border-right: 1px solid var(--lucid-border);
+      display: flex;
+      flex-direction: column;
+      z-index: 80;
+    }
+    .dock-search {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--lucid-border);
+    }
+    .dock-search input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid #D1D5DB;
+      border-radius: 4px;
+      font-size: 12px;
+      outline: none;
+    }
+    .shapes-section {
+      padding: 12px;
+      overflow-y: auto;
+    }
+    .shapes-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #9CA3AF;
+      margin-bottom: 10px;
+    }
+    .shapes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .shape-item {
+      aspect-ratio: 1;
+      border: 1px solid #E5E7EB;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      background: #F9FAFB;
+      transition: all 0.15s;
+    }
+    .shape-item:hover {
+      border-color: var(--lucid-orange);
+      background: #FFF7ED;
+    }
+    .shape-icon {
+      width: 26px;
+      height: 26px;
+    }
+    .shape-label {
+      font-size: 10px;
+      margin-top: 4px;
+      color: #6B7280;
+    }
+
+    /* Right Inspector / Properties Panel */
+    .right-inspector {
+      width: 220px;
+      background: #FFFFFF;
+      border-left: 1px solid var(--lucid-border);
+      padding: 14px;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 12px;
+    }
+    .inspector-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: #111827;
+      border-bottom: 1px solid #E5E7EB;
+      padding-bottom: 8px;
+    }
+    .prop-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .prop-label {
+      color: #6B7280;
+    }
+    .color-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid #D1D5DB;
+      cursor: pointer;
+    }
+
+    /* Infinite Canvas Viewport */
+    #viewport {
+      flex: 1;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: #E5E7EB;
+      cursor: default;
+    }
+    #sheet {
+      position: absolute;
+      width: 1200px;
+      height: 900px;
+      left: 60px;
+      top: 40px;
+      background: #FFFFFF;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid #D1D5DB;
+      background-image: 
+        linear-gradient(to right, var(--lucid-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--lucid-grid) 1px, transparent 1px);
+      background-size: 20px 20px;
+      transform-origin: 0 0;
+    }
+
+    /* Flowchart Shape Elements */
+    .flow-node {
+      position: absolute;
+      background: #FFFFFF;
+      border: 2px solid #2563EB;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: move;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .flow-node:hover {
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+    }
+    .flow-node.selected {
+      border-color: var(--lucid-orange);
+      box-shadow: 0 0 0 3px rgba(241, 101, 33, 0.25);
+    }
+
+    /* Specific Shapes */
+    .node-terminator {
+      border-radius: 9999px;
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+    .node-process {
+      background: #F8FAFC;
+      border-color: #0284C7;
+      color: #0369A1;
+    }
+    .node-decision {
+      background: #FEF3C7;
+      border-color: #D97706;
+      color: #92400E;
+      transform: rotate(45deg);
+      border-radius: 4px;
+    }
+    .node-decision-content {
+      transform: rotate(-45deg);
+    }
+    .node-database {
+      border-radius: 8px / 16px;
+      background: #F3E8FF;
+      border-color: #9333EA;
+      color: #6B21A8;
+    }
+
+    /* SVG Orthogonal Lines Layer */
+    .svg-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="lucid-topbar">
+    <div class="top-left">
+      <div class="lucid-logo">
+        <div class="lucid-icon-sq">LC</div>
+        <span>Lucidchart</span>
+      </div>
+      <div class="doc-name">Cloud-Payment-Service-Architecture.v3</div>
+      <div class="menu-items">
+        <span>File</span>
+        <span>Edit</span>
+        <span>Select</span>
+        <span>View</span>
+        <span>Insert</span>
+        <span>Arrange</span>
+      </div>
+    </div>
+    <div class="top-right">
+      <span style="font-size: 12px; color: #10B981; font-weight: 600;">● Saved</span>
+      <button class="btn-share">Share</button>
+    </div>
+  </header>
+
+  <!-- Format Ribbon -->
+  <div class="lucid-ribbon">
+    <div class="ribbon-group">
+      <div class="ribbon-btn">↶ Undo</div>
+      <div class="ribbon-btn">↷ Redo</div>
+    </div>
+    <div class="ribbon-group">
+      <span style="font-weight: 600;">Font:</span>
+      <select style="border: 1px solid #D1D5DB; border-radius: 3px; font-size: 11px; padding: 2px;">
+        <option>Inter / System</option>
+        <option>Roboto</option>
+      </select>
+      <div class="ribbon-btn"><b>B</b></div>
+      <div class="ribbon-btn"><i>I</i></div>
+    </div>
+    <div class="ribbon-group">
+      <span>Line Route:</span>
+      <span style="font-weight: 600; color: #2563EB;">Orthogonal ▾</span>
+    </div>
+    <div class="ribbon-group">
+      <span>Zoom:</span>
+      <span style="font-weight: 600;">100%</span>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="workspace-body">
+    <!-- Left Shapes Dock -->
+    <div class="left-dock">
+      <div class="dock-search">
+        <input type="text" placeholder="Search shapes (e.g. AWS, UML)...">
+      </div>
+      <div class="shapes-section">
+        <div class="shapes-title">Standard Flowchart</div>
+        <div class="shapes-grid">
+          <div class="shape-item">
+            <div style="width: 22px; height: 14px; border: 1.5px solid #2563EB; border-radius: 2px;"></div>
+            <span class="shape-label">Process</span>
+          </div>
+          <div class="shape-item">
+            <div style="width: 16px; height: 16px; border: 1.5px solid #D97706; transform: rotate(45deg);"></div>
+            <span class="shape-label">Decision</span>
+          </div>
+          <div class="shape-item">
+            <div style="width: 22px; height: 14px; border: 1.5px solid #3B82F6; border-radius: 9999px;"></div>
+            <span class="shape-label">Terminal</span>
+          </div>
+          <div class="shape-item">
+            <div style="width: 20px; height: 16px; border: 1.5px solid #9333EA; border-radius: 4px / 8px;"></div>
+            <span class="shape-label">Data</span>
+          </div>
+          <div class="shape-item">
+            <div style="width: 22px; height: 16px; border: 1.5px dashed #6B7280; border-radius: 2px;"></div>
+            <span class="shape-label">Subprocess</span>
+          </div>
+          <div class="shape-item">
+            <div style="width: 20px; height: 16px; border: 1.5px solid #10B981; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);"></div>
+            <span class="shape-label">Input</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Canvas Viewport -->
+    <div id="viewport">
+      <div id="sheet">
+        <!-- SVG Orthogonal Connectors -->
+        <svg class="svg-lines" id="svg-connectors">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB" />
+            </marker>
+          </defs>
+          <!-- Start -> API Gateway -->
+          <path d="M 230 130 L 320 130" stroke="#2563EB" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+          <!-- API Gateway -> Decision -->
+          <path d="M 470 130 L 560 130" stroke="#2563EB" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+          <!-- Decision -> Database (Yes, bottom) -->
+          <path d="M 625 195 L 625 280 L 720 280" stroke="#2563EB" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+          <!-- Decision -> Reject (No, top) -->
+          <path d="M 625 65 L 625 35 L 750 35" stroke="#DC2626" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        </svg>
+
+        <!-- Node 1: Start -->
+        <div class="flow-node node-terminator" id="n1" style="left: 80px; top: 105px; width: 150px; height: 50px;">
+          <span>Start Request [HTTP]</span>
+        </div>
+
+        <!-- Node 2: Process API Gateway -->
+        <div class="flow-node node-process" id="n2" style="left: 320px; top: 100px; width: 150px; height: 60px;">
+          <span>API Gateway & Auth Verification</span>
+        </div>
+
+        <!-- Node 3: Decision -->
+        <div class="flow-node node-decision" id="n3" style="left: 580px; top: 85px; width: 90px; height: 90px;">
+          <div class="node-decision-content">Valid Token?</div>
+        </div>
+
+        <!-- Node 4: Database -->
+        <div class="flow-node node-database" id="n4" style="left: 720px; top: 250px; width: 160px; height: 60px;">
+          <span>PostgreSQL Cluster [ACID Write]</span>
+        </div>
+
+        <!-- Node 5: Reject -->
+        <div class="flow-node" id="n5" style="left: 750px; top: 15px; width: 140px; height: 44px; border-color: #DC2626; color: #DC2626; background: #FEF2F2;">
+          <span>401 Unauthorized</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Inspector Panel -->
+    <div class="right-inspector">
+      <div class="inspector-title">Shape Properties</div>
+      <div class="prop-row">
+        <span class="prop-label">Fill Color</span>
+        <div class="color-swatch" style="background: #EFF6FF;"></div>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Border Color</span>
+        <div class="color-swatch" style="background: #2563EB;"></div>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Border Width</span>
+        <span>2 px</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Opacity</span>
+        <span>100%</span>
+      </div>
+      <div style="border-top: 1px solid #E5E7EB; margin-top: 10px; padding-top: 10px;"></div>
+      <div class="inspector-title">Page Layout</div>
+      <div class="prop-row">
+        <span class="prop-label">Grid Snap</span>
+        <input type="checkbox" checked>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Canvas Size</span>
+        <span>Auto-expand</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Selection and Dragging
+    const nodes = document.querySelectorAll('.flow-node');
+    nodes.forEach(node => {
+      let isDragging = false;
+      let dragStartX, dragStartY, initialLeft, initialTop;
+
+      node.addEventListener('mousedown', (e) => {
+        nodes.forEach(n => n.classList.remove('selected'));
+        node.classList.add('selected');
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        initialLeft = parseFloat(node.style.left) || 0;
+        initialTop = parseFloat(node.style.top) || 0;
+        e.stopPropagation();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStartX;
+        const dy = e.clientY - dragStartY;
+        node.style.left = `${initialLeft + dx}px`;
+        node.style.top = `${initialTop + dy}px`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+    });
+  </script>
+</body>
+</html>

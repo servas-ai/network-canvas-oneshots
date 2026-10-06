@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FigJam — Collaborative Whiteboard Prototype</title>
+  <style>
+    :root {
+      --fig-purple: #8B5CF6;
+      --fig-purple-light: #EDE9FE;
+      --fig-bg: #F9FAFB;
+      --fig-grid: #E5E7EB;
+      --fig-dock-bg: #1E1E1E;
+      --fig-dock-item: #333333;
+      --fig-text: #111827;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--fig-bg);
+      color: var(--fig-text);
+    }
+    /* Top Bar */
+    header.figjam-topbar {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .top-left, .top-center, .top-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: auto;
+    }
+    .figjam-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      font-weight: 700;
+      font-size: 14px;
+      color: #000;
+      border: 1px solid #E5E7EB;
+    }
+    .fig-logo-cube {
+      width: 22px;
+      height: 22px;
+      background: linear-gradient(135deg, #FF7262 0%, #A259FF 100%);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .doc-pill {
+      background: white;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid #E5E7EB;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      cursor: pointer;
+    }
+    .top-right {
+      background: white;
+      padding: 5px 8px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid #E5E7EB;
+    }
+    .timer-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #F3F4F6;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4B5563;
+      cursor: pointer;
+    }
+    .timer-pill:hover {
+      background: #E5E7EB;
+    }
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      margin-left: -6px;
+    }
+    .av-1 { background: #EC4899; }
+    .av-2 { background: #3B82F6; }
+    .av-3 { background: #10B981; }
+    .btn-share {
+      background: #0C8CE9;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    /* Floating Dock at the Bottom */
+    .figjam-dock {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--fig-dock-bg);
+      border-radius: 20px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+      z-index: 100;
+    }
+    .dock-tool {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: none;
+      background: transparent;
+      color: #D1D5DB;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .dock-tool:hover {
+      background: var(--fig-dock-item);
+      color: white;
+      transform: translateY(-3px) scale(1.05);
+    }
+    .dock-tool.active {
+      background: #FFFFFF;
+      color: #000000;
+      transform: translateY(-2px);
+    }
+    .dock-tool svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+    .dock-divider {
+      width: 1px;
+      height: 24px;
+      background: #4B5563;
+      margin: 0 4px;
+    }
+
+    /* Infinite Canvas Viewport */
+    #viewport {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      cursor: grab;
+      background-image: radial-gradient(var(--fig-grid) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
+    }
+    #viewport.panning {
+      cursor: grabbing;
+    }
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+    }
+
+    /* Section Container */
+    .fig-section {
+      position: absolute;
+      border-radius: 20px;
+      background: rgba(243, 244, 246, 0.6);
+      border: 2px solid #E5E7EB;
+      padding: 40px 24px 24px;
+    }
+    .section-tab {
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-ideas { background: #FEF3C7; color: #92400E; }
+    .tab-actions { background: #EDE9FE; color: #6D28D9; }
+
+    /* Sticky Notes (FigJam style rounded, warm drop shadows) */
+    .fig-sticky {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: move;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .fig-sticky:hover {
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+      transform: translateY(-3px) rotate(-0.5deg);
+    }
+    .st-orange { background: #FFDFBA; color: #431407; }
+    .st-yellow { background: #FEF08A; color: #713F12; }
+    .st-purple { background: #E9D5FF; color: #581C87; }
+    .st-green  { background: #BBF7D0; color: #14532D; }
+
+    .sticky-body {
+      font-size: 13.5px;
+      line-height: 1.35;
+      font-weight: 500;
+      outline: none;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    .sticky-author {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+    .author-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* Stamp Badges */
+    .fig-stamp {
+      position: absolute;
+      background: white;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      border: 1.5px solid #F3F4F6;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: transform 0.12s;
+    }
+    .fig-stamp:hover {
+      transform: scale(1.15) rotate(4deg);
+    }
+
+    /* Bezier Connector Overlay */
+    .connectors-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Nav Bar -->
+  <header class="figjam-topbar">
+    <div class="top-left">
+      <div class="figjam-badge">
+        <div class="fig-logo-cube">FJ</div>
+        <span>FigJam</span>
+      </div>
+      <div class="doc-pill">Weekly Sprint Jam 🔮 ▾</div>
+    </div>
+    <div class="top-right">
+      <div class="timer-pill">⏱️ 05:00</div>
+      <div class="avatar-stack">
+        <div class="avatar av-1">AK</div>
+        <div class="avatar av-2">DE</div>
+        <div class="avatar av-3">MH</div>
+      </div>
+      <button class="btn-share">Share</button>
+    </div>
+  </header>
+
+  <!-- Bottom Floating Tool Dock -->
+  <div class="figjam-dock">
+    <button class="dock-tool active" title="Move (V)">
+      <svg viewBox="0 0 24 24"><path d="M4 4l7 17 2.5-6.5L20 12z"/></svg>
+    </button>
+    <button class="dock-tool" title="Marker / Pen (P)">
+      <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/></svg>
+    </button>
+    <button class="dock-tool" title="Sticky Note (S)">
+      <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M14 4v6h6"/></svg>
+    </button>
+    <button class="dock-tool" title="Shapes (R)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>
+    </button>
+    <button class="dock-tool" title="Connector (C)">
+      <svg viewBox="0 0 24 24"><path d="M4 12h16m-4-4l4 4-4 4"/></svg>
+    </button>
+    <div class="dock-divider"></div>
+    <button class="dock-tool" title="Stamp & Reaction (E)">
+      <span style="font-size: 18px;">🔥</span>
+    </button>
+    <button class="dock-tool" title="Widgets & Plugins">
+      <span style="font-size: 16px;">✨</span>
+    </button>
+  </div>
+
+  <!-- Canvas Viewport -->
+  <div id="viewport">
+    <div id="canvas">
+      <!-- Curved Connectors -->
+      <svg width="2000" height="1500" viewBox="0 0 2000 1500" class="connectors-layer" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 1;">
+        <path d="M 510 230 C 530 230, 540 230, 590 230" stroke="#8B5CF6" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <polygon points="595,230 585,225 585,235" fill="#8B5CF6"/>
+      </svg>
+
+      <!-- Section 1: Brainstorming -->
+      <div class="fig-section" style="left: 90px; top: 110px; width: 420px; height: 360px;">
+        <div class="section-tab tab-ideas">💡 Ideas & Spark</div>
+        <!-- Sticky 1 -->
+        <div class="fig-sticky st-yellow" style="left: 30px; top: 50px;">
+          <div class="sticky-body" contenteditable="true">
+            What if we had instant visual previews on every agent action?
+          </div>
+          <div class="sticky-author">
+            <div class="author-dot"></div>
+            <span>Alex K.</span>
+          </div>
+        </div>
+        <!-- Stamp on Sticky 1 -->
+        <div class="fig-stamp" style="left: 140px; top: 160px;">
+          <span>👍</span> 3
+        </div>
+
+        <!-- Sticky 2 -->
+        <div class="fig-sticky st-orange" style="left: 210px; top: 70px;">
+          <div class="sticky-body" contenteditable="true">
+            Zero-latency feedback loop: users see shapes and notes appear live.
+          </div>
+          <div class="sticky-author">
+            <div class="author-dot"></div>
+            <span>Devin</span>
+          </div>
+        </div>
+        <!-- Stamp on Sticky 2 -->
+        <div class="fig-stamp" style="left: 310px; top: 190px;">
+          <span>🔥</span> 5
+        </div>
+      </div>
+
+      <!-- Section 2: Action Items -->
+      <div class="fig-section" style="left: 560px; top: 110px; width: 440px; height: 360px;">
+        <div class="section-tab tab-actions">🚀 Action Items</div>
+        <!-- Sticky 3 -->
+        <div class="fig-sticky st-purple" style="left: 30px; top: 50px;">
+          <div class="sticky-body" contenteditable="true">
+            Generate self-contained HTML one-shots for all top canvas products.
+          </div>
+          <div class="sticky-author">
+            <div class="author-dot"></div>
+            <span>Martin H.</span>
+          </div>
+        </div>
+        <!-- Stamp on Sticky 3 -->
+        <div class="fig-stamp" style="left: 140px; top: 170px;">
+          <span>💯</span> 7
+        </div>
+
+        <!-- Sticky 4 -->
+        <div class="fig-sticky st-green" style="left: 220px; top: 140px;">
+          <div class="sticky-body" contenteditable="true">
+            Verify layout & visual quality via opencli browser screenshot test.
+          </div>
+          <div class="sticky-author">
+            <div class="author-dot"></div>
+            <span>Kira</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Canvas Pan & Zoom
+    const viewport = document.getElementById('viewport');
+    const canvas = document.getElementById('canvas');
+    let scale = 1.0;
+    let panX = 0;
+    let panY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+
+    function updateTransform() {
+      canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      viewport.style.backgroundPosition = `${panX}px ${panY}px`;
+      viewport.style.backgroundSize = `${20 * scale}px ${20 * scale}px`;
+    }
+
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.fig-sticky') || e.target.closest('.fig-stamp') || e.target.closest('.figjam-dock') || e.target.closest('.figjam-topbar')) {
+        return;
+      }
+      isPanning = true;
+      viewport.classList.add('panning');
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+      viewport.classList.remove('panning');
+    });
+
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomFactor = 1.08;
+      const oldScale = scale;
+      if (e.deltaY < 0) {
+        scale = Math.min(2.5, scale * zoomFactor);
+      } else {
+        scale = Math.max(0.3, scale / zoomFactor);
+      }
+      const rect = viewport.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      panX = mouseX - (mouseX - panX) * (scale / oldScale);
+      panY = mouseY - (mouseY - panY) * (scale / oldScale);
+      updateTransform();
+    }, { passive: false });
+
+    // Drag stickies
+    document.querySelectorAll('.fig-sticky').forEach(sticky => {
+      let isDragging = false;
+      let dragStartX, dragStartY, initialLeft, initialTop;
+
+      sticky.addEventListener('mousedown', (e) => {
+        if (e.target.classList.contains('sticky-body')) return;
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        initialLeft = parseFloat(sticky.style.left) || 0;
+        initialTop = parseFloat(sticky.style.top) || 0;
+        sticky.style.zIndex = 50;
+        e.stopPropagation();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = (e.clientX - dragStartX) / scale;
+        const dy = (e.clientY - dragStartY) / scale;
+        sticky.style.left = `${initialLeft + dx}px`;
+        sticky.style.top = `${initialTop + dy}px`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          sticky.style.zIndex = 1;
+        }
+      });
+    });
+
+    // Stamp counter increment on click
+    document.querySelectorAll('.fig-stamp').forEach(stamp => {
+      stamp.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parts = stamp.textContent.trim().split(' ');
+        let count = parseInt(parts[1]) || 0;
+        count++;
+        stamp.innerHTML = `<span>${parts[0]}</span> ${count}`;
+        stamp.style.transform = 'scale(1.3) rotate(8deg)';
+        setTimeout(() => stamp.style.transform = '', 180);
+      });
+    });
+  </script>
+</body>
+</html>
