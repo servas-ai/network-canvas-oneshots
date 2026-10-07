@@ -1,0 +1,4 @@
+# Static resource checks also cover the existing Pages baseline. On an integrated
+# WebGPU/build stand, validate and reproduce the complete build and docs artifact.
+node scripts/release-gate.cjs
+git diff --check
