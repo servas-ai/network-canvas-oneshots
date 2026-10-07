@@ -1,0 +1,27 @@
+{
+  "name": "viewer",
+  "version": "1.0.0",
+  "description": "A collection of **15 high-fidelity, self-contained single-file HTML one-shot prototypes** covering top proprietary whiteboard canvases, proxy control planes, and usage dashboards.",
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "validate": "html-validate index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/servas-ai/network-canvas-oneshots.git"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/servas-ai/network-canvas-oneshots/issues"
+  },
+  "homepage": "https://github.com/servas-ai/network-canvas-oneshots#readme",
+  "devDependencies": {
+    "html-minifier-terser": "7.2.0",
+    "html-validate": "10.1.0",
+    "lighthouse": "13.0.1",
+    "terser": "5.44.0"
+  },
+  "private": true
+}

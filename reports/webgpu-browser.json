@@ -1,0 +1,37 @@
+{
+  "results": [
+    {
+      "backend": "webgpu",
+      "canvas": {
+        "width": 808,
+        "height": 896
+      },
+      "tool": "Miro",
+      "iframePointerEvents": "auto",
+      "canvasPointerEvents": "none",
+      "gpuAvailable": true,
+      "forced": false
+    },
+    {
+      "case": "device-loss",
+      "backend": "canvas2d"
+    },
+    {
+      "backend": "canvas2d",
+      "canvas": {
+        "width": 808,
+        "height": 896
+      },
+      "tool": "Miro",
+      "iframePointerEvents": "auto",
+      "canvasPointerEvents": "none",
+      "gpuAvailable": true,
+      "forced": true
+    },
+    {
+      "case": "missing-webgpu",
+      "backend": "canvas2d"
+    }
+  ],
+  "errors": []
+}

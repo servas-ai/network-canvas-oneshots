@@ -85,3 +85,17 @@ Die Kürzel wirken auch, wenn der Fokus im Prototyp liegt, nie aber beim Tippen 
 ## 🖼️ Gallery Project Showroom
 
 The static visual showroom is located at [`gallery.html`](./gallery.html), featuring interactive category filtering, live prototype links, and high-resolution screenshots generated via `opencli browser screenshot`.
+
+### WebGPU-Bühnenhintergrund
+
+Der Viewer zeigt beim Laden sofort das CSS-Punktraster. Die erste Pointer- oder Tastaturbedienung im Viewer oder einem lokalen One-Shot initialisiert den dekorativen Renderer; damit konkurriert der kalte GPU-Treiberstart nicht mit dem Seitenaufbau. Der Viewer nutzt auf HTTPS bei verfügbarem Adapter WebGPU für das Punktraster und einen kurzen Lichtimpuls beim Wechsel des One-Shots. Ohne WebGPU, bei Initialisierungsfehlern oder Geräteverlust ersetzt ein Canvas2D-Hintergrund die GPU-Fläche; CSS bleibt die letzte Rückfallebene. `?tool=miro&geraet=iphone-390&renderer=canvas2d` erzwingt den Fallback für die Prüfung. Das aktive Backend steht unten rechts auf der Bühne.
+
+Live-iframes, Einpassen und 1:1-Scrollen bleiben DOM/CSS; WebGPU rendert deren Inhalte nicht. Die GPU zeichnet nur bei Resize, Theme-Wechsel oder einem kurzen Übergang, pausiert in versteckten Tabs und respektiert reduzierte Bewegung. Grundlage: [WebGPU-Spezifikation](https://www.w3.org/TR/webgpu/). Kein Build erforderlich: statische HTML/JS-Dateien auf dem bestehenden Pages-Ziel.
+
+Reproduzierbarer Build des neuen Moduls: `npx --yes --package terser@5.44.0 terser scripts/stage-renderer.js --compress --mangle --output scripts/stage-renderer.min.js`. Die minifizierte Datei wird statisch eingebunden. Browserprüfung mit einer eigenen bcli-Cloud-Session: deren JSON-Antwort in einer privaten Datei ablegen, dann `BCLI_SESSION_FILE=/pfad/session.json node scripts/verify-stage-renderer.cjs` aus dem Repo-Root (Playwright auf dem Desk). Der Test verbindet sich ausschließlich per CDP, liefert lokale Dateien per Route auf der HTTPS-Pages-Herkunft aus und speichert tokenfreie Belege in `reports/`.
+
+### Statischer Build und Prüfung
+
+`npm ci && npm run validate && npm run build` erzeugt alle HTML-Seiten einschließlich inline CSS/JS, Manifest, Screenshots und Renderer in `dist/`. Diesen Ordner beim Deployment als Website-Root ausliefern. Die bisherigen statischen Quelldateien bleiben direkt nutzbar. Zwei Builds werden über `find dist -type f -print0 | sort -z | xargs -0 sha256sum` verglichen.
+
+`BCLI_SESSION_FILE=/private/session.json BUILD_ROOT=dist node scripts/verify-stage-renderer.cjs` prüft den gebauten Viewer. `BCLI_SESSION_FILE=/private/session.json node scripts/audit-cloud.cjs` führt Lighthouse mobil im selben Cloud-Browser aus und schreibt JSON/HTML nach `reports/`. Die lokale HTTP-Schnittstelle reicht nur die CDP-Verbindungsinformation an Lighthouse durch; sie startet keinen Browser. Die HTTPS-Ressourcen werden für diese Entwicklungsprüfung aus `dist/` geliefert, die GitHub-Discovery mit einer leeren Antwort isoliert. Dies ist keine Live-Prüfung. GitHub-API/Versionsvergleich und optionale Voice-Brücke bleiben bestehende externe Funktionen; der neue Renderer benötigt keine externen Ressourcen.
