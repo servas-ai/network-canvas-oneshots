@@ -25,6 +25,12 @@ const {chromium} = require('playwright');
   await page.goto(base+(forced?'&renderer=canvas2d':''));
   await page.waitForFunction(()=>document.querySelector('#stage').dataset.renderer);
   await page.waitForFunction(()=>document.querySelector('#frame').contentDocument?.body?.children.length>0);
+  if (!forced) {
+    assert.equal(await page.locator('#stage').getAttribute('data-renderer'), 'css');
+    assert.equal(await page.evaluate(()=>!!window.testDevice), false);
+    await page.frameLocator('#frame').locator('body').click({position:{x:100,y:100}});
+    await page.waitForFunction(()=>document.querySelector('#stage').dataset.renderer !== 'css');
+  }
   await page.waitForTimeout(700);
   const result = await page.evaluate(()=>({backend:document.querySelector('#stage').dataset.renderer,canvas:{width:document.querySelector('.stage-renderer').width,height:document.querySelector('.stage-renderer').height},tool:document.querySelector('#toolName').textContent,iframePointerEvents:getComputedStyle(document.querySelector('#frame')).pointerEvents,canvasPointerEvents:getComputedStyle(document.querySelector('.stage-renderer')).pointerEvents,gpuAvailable:!!navigator.gpu})); result.forced=forced; results.push(result);
   assert.equal(result.tool,'Miro'); assert.equal(result.canvasPointerEvents,'none'); assert.ok(result.canvas.width>0);
@@ -45,7 +51,9 @@ const {chromium} = require('playwright');
   if (!forced && result.backend === 'webgpu') { await page.evaluate(()=>window.testDevice.destroy()); await page.waitForFunction(()=>document.querySelector('#stage').dataset.renderer==='canvas2d'); results.push({case:'device-loss',backend:await page.locator('#stage').getAttribute('data-renderer')}); }
  }
  await page.addInitScript(()=>Object.defineProperty(navigator,'gpu',{value:undefined}));
- await page.goto(base); await page.waitForFunction(()=>document.querySelector('#stage').dataset.renderer==='canvas2d'); results.push({case:'missing-webgpu',backend:await page.locator('#stage').getAttribute('data-renderer')});
+  await page.goto(base);
+  await page.locator('#rotateBtn').click();
+  await page.waitForFunction(()=>document.querySelector('#stage').dataset.renderer==='canvas2d'); results.push({case:'missing-webgpu',backend:await page.locator('#stage').getAttribute('data-renderer')});
  fs.writeFileSync('reports/webgpu-browser.json',JSON.stringify({results,errors},null,2));
  console.log(JSON.stringify({results,errors}));
  await page.close();await browser.close();

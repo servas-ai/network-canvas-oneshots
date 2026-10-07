@@ -19,6 +19,7 @@ const {chromium}=require('playwright');
  const {default:lighthouse}=await import('lighthouse');
  const result=await lighthouse('https://servas-ai.github.io/network-canvas-oneshots/?tool=miro&geraet=iphone-390',{port:19358,hostname:'127.0.0.1',output:['json','html'],onlyCategories:['performance','accessibility'],disableStorageReset:true});
  fs.writeFileSync('reports/lighthouse-mobile.json',result.report[0]);fs.writeFileSync('reports/lighthouse-mobile.html',result.report[1].split('\n').map(line=>line.trimEnd()).join('\n'));
+ fs.writeFileSync('reports/lighthouse-environment.json',JSON.stringify({node:process.version,lighthouse:result.lhr.lighthouseVersion,fetchTime:result.lhr.fetchTime},null,2));
  console.log(JSON.stringify({performance:result.lhr.categories.performance.score,accessibility:result.lhr.categories.accessibility.score,errors:result.lhr.runtimeError,failed:Object.values(result.lhr.audits).filter(a=>a.score!==null&&a.score<1).map(a=>({id:a.id,score:a.score,details:a.details}))}));
  } finally {proxy.close();await browser.close();}
 })().catch(e=>{console.error(e.message);process.exit(1)});

@@ -88,7 +88,7 @@ The static visual showroom is located at [`gallery.html`](./gallery.html), featu
 
 ### WebGPU-Bühnenhintergrund
 
-Der Viewer nutzt auf HTTPS bei verfügbarem Adapter WebGPU für das Punktraster und einen kurzen Lichtimpuls beim Wechsel des One-Shots. Ohne WebGPU, bei Initialisierungsfehlern oder Geräteverlust ersetzt ein Canvas2D-Hintergrund die GPU-Fläche; CSS bleibt die letzte Rückfallebene. `?tool=miro&geraet=iphone-390&renderer=canvas2d` erzwingt den Fallback für die Prüfung. Das aktive Backend steht unten rechts auf der Bühne.
+Der Viewer zeigt beim Laden sofort das CSS-Punktraster. Die erste Pointer- oder Tastaturbedienung im Viewer oder einem lokalen One-Shot initialisiert den dekorativen Renderer; damit konkurriert der kalte GPU-Treiberstart nicht mit dem Seitenaufbau. Der Viewer nutzt auf HTTPS bei verfügbarem Adapter WebGPU für das Punktraster und einen kurzen Lichtimpuls beim Wechsel des One-Shots. Ohne WebGPU, bei Initialisierungsfehlern oder Geräteverlust ersetzt ein Canvas2D-Hintergrund die GPU-Fläche; CSS bleibt die letzte Rückfallebene. `?tool=miro&geraet=iphone-390&renderer=canvas2d` erzwingt den Fallback für die Prüfung. Das aktive Backend steht unten rechts auf der Bühne.
 
 Live-iframes, Einpassen und 1:1-Scrollen bleiben DOM/CSS; WebGPU rendert deren Inhalte nicht. Die GPU zeichnet nur bei Resize, Theme-Wechsel oder einem kurzen Übergang, pausiert in versteckten Tabs und respektiert reduzierte Bewegung. Grundlage: [WebGPU-Spezifikation](https://www.w3.org/TR/webgpu/). Kein Build erforderlich: statische HTML/JS-Dateien auf dem bestehenden Pages-Ziel.
 

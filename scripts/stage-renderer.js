@@ -41,6 +41,7 @@
     return [...c.getImageData(0, 0, 1, 1).data].map(v => v / 255);
   }
   function palette() {
+    if (backend === 'css') return;
     const css = getComputedStyle(stage);
     values.set(color(css.getPropertyValue('--stage')), 4);
     values.set(color(css.getPropertyValue('--stage-dot')), 8);
@@ -64,7 +65,7 @@
   }
   function draw(now) {
     raf = 0;
-    if (disposed || document.hidden || !stage.clientWidth || !stage.clientHeight) return;
+    if (disposed || !canvas || backend === 'css' || document.hidden || !stage.clientWidth || !stage.clientHeight) return;
     const ratio = Math.min(devicePixelRatio || 1, 2);
     const limit = device?.limits.maxTextureDimension2D || 4096;
     const dpr = Math.min(ratio, limit / stage.clientWidth, limit / stage.clientHeight);
@@ -124,5 +125,24 @@
   document.addEventListener('visibilitychange', () => { if (document.hidden) { cancelAnimationFrame(raf); raf = 0; } else schedule(); });
   document.getElementById('frame')?.addEventListener('load', () => { pulse = performance.now(); schedule(); });
   window.addEventListener('pagehide', event => { if (!event.persisted) { disposed = true; cancelAnimationFrame(raf); device?.destroy(); } });
-  init();
+  // The CSS grid is already visible. Acquire the decorative GPU only when
+  // someone starts using the viewer, keeping cold driver startup off page load.
+  status('css');
+  let started = false;
+  function start() {
+    if (started || disposed) return;
+    started = true;
+    init();
+  }
+  document.addEventListener('pointerdown', start, {once: true, capture: true});
+  document.addEventListener('keydown', start, {once: true, capture: true});
+  const frame = document.getElementById('frame');
+  frame?.addEventListener('load', () => {
+    // Same-origin prototypes receive input inside their own document.
+    try {
+      frame.contentDocument?.addEventListener('pointerdown', start, {once: true, capture: true});
+      frame.contentDocument?.addEventListener('keydown', start, {once: true, capture: true});
+    } catch { /* Version previews may use a different origin. */ }
+  });
+  if (new URLSearchParams(location.search).get('renderer') === 'canvas2d') start();
 })();
