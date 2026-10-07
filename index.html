@@ -10,6 +10,7 @@
   <meta name="theme-color" content="#121418" media="(prefers-color-scheme: dark)">
   <script>try { var t = localStorage.getItem('oneshots-review:theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) { /* storage blocked: Auto */ }</script>
   <style>
+    .icon-sprite { position: absolute; }
     /* ================= Design tokens ================= */
     :root {
       /* spacing: 4 px scale */
@@ -160,9 +161,9 @@
       transition: background var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
     }
     .seg button:hover { color: var(--text); }
-    .seg button[aria-checked="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm), 0 0 0 1px var(--border); }
+    .seg button:is([aria-checked="true"], [aria-pressed="true"]) { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm), 0 0 0 1px var(--border); }
     .seg button .ic { color: var(--text-3); }
-    .seg button[aria-checked="true"] .ic { color: var(--accent); }
+    .seg button:is([aria-checked="true"], [aria-pressed="true"]) .ic { color: var(--accent); }
     .seg .s-short { display: none; }
 
     .badge {
@@ -258,7 +259,7 @@
     .renderer-status { position: absolute; bottom: 8px; right: 12px; z-index: 1; color: var(--text-3); font-size: 10px; pointer-events: none; }
     .stage-renderer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .stage.one { overflow: auto; align-items: flex-start; justify-content: flex-start; }
-    .fit { position: relative; flex: none; }
+    .fit { visibility: hidden; position: relative; flex: none; }
     .stage.one .fit { margin: auto; }
 
     /* Device frames */
@@ -550,7 +551,7 @@
 </head>
 <body>
   <!-- Icon sprite (stroke icons, 24 px grid) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <svg width="0" height="0" class="icon-sprite" aria-hidden="true">
     <defs>
       <symbol id="i-logo" viewBox="0 0 24 24"><path d="M5 17l5-5 3 3 6-8"/></symbol>
       <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
@@ -607,16 +608,16 @@
           <span class="count" id="countLabel">lädt …</span>
         </div>
       </div>
-      <button class="btn icon ghost" id="themeBtn" type="button" aria-keyshortcuts="T" data-tip-pos="end"></button>
+      <button class="btn icon ghost" id="themeBtn" aria-label="Farbschema wechseln" type="button" aria-keyshortcuts="T" data-tip-pos="end"></button>
       <button class="btn sm" id="sheetBtn" type="button" aria-controls="marksPanel" aria-expanded="false"><svg class="ic"><use href="#i-list"/></svg>Markierungen <span class="badge zero" id="sheetCount">0</span></button>
     </div>
     <div class="row"><select id="pick" aria-label="Prototyp wählen"></select></div>
     <div class="spacer"></div>
     <div class="row">
       <div class="seg" role="radiogroup" aria-label="Gerätegröße" id="deviceSeg"></div>
-      <button class="btn mark-btn" id="markBtn" type="button" aria-pressed="false" aria-keyshortcuts="M" data-tip="Markier-Modus · M"></button>
+      <button class="btn mark-btn" id="markBtn" aria-label="Markier-Modus" type="button" aria-pressed="false" aria-keyshortcuts="M" data-tip="Markier-Modus · M"></button>
       <div class="split">
-        <button class="btn voice-btn" id="voiceBtn" type="button" aria-pressed="false" aria-keyshortcuts="V" data-tip="Sprach-Notiz · V (Zeiger auf die Stelle, dann sprechen)"></button>
+        <button class="btn voice-btn" id="voiceBtn" aria-label="Sprach-Notiz" type="button" aria-pressed="false" aria-keyshortcuts="V" data-tip="Sprach-Notiz · V (Zeiger auf die Stelle, dann sprechen)"></button>
         <button class="btn voice-cfg" id="voiceCfgBtn" type="button" aria-label="Sprach-Einstellungen" data-tip="Sprach-Einstellungen" data-tip-pos="end"><svg class="ic sm"><use href="#i-chev-d"/></svg></button>
       </div>
       <span class="divider"></span>
@@ -654,8 +655,8 @@
           <button class="btn sm icon ghost" id="showBtn" type="button" aria-label="Markierungen ein oder aus (H)" aria-keyshortcuts="H" aria-pressed="true" data-tip="Markierungen ein/aus · H"><svg class="ic"><use href="#i-eye"/></svg></button>
           <span class="sep"></span>
           <button class="btn sm icon ghost" id="reloadBtn" type="button" aria-label="Prototyp neu laden" data-tip="Neu laden"><svg class="ic"><use href="#i-refresh"/></svg></button>
-          <a class="btn sm icon ghost" id="openLink" target="_blank" rel="noopener" aria-label="In neuem Tab öffnen" data-tip="In neuem Tab" data-tip-pos="end"><svg class="ic"><use href="#i-external"/></svg></a>
-          <a class="btn sm icon ghost" id="srcLink" target="_blank" rel="noopener" aria-label="Quelltext auf GitHub" data-tip="Quelltext auf GitHub" data-tip-pos="end"><svg class="ic"><use href="#i-code"/></svg></a>
+          <a class="btn sm icon ghost" id="openLink" href="./miro.html" target="_blank" rel="noopener" aria-label="In neuem Tab öffnen" data-tip="In neuem Tab" data-tip-pos="end"><svg class="ic"><use href="#i-external"/></svg></a>
+          <a class="btn sm icon ghost" id="srcLink" href="https://github.com/servas-ai/network-canvas-oneshots" target="_blank" rel="noopener" aria-label="Quelltext auf GitHub" data-tip="Quelltext auf GitHub" data-tip-pos="end"><svg class="ic"><use href="#i-code"/></svg></a>
         </div>
       </div>
       <div class="compare-bar" id="compareBar" hidden></div>
@@ -691,14 +692,14 @@
         <h2>Markierungen <span class="badge zero" id="panelCount">0</span>
           <button class="btn sm icon ghost x" id="sheetClose" type="button" aria-label="Schließen"><svg class="ic"><use href="#i-x"/></svg></button>
         </h2>
-        <div class="seg" role="radiogroup" aria-label="Welche Markierungen">
-          <button type="button" role="radio" aria-checked="true" data-scope="tool" id="scopeTool">Dieses Tool</button>
-          <button type="button" role="radio" aria-checked="false" data-scope="all" id="scopeAll">Alle</button>
+        <div class="seg" role="group" aria-label="Welche Markierungen">
+          <button type="button" aria-pressed="true" data-scope="tool" id="scopeTool">Dieses Tool</button>
+          <button type="button" aria-pressed="false" data-scope="all" id="scopeAll">Alle</button>
         </div>
       </div>
       <ul class="marks-list" id="marksList"></ul>
       <div class="marks-foot">
-        <button class="btn primary" id="bundleBtn" type="button"></button>
+        <button class="btn primary" id="bundleBtn" aria-label="Issue erstellen" type="button"></button>
         <div class="row">
           <button class="btn sm" id="exportBtn" type="button" title="Als Datei speichern"><svg class="ic sm"><use href="#i-download"/></svg>JSON</button>
           <button class="btn sm" id="copyBtn" type="button" title="In die Zwischenablage"><svg class="ic sm"><use href="#i-copy"/></svg>Kopieren</button>
@@ -1151,6 +1152,7 @@
     els.fit.style.width = fw * s + 'px';
     els.fit.style.height = fh * s + 'px';
     els.stage.classList.toggle('one', state.oneToOne);
+    if (state.items.length) els.fit.style.visibility = 'visible';
     els.zoom.textContent = `${w} × ${hgt} · ${Math.round(s * 100)} %`;
   }
 
@@ -1521,8 +1523,8 @@
     const list = state.scope === 'tool' ? forTool : state.marks;
     els.scopeTool.textContent = `Dieses Tool (${forTool.length})`;
     els.scopeAll.textContent = `Alle (${state.marks.length})`;
-    els.scopeTool.setAttribute('aria-checked', String(state.scope === 'tool'));
-    els.scopeAll.setAttribute('aria-checked', String(state.scope === 'all'));
+    els.scopeTool.setAttribute('aria-pressed', String(state.scope === 'tool'));
+    els.scopeAll.setAttribute('aria-pressed', String(state.scope === 'all'));
     for (const b of [els.panelCount, els.sheetCount]) { b.textContent = String(state.marks.length); b.classList.toggle('zero', !state.marks.length); }
     els.bundleBtn.replaceChildren(icon('stack'), `Alle von ${state.tool?.name || 'diesem Tool'} als 1 Issue (${forTool.length})`);
     els.bundleBtn.disabled = forTool.length === 0;
@@ -2193,7 +2195,7 @@
     if (ver.history.has(file)) return ver.history.get(file);
     let list = [];
     try {
-      const data = await apiCached('oneshots-review:hist:' + file, `https://api.github.com/repos/${state.cfg.repo}/commits?path=${encodeURIComponent(file)}&sha=${encodeURIComponent(state.cfg.branch)}&per_page=8`);
+      const data = await apiCached('oneshots-review:hist:' + file, `https://api.github.com/repos/${state.cfg.repo}/commits?path=${encodeURIComponent(file)}\x26sha=${encodeURIComponent(state.cfg.branch)}\x26per_page=8`);
       list = data.slice(1).map((c) => ({ ref: c.sha.slice(0, 12), sha: c.sha.slice(0, 7), label: `${c.sha.slice(0, 7)} · ${c.commit.author.date.slice(0, 10)} · ${short(c.commit.message.split('\n')[0], 40)}` }));
     } catch { /* rate limit: manifest refs and free ref still work */ }
     ver.history.set(file, list);

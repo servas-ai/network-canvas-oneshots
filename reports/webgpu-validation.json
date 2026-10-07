@@ -1,7 +1,1 @@
-{
-  "validator": "html-validate@10.1.0",
-  "baselineErrors": 13,
-  "currentErrors": 13,
-  "newErrors": 0,
-  "note": "Existing viewer warnings unchanged; strict whole-page validation is not green."
-}
+{"validator":"html-validate@10.1.0","baselineErrors":13,"currentErrors":0,"newErrors":0}

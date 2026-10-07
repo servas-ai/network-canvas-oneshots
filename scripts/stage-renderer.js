@@ -35,7 +35,7 @@
     const probe = document.createElement('span');
     probe.style.color = value; stage.append(probe);
     const rgb = getComputedStyle(probe).color; probe.remove();
-    const c = document.createElement('canvas').getContext('2d');
+    const c = document.createElement('canvas').getContext('2d', {willReadFrequently: true});
     if (!c) return [0, 0, 0, 1];
     c.fillStyle = rgb; c.fillRect(0, 0, 1, 1);
     return [...c.getImageData(0, 0, 1, 1).data].map(v => v / 255);

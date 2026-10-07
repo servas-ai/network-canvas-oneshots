@@ -1,0 +1,10 @@
+{
+  "validator": "html-validate@10.1.0",
+  "errors": 0,
+  "checkedLocalResources": [
+    "./miro.html",
+    "scripts/stage-renderer.min.js"
+  ],
+  "manifestTargets": 15,
+  "missingLocalResources": []
+}
