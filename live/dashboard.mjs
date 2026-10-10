@@ -1,18 +1,15 @@
 // SERVAS-2071 functional OpenCodex usage surface. Data: GET /api/usage
 // (app/server.mjs). Quota values are shown only with source + timestamp.
 import { observe } from '../shared/state.mjs';
+import { quotaWindow as windowView } from '../shared/quota.mjs';
 import { el, icon, stateBadge, panel, metric, meter, table, bars, fmt } from '../shared/components.mjs';
 
-const QUOTA_MAX_AGE = 6 * 3600e3;   // Codex refreshes rate_limits per turn; older = stale
 const USAGE_MAX_AGE = 24 * 3600e3;
 const $ = id => document.getElementById(id);
 const root = document.documentElement;
 
 function quotaWindow(q, w, now) {
-  // A window whose reset already passed no longer describes current usage.
-  const expired = w.resetsAt && Date.parse(w.resetsAt) <= now;
-  const obs = observe({ source: `${q.source}:${q.limitId}`, observedAt: q.observedAt,
-    value: expired ? null : w.usedPercent }, { now, maxAgeMs: QUOTA_MAX_AGE });
+  const { obs, expired } = windowView(q, w, { now });
   const name = w.windowMinutes ? `Fenster ${fmt.window(w.windowMinutes)}` : w.name;
   return el('div', { class: 'quota-row' },
     el('div', { class: 'between' }, el('strong', { text: name }), stateBadge(obs)),

@@ -1,0 +1,121 @@
+{
+  "tray-dark": {
+    "overflowX": false,
+    "subtitle": "Höchste Auslastung 17 % (veraltet) · 1 von 5 Quellen mit Daten",
+    "tab": "Übersicht",
+    "panels": [
+      "Verbrauch",
+      "Datenquellen",
+      "ChatGPT · Codex"
+    ],
+    "badges": [
+      "ready:Aktuell",
+      "unknown:Kosten · Unbekannt",
+      "stale:max 17 %",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "stale:Veraltet"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "poll": "127.0.0.1 · Abfrage alle 20 min · zuletzt vor < 1 min",
+    "theme": "dark"
+  },
+  "tray-light": {
+    "overflowX": false,
+    "subtitle": "Höchste Auslastung 17 % (veraltet) · 1 von 5 Quellen mit Daten",
+    "tab": "Übersicht",
+    "panels": [
+      "Verbrauch",
+      "Datenquellen",
+      "ChatGPT · Codex"
+    ],
+    "badges": [
+      "ready:Aktuell",
+      "unknown:Kosten · Unbekannt",
+      "stale:max 17 %",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "stale:Veraltet"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "poll": "127.0.0.1 · Abfrage alle 20 min · zuletzt vor < 1 min",
+    "theme": "light"
+  },
+  "tray-narrow": {
+    "overflowX": false,
+    "subtitle": "Höchste Auslastung 17 % (veraltet) · 1 von 5 Quellen mit Daten",
+    "tab": "Übersicht",
+    "panels": [
+      "Verbrauch",
+      "Datenquellen",
+      "ChatGPT · Codex"
+    ],
+    "badges": [
+      "ready:Aktuell",
+      "unknown:Kosten · Unbekannt",
+      "stale:max 17 %",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "stale:Veraltet"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "poll": "127.0.0.1 · Abfrage alle 20 min · zuletzt vor < 1 min",
+    "theme": "dark"
+  },
+  "tabCodex": {
+    "overflowX": false,
+    "subtitle": "Höchste Auslastung 17 % (veraltet) · 1 von 5 Quellen mit Daten",
+    "tab": "ChatGPT",
+    "panels": [
+      "ChatGPT · Codex"
+    ],
+    "badges": [
+      "stale:Veraltet"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "poll": "127.0.0.1 · Abfrage alle 20 min · zuletzt vor < 1 min",
+    "theme": "dark"
+  },
+  "tabOther": {
+    "overflowX": false,
+    "subtitle": "Höchste Auslastung 17 % (veraltet) · 1 von 5 Quellen mit Daten",
+    "tab": "Weitere",
+    "panels": [
+      "Gemini",
+      "Grok",
+      "CLIProxy-Pool"
+    ],
+    "badges": [
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt"
+    ],
+    "meters": [],
+    "poll": "127.0.0.1 · Abfrage alle 20 min · zuletzt vor < 1 min",
+    "theme": "dark"
+  },
+  "focusAfterArrows": "tab-other",
+  "wrapToFirst": "tab-all",
+  "keyR": "Aktualisiert 00:07:33",
+  "keyT": "light",
+  "navToTokscale": [
+    "/tokscale/",
+    "Tokscale",
+    3
+  ],
+  "pageErrors": []
+}
