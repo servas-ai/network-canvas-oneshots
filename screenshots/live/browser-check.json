@@ -1,0 +1,40 @@
+{
+  "usage-dark": {
+    "overflowX": false,
+    "badges": [
+      "ready:Aktuell",
+      "stale:Veraltet"
+    ],
+    "metrics": [
+      "253,3 Mio.",
+      "2 096",
+      "1,5 Mio.",
+      "5,7 Mio."
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "rows": 5,
+    "theme": "dark"
+  },
+  "usage-light": {
+    "overflowX": false,
+    "badges": [
+      "ready:Aktuell",
+      "stale:Veraltet"
+    ],
+    "metrics": [
+      "253,3 Mio.",
+      "2 096",
+      "1,5 Mio.",
+      "5,7 Mio."
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "rows": 5,
+    "theme": "light"
+  },
+  "keyboardRefresh": "Aktualisiert 20:09:56",
+  "range1": "Anfragen33924 h"
+}

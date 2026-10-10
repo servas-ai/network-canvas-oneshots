@@ -4,6 +4,8 @@ Fifteen original, self-contained HTML product UI studies: five collaborative can
 
 Open [the gallery](index.html), [the visual quality report](QG.md), or [the product references](REFERENCES.md).
 
+**Functional surface (SERVAS-2071):** see [LIVE.md](LIVE.md) — real local usage/quota dashboard plus the shared `shared/` component layer.
+
 ## Run locally
 
 ```sh
