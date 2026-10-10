@@ -24,6 +24,9 @@ test('static: root redirects, live page served, traversal and dotfiles blocked',
     const r = await fetch(`${base}/`, { redirect: 'manual' });
     assert.equal(r.status, 302); assert.equal(r.headers.get('location'), '/live/');
     assert.match(await (await fetch(`${base}/live/`)).text(), /dashboard\.mjs/);
+    const t = await fetch(`${base}/tokscale`, { redirect: 'manual' });
+    assert.equal(t.status, 302); assert.equal(t.headers.get('location'), '/tokscale/');
+    assert.match(await (await fetch(`${base}/tokscale/`)).text(), /tokscale\.mjs/);
     assert.equal((await fetch(`${base}/live/dashboard.mjs`)).headers.get('content-type'), 'text/javascript; charset=utf-8');
     for (const p of ['/..%2f..%2f.codex%2fauth.json', '/.git/config', '/%2e%2e/%2e%2e/etc/passwd', '/nope.html']) {
       assert.equal((await fetch(`${base}${p}`)).status, 404, p);
