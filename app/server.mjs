@@ -11,6 +11,7 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const CACHE_MS = 60000;
+const APPS = ['/live', '/tokscale'];
 
 export function createUsageServer({ collect = collectUsage, root = ROOT } = {}) {
   const cache = new Map();
@@ -36,8 +37,9 @@ export function createUsageServer({ collect = collectUsage, root = ROOT } = {}) 
         res.writeHead(200, { 'content-type': TYPES['.json'], 'cache-control': 'no-store' }).end(body);
         return;
       }
-      // Redirect so relative module/style URLs in live/index.html resolve.
-      if (url.pathname === '/' || url.pathname === '/live') { res.writeHead(302, { location: '/live/' }).end(); return; }
+      // Redirect so relative module/style URLs in the app pages resolve.
+      if (url.pathname === '/') { res.writeHead(302, { location: '/live/' }).end(); return; }
+      if (APPS.includes(url.pathname)) { res.writeHead(302, { location: `${url.pathname}/` }).end(); return; }
       const path = url.pathname.endsWith('/') ? `${url.pathname}index.html` : url.pathname;
       const rel = normalize(decodeURIComponent(path)).replace(/^([/\\])+/, '');
       const file = join(root, rel);

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de" data-product="tokscale" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tokscale · Jahr in Tokens</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { font-family: var(--mono); }
+  .shell { max-width: 1320px; margin: 0 auto; padding: 22px 28px 40px; display: grid; gap: 16px; }
+  .top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .top .brand { display: flex; align-items: baseline; gap: 10px; margin-right: auto; }
+  h1 { color: var(--accent); font-family: var(--mono); letter-spacing: -.03em; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .grid2 { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 12px; }
+  .between { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+  .axis { display: flex; justify-content: space-between; margin-top: 6px; }
+  .keys { display: flex; gap: 16px; flex-wrap: wrap; }
+  kbd { font-family: var(--mono); color: var(--accent); }
+  #live { min-height: 1em; }
+  @media (max-width: 900px) { .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div class="brand"><h1>Dein Jahr in Tokens.</h1><small id="subtitle"></small></div>
+    <nav class="ui-nav" aria-label="Oberflächen"><a href="../live/">Live-Nutzung</a><a href="./" aria-current="page">Tokscale</a></nav>
+    <button id="theme" type="button" aria-label="Farbschema wechseln">Hell</button>
+    <button id="export" type="button" aria-label="Daten als JSON exportieren" disabled></button>
+    <button id="refresh" type="button" class="primary" aria-label="Daten neu laden"></button>
+  </header>
+  <p id="live" role="status" aria-live="polite"></p>
+  <main id="app" aria-busy="true"></main>
+  <footer class="keys"><small><kbd>r</kbd> neu laden</small><small><kbd>e</kbd> JSON-Export</small><small><kbd>t</kbd> Farbschema</small></footer>
+</div>
+<script type="module" src="tokscale.mjs"></script>
+</body>
+</html>

@@ -7,6 +7,8 @@ const PATHS = Object.freeze({
   clock: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6v6l4 2',
   'loader-circle': 'M21 12a9 9 0 1 1-6.2-8.6',
   'triangle-alert': 'M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01',
+  download: 'M12 3v12M7 10l5 5 5-5M5 21h14',
+  flame: 'M12 22a7 7 0 0 0 7-7c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 2-5 5-5 8a7 7 0 0 0 7 7z',
   'refresh-cw': 'M21 12a9 9 0 0 1-15 6.7L3 16M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M3 21v-5h5',
 });
 
@@ -75,11 +77,35 @@ export function bars(points, label, format = String) {
   el('p', { class: 'sr-only', text: points.map(p => `${p.label} ${format(p.value)}`).join(', ') }));
 }
 
+// GitHub-style year grid. weeks: shared/calendar.mjs calendarWeeks(); level: total -> 0..4.
+// Keyboard: the grid is one tab stop; the per-day list is available to screen readers.
+export function heatmap(weeks, marks, level, label, format = String) {
+  if (!weeks.length) return el('div', { class: 'ui-empty', text: 'Keine Daten' });
+  const months = new Intl.DateTimeFormat('de-AT', { month: 'short', timeZone: 'UTC' });
+  return el('div', { class: 'ui-heatmap', style: `--weeks:${weeks.length}` },
+    el('div', { class: 'ui-heatmap-months', 'aria-hidden': 'true' }, marks.map(m =>
+      el('small', { style: `grid-column:${m.week + 1}`, text: months.format(new Date(`${m.month}-01T00:00:00Z`)) }))),
+    el('div', { class: 'ui-heatmap-grid', role: 'img', 'aria-label': label, tabindex: '0' },
+      weeks.flatMap(week => week.map(c => el('span', c
+        ? { dataset: { level: String(level(c.total)) }, title: `${c.day}: ${format(c.total)}` }
+        : { class: 'pad' })))),
+    el('p', { class: 'sr-only', text: weeks.flat().filter(c => c && c.total > 0).map(c => `${c.day} ${format(c.total)}`).join(', ') || 'Keine aktiven Tage' }));
+}
+
+export function legend(less = 'Weniger', more = 'Mehr') {
+  return el('div', { class: 'ui-legend', 'aria-hidden': 'true' }, el('small', { text: less }),
+    [0, 1, 2, 3, 4].map(l => el('span', { dataset: { level: String(l) } })), el('small', { text: more }));
+}
+
 export const fmt = Object.freeze({
   tokens(n) {
     if (!Number.isFinite(n)) return '–';
     for (const [d, s] of [[1e9, ' Mrd.'], [1e6, ' Mio.'], [1e3, ' Tsd.']]) if (Math.abs(n) >= d) return `${(n / d).toLocaleString('de-AT', { maximumFractionDigits: 1 })}${s}`;
     return n.toLocaleString('de-AT');
+  },
+  day(iso) {
+    const t = Date.parse(`${iso}T00:00:00Z`);
+    return Number.isFinite(t) ? new Date(t).toLocaleDateString('de-AT', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '–';
   },
   dateTime(iso) {
     const t = Date.parse(iso);

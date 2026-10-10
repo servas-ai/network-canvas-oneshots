@@ -1,0 +1,145 @@
+{
+  "tokscale-dark": {
+    "url": "/tokscale/",
+    "overflowX": false,
+    "badges": [
+      "unknown:keine Preisquelle · Unbekannt",
+      "ready:Aktuell"
+    ],
+    "metrics": [
+      "255,6 Mio.",
+      "–",
+      "4 / 366",
+      "63,9 Mio."
+    ],
+    "title": "Token-Aktivität · 366 Tage",
+    "gridFill": {
+      "gridW": 1230,
+      "boxW": 1230,
+      "scrolledToNewest": true
+    },
+    "cells": 366,
+    "levels": [
+      362,
+      1,
+      1,
+      1,
+      1
+    ],
+    "months": [
+      "Okt",
+      "Nov",
+      "Dez",
+      "Jän",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt"
+    ],
+    "modelRows": 3,
+    "theme": "dark"
+  },
+  "tokscale-light": {
+    "url": "/tokscale/",
+    "overflowX": false,
+    "badges": [
+      "unknown:keine Preisquelle · Unbekannt",
+      "ready:Aktuell"
+    ],
+    "metrics": [
+      "255,6 Mio.",
+      "–",
+      "4 / 366",
+      "63,9 Mio."
+    ],
+    "title": "Token-Aktivität · 366 Tage",
+    "gridFill": {
+      "gridW": 1230,
+      "boxW": 1230,
+      "scrolledToNewest": true
+    },
+    "cells": 366,
+    "levels": [
+      362,
+      1,
+      1,
+      1,
+      1
+    ],
+    "months": [
+      "Okt",
+      "Nov",
+      "Dez",
+      "Jän",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt"
+    ],
+    "modelRows": 3,
+    "theme": "light"
+  },
+  "tokscale-narrow": {
+    "url": "/tokscale/",
+    "overflowX": false,
+    "badges": [
+      "unknown:keine Preisquelle · Unbekannt",
+      "ready:Aktuell"
+    ],
+    "metrics": [
+      "255,6 Mio.",
+      "–",
+      "4 / 366",
+      "63,9 Mio."
+    ],
+    "title": "Token-Aktivität · 366 Tage",
+    "gridFill": {
+      "gridW": 742,
+      "boxW": 670,
+      "scrolledToNewest": true
+    },
+    "cells": 366,
+    "levels": [
+      362,
+      1,
+      1,
+      1,
+      1
+    ],
+    "months": [
+      "Okt",
+      "Nov",
+      "Dez",
+      "Jän",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt"
+    ],
+    "modelRows": 3,
+    "theme": "dark"
+  },
+  "keyR": "Aktualisiert 22:07:18",
+  "keyE": "tokscale-2026-10-10.json",
+  "keyT": "light",
+  "navToLive": [
+    "/live/",
+    "Live-Nutzung"
+  ],
+  "pageErrors": []
+}
