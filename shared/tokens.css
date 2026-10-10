@@ -23,6 +23,9 @@
 /* Tokscale accent from tokscale.html mockup; light value darkened for contrast. */
 :root[data-product="tokscale"] { --accent: #2f8f57; --tint: #e5f4ea; }
 :root[data-product="tokscale"][data-theme="dark"] { --accent: #65c68c; --tint: #1b2e23; }
+/* CLIProxy Quota Tray accent from cliproxy-quota-tray.html; light value darkened for contrast. */
+:root[data-product="quota-tray"] { --accent: #0f7f96; --tint: #e2f5f9; }
+:root[data-product="quota-tray"][data-theme="dark"] { --accent: #38c7e3; --tint: #15303a; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100%; }
@@ -90,6 +93,9 @@ select { font: inherit; min-height: var(--hit); background: var(--soft); color: 
 .ui-heatmap-grid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .ui-legend { display: inline-flex; align-items: center; gap: 4px; }
 .ui-nav { display: flex; gap: 4px; }
+.ui-tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.ui-tabs [role="tab"] { border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: var(--muted); padding: 6px 10px; }
+.ui-tabs [role="tab"][aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 560; }
 .ui-nav a { color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: var(--r-control); min-height: var(--hit); display: inline-flex; align-items: center; }
 .ui-nav a:hover { background: var(--soft); color: var(--text); }
 .ui-nav a[aria-current="page"] { background: var(--tint); color: var(--text); font-weight: 560; }

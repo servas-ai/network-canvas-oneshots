@@ -6,10 +6,10 @@
       "stale:Veraltet"
     ],
     "metrics": [
-      "253,3 Mio.",
-      "2 096",
+      "259,2 Mio.",
+      "2 182",
       "1,5 Mio.",
-      "5,7 Mio."
+      "5,9 Mio."
     ],
     "meters": [
       "17 %"
@@ -24,10 +24,10 @@
       "stale:Veraltet"
     ],
     "metrics": [
-      "253,3 Mio.",
-      "2 096",
+      "259,2 Mio.",
+      "2 182",
       "1,5 Mio.",
-      "5,7 Mio."
+      "5,9 Mio."
     ],
     "meters": [
       "17 %"
@@ -35,6 +35,6 @@
     "rows": 5,
     "theme": "light"
   },
-  "keyboardRefresh": "Aktualisiert 20:09:56",
-  "range1": "Anfragen33924 h"
+  "keyboardRefresh": "Aktualisiert 00:08:02",
+  "range1": "Anfragen42524 h"
 }

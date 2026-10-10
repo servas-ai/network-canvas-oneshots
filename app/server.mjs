@@ -11,7 +11,7 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const CACHE_MS = 60000;
-const APPS = ['/live', '/tokscale'];
+const APPS = ['/live', '/tokscale', '/tray'];
 
 export function createUsageServer({ collect = collectUsage, root = ROOT } = {}) {
   const cache = new Map();

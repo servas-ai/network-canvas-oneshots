@@ -111,6 +111,12 @@ export const fmt = Object.freeze({
     const t = Date.parse(iso);
     return Number.isFinite(t) ? new Date(t).toLocaleString('de-AT', { dateStyle: 'short', timeStyle: 'short' }) : '–';
   },
+  // Countdown to a reset: '3 T 5 h', '2 h 18 min', '18 min', '< 1 min'.
+  remaining(ms) {
+    if (!Number.isFinite(ms) || ms < 0) return '–';
+    const min = Math.floor(ms / 60e3), d = Math.floor(min / 1440), h = Math.floor((min % 1440) / 60), m = min % 60;
+    return d ? `${d} T ${h} h` : h ? `${h} h ${String(m).padStart(2, '0')} min` : m ? `${m} min` : '< 1 min';
+  },
   window(minutes) {
     if (!Number.isFinite(minutes)) return '–';
     return minutes % 1440 === 0 ? `${minutes / 1440} Tage` : minutes % 60 === 0 ? `${minutes / 60} h` : `${minutes} min`;
