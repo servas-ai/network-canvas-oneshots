@@ -76,7 +76,9 @@ const CCR = process.env.FIXTURE_CCR ?? "config";
   check("Home returns to first tab", await page.evaluate(() => document.activeElement.id === "tab-all"));
   await page.keyboard.press("ArrowRight");
   const stream = await page.evaluate(() => [...document.querySelectorAll("#app tbody tr")].map(r => r.innerText.replace(/\s+/g, " ")));
-  check("stream tab lists routed requests", stream.length === 5 && stream.some(r => /Long context/.test(r)) && stream.some(r => /Default/.test(r)), stream);
+  check("stream tab lists routed requests", stream.length === 5 && (CCR === "config"
+    ? stream.filter(r => /Long context/.test(r)).length === 3 && stream.filter(r => /Background/.test(r)).length === 1
+    : stream.every(r => /Default/.test(r))), stream);
   await page.keyboard.press("Home");
   const [dl] = await Promise.all([page.waitForEvent("download", { timeout: 10000 }).catch(() => null), page.keyboard.press("e")]);
   check("e downloads router JSON", dl && /^claude-code-router-2026-10-10-1d\.json$/.test(dl.suggestedFilename()), dl?.suggestedFilename());
