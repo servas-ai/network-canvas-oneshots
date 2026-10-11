@@ -16,6 +16,8 @@
   .axis { display: flex; justify-content: space-between; margin-top: 6px; }
   .row { display: grid; gap: 6px; padding: 10px 0; border-top: 1px solid var(--line); }
   .row:first-child { border-top: 0; padding-top: 0; }
+  .hist .ui-bars > span { max-width: none; }
+  .hist .axis { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 3px; text-align: center; }
   .win { display: inline-flex; align-items: center; gap: 6px; }
   .scroll { overflow-x: auto; }
   .statusbar { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }

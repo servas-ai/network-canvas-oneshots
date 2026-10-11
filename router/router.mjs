@@ -114,8 +114,9 @@ function promptPanel(now) {
   const pts = buckets.map((b, i) => ({ label: label(b, i), value: b.requests }));
   const obs = observe({ source: 'log:claude', observedAt: claudeSource()?.observedAt, value: buckets.length }, { now, maxAgeMs: USAGE_MAX_AGE });
   return panel('Eingabegröße je Anfrage', stateBadge(obs),
-    pts.length ? bars(pts, `Claude-Code-Anfragen nach Eingabetokens, ${span()}`, count) : el('div', { class: 'ui-empty', text: 'Server liefert keine Eingabegrößen' }),
-    pts.length ? el('div', { class: 'axis' }, pts.map(p => el('small', { text: p.label }))) : null,
+    pts.length ? el('div', { class: 'hist', style: `--cols:${pts.length}` }, bars(pts, `Claude-Code-Anfragen nach Eingabetokens, ${span()}`, count),
+      el('div', { class: 'axis', 'aria-hidden': 'true' }, pts.map(p => el('small', { text: p.label }))))
+      : el('div', { class: 'ui-empty', text: 'Server liefert keine Eingabegrößen' }),
     el('small', { text: `Eingabe = frische + Cache-Tokens laut API. CCR zählt selbst per Tokenizer; die Schwelle ${limitText()} ist daher eine Näherung.` }));
 }
 
