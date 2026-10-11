@@ -1,0 +1,157 @@
+{
+  "opencodex-dark": {
+    "overflowX": false,
+    "tab": "Übersicht",
+    "panels": [
+      "Gateway",
+      "Anfragen heute (UTC)",
+      "Modelle im Katalog",
+      "Pool-Kapazität",
+      "Anfragen · letzte 24 h",
+      "Delegation & Routing",
+      "Codex-Konten-Pool"
+    ],
+    "values": [
+      "Nicht erreichbar",
+      "136",
+      "10",
+      "–"
+    ],
+    "badges": [
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "stale:Veraltet",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "bars": 24,
+    "rows": 0,
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "opencodex-light": {
+    "overflowX": false,
+    "tab": "Übersicht",
+    "panels": [
+      "Gateway",
+      "Anfragen heute (UTC)",
+      "Modelle im Katalog",
+      "Pool-Kapazität",
+      "Anfragen · letzte 24 h",
+      "Delegation & Routing",
+      "Codex-Konten-Pool"
+    ],
+    "values": [
+      "Nicht erreichbar",
+      "136",
+      "10",
+      "–"
+    ],
+    "badges": [
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "stale:Veraltet",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "bars": 24,
+    "rows": 0,
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "light"
+  },
+  "opencodex-narrow": {
+    "overflowX": false,
+    "tab": "Übersicht",
+    "panels": [
+      "Gateway",
+      "Anfragen heute (UTC)",
+      "Modelle im Katalog",
+      "Pool-Kapazität",
+      "Anfragen · letzte 24 h",
+      "Delegation & Routing",
+      "Codex-Konten-Pool"
+    ],
+    "values": [
+      "Nicht erreichbar",
+      "136",
+      "10",
+      "–"
+    ],
+    "badges": [
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "ready:Aktuell",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "unknown:Unbekannt",
+      "stale:Veraltet",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "bars": 24,
+    "rows": 0,
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "tab-accounts": {
+    "overflowX": false,
+    "tab": "Konten",
+    "panels": [
+      "Codex-Konten-Pool"
+    ],
+    "values": [],
+    "badges": [
+      "stale:Veraltet",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "bars": 0,
+    "rows": 0,
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "tab-models": {
+    "overflowX": false,
+    "tab": "Modelle",
+    "panels": [
+      "Modellkatalog"
+    ],
+    "values": [],
+    "badges": [
+      "ready:Aktuell"
+    ],
+    "meters": [],
+    "bars": 0,
+    "rows": 10,
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "wrapToFirst": "tab-all",
+  "keyE": "opencodex-2026-10-11.json",
+  "keyR": "Aktualisiert 04:08:42",
+  "keyT": "light",
+  "navToUsage": [
+    "/usage/",
+    5
+  ],
+  "pageErrors": []
+}

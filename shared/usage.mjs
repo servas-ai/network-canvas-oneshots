@@ -9,11 +9,12 @@ export function cacheRate(t) {
 }
 
 // Today (UTC, still running) vs. the full previous UTC day. No percentage
-// delta: a partial day against a full day would read as a drop.
-export function dayCompare(byDay = []) {
+// delta: a partial day against a full day would read as a drop. key: 'total'
+// (tokens) or 'requests'; a payload without that field yields null, not 0.
+export function dayCompare(byDay = [], key = 'total') {
   const today = byDay.at(-1) ?? null, prev = byDay.at(-2) ?? null;
-  return Object.freeze({ day: today?.day ?? null, today: today ? today.total : null,
-    yesterday: prev ? prev.total : null });
+  const val = d => (d && Number.isFinite(d[key]) ? d[key] : null);
+  return Object.freeze({ day: today?.day ?? null, today: val(today), yesterday: val(prev) });
 }
 
 // Rolling 24 h ending in the current UTC hour: byHourUtc is indexed by UTC

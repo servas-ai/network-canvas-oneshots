@@ -33,6 +33,9 @@ test('static: root redirects, live page served, traversal and dotfiles blocked',
     const u = await fetch(`${base}/usage`, { redirect: 'manual' });
     assert.equal(u.status, 302); assert.equal(u.headers.get('location'), '/usage/');
     assert.match(await (await fetch(`${base}/usage/`)).text(), /usage\.mjs/);
+    const o = await fetch(`${base}/opencodex`, { redirect: 'manual' });
+    assert.equal(o.status, 302); assert.equal(o.headers.get('location'), '/opencodex/');
+    assert.match(await (await fetch(`${base}/opencodex/`)).text(), /opencodex\.mjs/);
     assert.equal((await fetch(`${base}/live/dashboard.mjs`)).headers.get('content-type'), 'text/javascript; charset=utf-8');
     for (const p of ['/..%2f..%2f.codex%2fauth.json', '/.git/config', '/%2e%2e/%2e%2e/etc/passwd', '/nope.html']) {
       assert.equal((await fetch(`${base}${p}`)).status, 404, p);
@@ -44,5 +47,14 @@ test('collector failure returns 500 without details', async () => {
   await withServer({ collect: async () => { throw new Error('/home/x secret'); } }, async base => {
     const r = await fetch(`${base}/api/usage`);
     assert.equal(r.status, 500); assert.equal(await r.text(), 'error');
+  });
+});
+
+test('api/opencodex is cached briefly and read-only', async () => {
+  let calls = 0;
+  await withServer({ opencodex: async () => ({ n: ++calls }) }, async base => {
+    assert.deepEqual(await (await fetch(`${base}/api/opencodex`)).json(), { n: 1 });
+    assert.deepEqual(await (await fetch(`${base}/api/opencodex`)).json(), { n: 1 });
+    assert.equal((await fetch(`${base}/api/opencodex`, { method: 'POST' })).status, 405);
   });
 });

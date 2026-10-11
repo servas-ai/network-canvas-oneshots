@@ -35,6 +35,8 @@ test('totals, hours and contiguous day axis', async () => {
   assert.equal(d.byDay.length, 8);
   assert.equal(d.byDay.find(x => x.day === '2026-10-09').total, 1305);
   assert.equal(d.byDay.filter(x => x.total === 0).length, 7);
+  assert.equal(d.byDay.find(x => x.day === '2026-10-09').requests, 3);
+  assert.equal(d.requestsByHourUtc.reduce((a, b) => a + b, 0), d.totals.requests);
   assert.deepEqual(dayRange(Date.parse('2024-02-28T23:00:00Z'), Date.parse('2024-03-01T01:00:00Z')), ['2024-02-28', '2024-02-29', '2024-03-01']);
 });
 
