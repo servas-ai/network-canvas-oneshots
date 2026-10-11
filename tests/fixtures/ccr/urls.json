@@ -1,15 +1,15 @@
 {
   "Providers": [
     { "name": "demo",
-      "models": ["https://demo.invalid/SENTINEL", "//demo.invalid/SENTINEL", "demo.invalid:8080/SENTINEL", "file:///SENTINEL",
+      "models": ["https://demo.invalid/SENTINEL", "//demo.invalid/SENTINEL", "demo.invalid:8080/SENTINEL", "file:///SENTINEL", "demo.invalid:8080", "localhost:11434", "127.0.0.1:11434",
         "google/gemini-2.5-pro", "qwen2.5:7b", "ollama:llama3.1:8b-instruct-q4_K_M", "anthropic/claude-sonnet-4@20250514", "deepseek-ai/DeepSeek-V3.1"],
-      "transformer": { "use": ["https://demo.invalid/SENTINEL", ["http://demo.invalid:9/SENTINEL", { "x": 1 }], "openrouter", "maxtoken"] } }
+      "transformer": { "use": ["https://demo.invalid/SENTINEL", ["http://demo.invalid:9/SENTINEL", { "x": 1 }], "demo.invalid:8080", "localhost:11434", "openrouter", "maxtoken"] } }
   ],
   "Router": {
     "default": "demo,https://demo.invalid/SENTINEL",
     "background": "demo,qwen2.5:7b",
     "think": "demo,anthropic/claude-sonnet-4@20250514",
     "longContext": "demo,google/gemini-2.5-pro",
-    "webSearch": "demo,demo.invalid:8080/SENTINEL"
+    "webSearch": "demo,demo.invalid:8080"
   }
 }

@@ -44,8 +44,10 @@ test('parseRule accepts provider,model only', () => {
 
 test('parseRule drops URL models, keeps namespace, tag and @ model ids', () => {
   for (const bad of ['demo,https://demo.invalid/SENTINEL', 'demo,http://demo.invalid', 'demo,//demo.invalid/SENTINEL',
-    'demo,demo.invalid:8080/SENTINEL', 'demo,file:///SENTINEL', 'demo,localhost:11434/api']) assert.equal(parseRule(bad), null, bad);
-  for (const model of ['google/gemini-2.5-pro', 'qwen2.5:7b', 'ollama:llama3.1:8b-instruct-q4_K_M', 'anthropic/claude-sonnet-4@20250514', 'deepseek-ai/DeepSeek-V3.1', 'gemma3:4', 'llama3:70'])
+    'demo,demo.invalid:8080/SENTINEL', 'demo,file:///SENTINEL', 'demo,localhost:11434/api', 'demo,demo.invalid:8080',
+    'demo,localhost:11434', 'demo,127.0.0.1:11434', 'demo,ollama/demo.invalid:8080', 'demo,x@sub.demo.invalid:443']) assert.equal(parseRule(bad), null, bad);
+  for (const model of ['google/gemini-2.5-pro', 'qwen2.5:7b', 'ollama:llama3.1:8b-instruct-q4_K_M', 'anthropic/claude-sonnet-4@20250514', 'deepseek-ai/DeepSeek-V3.1', 'gemma3:4', 'llama3:70',
+    'qwen2.5:7', 'claude-sonnet-4.6:1', 'llama3.1:8b-instruct-q4_K_M'])
     assert.deepEqual(parseRule(`demo,${model}`), { provider: 'demo', model }, model);
 });
 
@@ -56,7 +58,8 @@ test('api/router over the real server: URLs in rule models, provider models and 
     const res = await fetch(`http://127.0.0.1:${server.address().port}/api/router`);
     const text = await res.text(), { config: c } = JSON.parse(text);
     assert.equal(c.valid, true);
-    for (const leak of ['SENTINEL', 'demo.invalid', '://']) assert.ok(!text.includes(leak), leak);
+    for (const leak of ['SENTINEL', 'demo.invalid', '://', 'localhost', ':11434', ':8080']) assert.ok(!text.includes(leak), leak);
+    assert.ok(!JSON.stringify(c).includes('127.0.0.1'), 'IPv4 host:port in config'); // service.host is the probe's own
     assert.deepEqual(c.rules, {
       default: null,
       background: { provider: 'demo', model: 'qwen2.5:7b' },

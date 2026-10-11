@@ -19,8 +19,12 @@ export const RULES = Object.freeze(['default', 'background', 'think', 'longConte
 
 // Model names may carry '/', ':' or '@' (google/gemini-2.5-pro, qwen2.5:7b);
 // provider names never do, so a URL can not pass as a provider. URL shapes
-// (scheme:/, //host, host:port/) are dropped from model and transformer names.
-const NAME = /^[\w.:@/-]{1,80}$/, PROVIDER = /^[\w.-]{1,80}$/, URL_LIKE = /^[a-z][\w+.-]*:\/|\/\/|:\d+\//i;
+// (scheme:/, //host, host:port/) are dropped from model and transformer names,
+// as is host:port without a path when the host is localhost, IPv4 or a dotted
+// name ending in a letter label (demo.invalid:8080). A bare single-label
+// name:digits stays a model tag (llama3:70), it can not be told from a host.
+const NAME = /^[\w.:@/-]{1,80}$/, PROVIDER = /^[\w.-]{1,80}$/;
+const URL_LIKE = /^[a-z][\w+.-]*:\/|\/\/|:\d+\/|(?:^|[@/])(?:localhost|\d{1,3}(?:\.\d{1,3}){3}|(?:[\w-]+\.)+[a-z]{2,}):\d{1,5}$/i;
 const name = v => (typeof v === 'string' && NAME.test(v) && !URL_LIKE.test(v) ? v : null);
 const provider = v => (typeof v === 'string' && PROVIDER.test(v) ? v : null);
 const int = (v, min, max) => (Number.isInteger(v) && v >= min && v <= max ? v : null);
