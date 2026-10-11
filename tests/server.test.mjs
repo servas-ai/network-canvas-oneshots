@@ -36,6 +36,9 @@ test('static: root redirects, live page served, traversal and dotfiles blocked',
     const o = await fetch(`${base}/opencodex`, { redirect: 'manual' });
     assert.equal(o.status, 302); assert.equal(o.headers.get('location'), '/opencodex/');
     assert.match(await (await fetch(`${base}/opencodex/`)).text(), /opencodex\.mjs/);
+    const c = await fetch(`${base}/cpa`, { redirect: 'manual' });
+    assert.equal(c.status, 302); assert.equal(c.headers.get('location'), '/cpa/');
+    assert.match(await (await fetch(`${base}/cpa/`)).text(), /cpa\.mjs/);
     assert.equal((await fetch(`${base}/live/dashboard.mjs`)).headers.get('content-type'), 'text/javascript; charset=utf-8');
     for (const p of ['/..%2f..%2f.codex%2fauth.json', '/.git/config', '/%2e%2e/%2e%2e/etc/passwd', '/nope.html']) {
       assert.equal((await fetch(`${base}${p}`)).status, 404, p);
@@ -56,5 +59,14 @@ test('api/opencodex is cached briefly and read-only', async () => {
     assert.deepEqual(await (await fetch(`${base}/api/opencodex`)).json(), { n: 1 });
     assert.deepEqual(await (await fetch(`${base}/api/opencodex`)).json(), { n: 1 });
     assert.equal((await fetch(`${base}/api/opencodex`, { method: 'POST' })).status, 405);
+  });
+});
+
+test('api/gateways is cached briefly and read-only', async () => {
+  let calls = 0;
+  await withServer({ gateways: async () => ({ n: ++calls }) }, async base => {
+    assert.deepEqual(await (await fetch(`${base}/api/gateways`)).json(), { n: 1 });
+    assert.deepEqual(await (await fetch(`${base}/api/gateways`)).json(), { n: 1 });
+    assert.equal((await fetch(`${base}/api/gateways`, { method: 'POST' })).status, 405);
   });
 });

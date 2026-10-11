@@ -65,6 +65,7 @@ select { font: inherit; min-height: var(--hit); background: var(--soft); color: 
 .ui-meter > span { display: block; height: 100%; border-radius: inherit; background: var(--green); }
 .ui-meter[data-level="warn"] > span { background: var(--amber); }
 .ui-meter[data-level="bad"] > span { background: var(--red); }
+.ui-meter[data-level="share"] > span { background: var(--accent); }
 .ui-meter[data-state="unknown"] { background: repeating-linear-gradient(45deg, var(--soft) 0 6px, transparent 6px 12px); }
 
 .ui-table { width: 100%; border-collapse: collapse; }
@@ -92,7 +93,7 @@ select { font: inherit; min-height: var(--hit); background: var(--soft); color: 
 [data-level="4"]:is(.ui-heatmap-grid > span, .ui-legend > span) { background: var(--accent); }
 .ui-heatmap-grid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .ui-legend { display: inline-flex; align-items: center; gap: 4px; }
-.ui-nav { display: flex; gap: 4px; }
+.ui-nav { display: flex; flex-wrap: wrap; gap: 4px; }
 .ui-tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); overflow-x: auto; }
 .ui-tabs [role="tab"] { border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: var(--muted); padding: 6px 10px; }
 .ui-tabs [role="tab"][aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 560; }
