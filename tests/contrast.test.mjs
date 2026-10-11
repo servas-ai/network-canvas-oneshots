@@ -62,3 +62,28 @@ test('negative probe: the previous light state colours fail', () => {
     assert.ok(f.some(x => x.startsWith(name)), `${name} should fail with old colours; got ${f.join('; ')}`);
   assert.ok(f.every(x => x.startsWith('light ')), 'dark theme was already AA');
 });
+
+// button.primary: --on-accent on --accent, 13px text, per product and theme
+// (cpa-manager-plus keeps the default accent).
+const PRODUCTS = ['cpa-manager-plus', 'opencodex', 'tokscale', 'quota-tray', 'cliproxyapi-usage'];
+const optional = (src, selector) => (src.includes(`${selector} {`) ? block(src, selector) : {});
+function primaryFailures(src) {
+  const base = themes(src);
+  return PRODUCTS.flatMap(p => Object.entries(base).flatMap(([theme, t]) => {
+    const light = { ...t, ...optional(src, `:root[data-product="${p}"]`) };
+    const c = theme === 'dark' ? { ...light, ...optional(src, `:root[data-product="${p}"][data-theme="dark"]`) } : light;
+    const fg = c['on-accent'] ?? '#0b1420'; // before --on-accent the text was fixed #0b1420
+    const ratio = contrast(fg, c.accent);
+    return ratio < AA ? [`${p} ${theme} ${fg}/${c.accent} ${ratio.toFixed(2)}`] : [];
+  }));
+}
+
+test('primary button text reaches AA 4.5 for every product in light and dark', () => {
+  assert.deepEqual(primaryFailures(css), []);
+});
+
+test('negative probe: the previous fixed #0b1420 primary text fails default and quota tray light', () => {
+  const old = css.replace(/--on-accent: #[0-9a-f]{3,6}/gi, '--on-accent: #0b1420');
+  assert.deepEqual(primaryFailures(old).map(f => f.split(' ').slice(0, 2).join(' ')).sort(),
+    ['cpa-manager-plus dark', 'cpa-manager-plus light', 'quota-tray light']);
+});

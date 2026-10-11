@@ -5,7 +5,7 @@
    tool-ui contract (PR541): unknown/loading muted, stale warn, error bad. */
 :root {
   --bg: #f5f6f8; --panel: #fff; --text: #202536; --muted: #4f576b;
-  --line: #e6e8ee; --soft: #f1f3f7; --accent: #5261dc; --tint: #eef0ff;
+  --line: #e6e8ee; --soft: #f1f3f7; --accent: #5261dc; --tint: #eef0ff; --on-accent: #fff;
   --green: #17603f; --amber: #6f4a00; --amber-bg: #fff4e0; --red: #a8201a; --red-bg: #fdecee;
   --font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: SFMono-Regular, Consolas, "Liberation Mono", monospace;
@@ -18,14 +18,14 @@
   --green: #55cea4; --amber: #f2b552; --amber-bg: #3a2c12; --red: #f5838b; --red-bg: #3d1d22;
   color-scheme: dark;
 }
-:root[data-product="opencodex"] { --accent: #75b9ef; --tint: #e4f1fc; }
+:root[data-product="opencodex"] { --accent: #75b9ef; --tint: #e4f1fc; --on-accent: #0b1420; }
 :root[data-product="opencodex"][data-theme="dark"] { --tint: #1d2f40; }
 /* Tokscale accent from tokscale.html mockup; light value darkened for contrast. */
-:root[data-product="tokscale"] { --accent: #2f8f57; --tint: #e5f4ea; }
+:root[data-product="tokscale"] { --accent: #2f8f57; --tint: #e5f4ea; --on-accent: #0b1420; }
 :root[data-product="tokscale"][data-theme="dark"] { --accent: #65c68c; --tint: #1b2e23; }
 /* CLIProxy Quota Tray accent from cliproxy-quota-tray.html; light value darkened for contrast. */
 :root[data-product="quota-tray"] { --accent: #0f7f96; --tint: #e2f5f9; }
-:root[data-product="quota-tray"][data-theme="dark"] { --accent: #38c7e3; --tint: #15303a; }
+:root[data-product="quota-tray"][data-theme="dark"] { --accent: #38c7e3; --tint: #15303a; --on-accent: #0b1420; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100%; }
@@ -44,7 +44,7 @@ button svg { width: 16px; height: 16px; flex-shrink: 0; }
 button:hover { background: var(--soft); }
 button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 button:disabled { opacity: .55; cursor: progress; }
-button.primary { background: var(--accent); border-color: var(--accent); color: #0b1420; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 select { font: inherit; min-height: var(--hit); background: var(--soft); color: var(--text);
   border: 1px solid var(--line); border-radius: var(--r-control); padding: 4px 8px; }
 
@@ -101,5 +101,5 @@ select { font: inherit; min-height: var(--hit); background: var(--soft); color: 
 .ui-nav a:hover { background: var(--soft); color: var(--text); }
 .ui-nav a[aria-current="page"] { background: var(--tint); color: var(--text); font-weight: 560; }
 /* CLIProxyAPI Usage accent from cliproxyapi-usage.html. */
-:root[data-product="cliproxyapi-usage"] { --accent: #558bcf; --tint: #e8f0fa; }
+:root[data-product="cliproxyapi-usage"] { --accent: #558bcf; --tint: #e8f0fa; --on-accent: #0b1420; }
 :root[data-product="cliproxyapi-usage"][data-theme="dark"] { --accent: #7aaae4; --tint: #1c2a3d; }
