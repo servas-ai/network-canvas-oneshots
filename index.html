@@ -546,6 +546,8 @@
     }
     @media (prefers-reduced-motion: reduce) {
       aside.marks { transition: none; } .mk.flash, .toast, [data-tip]:hover::after { animation: none; }
+      /* Theme switches land in one frame: no half-faded light controls on the dark stage */
+      .btn, .seg button { transition: none; }
     }
   </style>
 </head>
