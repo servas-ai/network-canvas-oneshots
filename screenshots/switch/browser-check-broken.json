@@ -1,0 +1,191 @@
+{
+  "sourceSha": "7818f71215e426e7d389409b14dda2acd4b4715e",
+  "fixtureSwitch": "broken",
+  "checks": [
+    {
+      "name": "switch dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "switch dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "switch light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "switch light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "read-only notice",
+      "ok": true
+    },
+    {
+      "name": "three configs invalid",
+      "ok": true
+    },
+    {
+      "name": "nav has eight links, switch current",
+      "ok": true
+    },
+    {
+      "name": "ArrowLeft wraps to last tab",
+      "ok": true,
+      "detail": [
+        "tab-files",
+        "tab-files"
+      ]
+    },
+    {
+      "name": "files tab: prompts and backups",
+      "ok": true,
+      "detail": [
+        "Claude Code ~/.claude/CLAUDE.md fehlt –",
+        "Codex ~/.codex/AGENTS.md fehlt –",
+        "Gemini CLI ~/.gemini/GEMINI.md fehlt –"
+      ]
+    },
+    {
+      "name": "Home returns to first tab",
+      "ok": true
+    },
+    {
+      "name": "mcp tab: names and transport only",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "skills tab: matrix with unknown for missing folders",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "tab-mcp: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "tab-skills: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "tab-files: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "tab-providers: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "no secret, URL or body anywhere in the DOM",
+      "ok": true
+    },
+    {
+      "name": "e downloads switch JSON",
+      "ok": true,
+      "detail": "cc-switch-2026-10-11.json"
+    },
+    {
+      "name": "export carries no secret",
+      "ok": true,
+      "detail": "api payload of the export"
+    },
+    {
+      "name": "r refetches /api/switch",
+      "ok": true
+    },
+    {
+      "name": "t toggles theme",
+      "ok": true
+    },
+    {
+      "name": "no page errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "matrix": [
+    {
+      "page": "switch",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "switch",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "switch",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "switch",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    }
+  ],
+  "switchText": "0 MCP-Server · 0 Skills · 0 globale Prompts · 0 Backups\n0 von 3 Werkzeugen mit lesbarer Konfiguration\nNur lesend: Provider wechseln, bearbeiten und testen ist hier nicht freigegeben. Schlüssel, Adressen und Inhalte werden nie gelesen.\nUmschalten nicht verfügbar\nClaude Code\nKonfiguration ungültig\n~/.claude/settings.json lässt sich nicht lesen · geändert 11.10.26, 14:41\nLetzte Nutzung\nVeraltet\n09.10.26, 12:04\nQuota\nUnbekannt\nClaude-Code-Session-Logs enthalten keine Quota-Fenster.\n~/.claude/settings.json\nCodex\nKonfiguration ungültig\n~/.codex/config.toml lässt sich nicht lesen · geändert 11.10.26, 14:41\nLetzte Nutzung\nVeraltet\n09.10.26, 13:00\nQuota\nUnbekannt\nProvider unbekannt: config.toml nicht lesbar, Quota nicht zuordenbar\n~/.codex/config.toml\nGemini CLI\nKonfiguration ungültig\n~/.gemini/settings.json lässt sich nicht lesen · geändert 11.10.26, 14:41\nLetzte Nutzung\nUnbekannt\nKein Session-Log-Collector für dieses Werkzeug\nQuota\nUnbekannt\nKein Adapter.\n~/.gemini/settings.json\nCodex-Provider\nUnbekannt\nKeine lesbare config.toml",
+  "summary": {
+    "checks": 26,
+    "failed": 0
+  }
+}
