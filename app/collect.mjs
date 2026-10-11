@@ -35,7 +35,7 @@ const n = v => (Number.isFinite(v) && v > 0 ? v : 0);
 const iso = v => (typeof v === 'string' && Number.isFinite(Date.parse(v)) ? new Date(Date.parse(v)).toISOString() : null);
 
 function makeAgg(sinceMs) {
-  return { sinceMs, models: new Map(), days: new Map(), hours: Array(24).fill(0), quotas: new Map(),
+  return { sinceMs, models: new Map(), days: new Map(), dayRequests: new Map(), hours: Array(24).fill(0), hourRequests: Array(24).fill(0), quotas: new Map(),
     sources: { codex: { files: 0, records: 0, observedAt: null }, claude: { files: 0, records: 0, observedAt: null } } };
 }
 
@@ -49,7 +49,9 @@ function add(agg, source, model, ts, u) {
   agg.models.set(key, row);
   const day = ts.slice(0, 10);
   agg.days.set(day, (agg.days.get(day) ?? 0) + u.total);
+  agg.dayRequests.set(day, (agg.dayRequests.get(day) ?? 0) + 1);
   agg.hours[new Date(t).getUTCHours()] += u.total;
+  agg.hourRequests[new Date(t).getUTCHours()] += 1;
   const s = agg.sources[source];
   s.records += 1;
   if (!s.observedAt || ts > s.observedAt) s.observedAt = ts;
@@ -143,8 +145,9 @@ export async function collectUsage({ days = 30, now = Date.now(), roots = DEFAUL
     sources: Object.entries(agg.sources).map(([id, s]) => ({ id, ...s })),
     totals,
     byModel,
-    byDay: dayRange(agg.sinceMs, now).map(day => ({ day, total: agg.days.get(day) ?? 0 })),
+    byDay: dayRange(agg.sinceMs, now).map(day => ({ day, total: agg.days.get(day) ?? 0, requests: agg.dayRequests.get(day) ?? 0 })),
     byHourUtc: agg.hours,
+    requestsByHourUtc: agg.hourRequests,
     quotas: [...agg.quotas.values()],
   };
 }

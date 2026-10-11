@@ -49,3 +49,14 @@ export function trayModel(quotas = [], { now = Date.now(), maxAgeMs = QUOTA_MAX_
   return Object.freeze({ providers, worst: known.length ? Math.max(...known.map(p => p.worst)) : null,
     covered: known.length, total: providers.length });
 }
+
+// Pool capacity for the OpenCodex account pool: per account 100 % minus its
+// most used window. An account counts only if every window is current
+// (ready); an unknown or stale window must not make the pool look free.
+export function poolCapacity(model) {
+  const accounts = (model?.providers ?? []).flatMap(p => p.accounts);
+  const free = accounts.filter(a => a.windows.length && a.windows.every(w => w.obs.state === 'ready'))
+    .map(a => 100 - Math.max(...a.windows.map(w => w.obs.value)));
+  return Object.freeze({ accounts: accounts.length, known: free.length,
+    available: free.length ? Math.max(0, free.reduce((s, v) => s + v, 0) / free.length) : null });
+}
