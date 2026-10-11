@@ -1,0 +1,13 @@
+{
+  "model": "claude-sonnet-4.6",
+  "apiKeyHelper": "echo HELPER-SECRET-SHOULD-NOT-LEAK",
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8317",
+    "ANTHROPIC_AUTH_TOKEN": "sk-SECRET-SHOULD-NOT-LEAK",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4.6",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "https://demo.invalid/SENTINEL",
+    "ANTHROPIC_SMALL_FAST_MODEL": "localhost:11434",
+    "OTHER_VAR": "OPTION-SHOULD-NOT-LEAK"
+  },
+  "permissions": { "allow": ["Bash(OPTION-SHOULD-NOT-LEAK)"] }
+}

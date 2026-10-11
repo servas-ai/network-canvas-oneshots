@@ -1,0 +1,1 @@
+{ "env": { "ANTHROPIC_AUTH_TOKEN": "sk-SECRET-SHOULD-NOT-LEAK", 

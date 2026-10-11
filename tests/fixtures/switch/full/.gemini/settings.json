@@ -1,0 +1,5 @@
+{
+  "model": { "name": "gemini-2.5-pro" },
+  "security": { "auth": { "selectedType": "oauth-personal" } },
+  "mcpServers": { "search": { "httpUrl": "https://search.SENTINEL.invalid/mcp", "headers": { "k": "SECRET-SHOULD-NOT-LEAK" } } }
+}

@@ -1,0 +1,36 @@
+# Codex fixture (SERVAS-2071 switch/)
+model = "gpt-5.3-codex"
+model_provider = "deepseek"
+model_reasoning_effort = "high"
+notify = ["notify-send", "SENTINEL"]
+instructions = """
+PROMPT-SHOULD-NOT-LEAK
+"""
+
+[model_providers.deepseek]
+name = "DeepSeek"
+base_url = "https://api.deepseek.com/v1"
+env_key = "DEEPSEEK_API_KEY"
+http_headers = { "X-Key" = "SECRET-SHOULD-NOT-LEAK" }
+
+[model_providers.corp]
+name = "Corp"
+base_url = "https://llm.SENTINEL.invalid/v1"
+
+[model_providers.cliproxy]
+base_url = "http://localhost:8317/v1"
+
+[profiles.fast]
+model = "gpt-5.3-codex-mini"
+model_reasoning_effort = "low"
+
+[mcp_servers.filesystem]
+command = "npx"
+args = ["-y", "SENTINEL-arg"]
+env = { "TOKEN" = "SECRET-SHOULD-NOT-LEAK" }
+
+[mcp_servers.remote]
+url = "https://mcp.SENTINEL.invalid/"
+
+[projects."/home/SENTINEL/work"]
+trust_level = "trusted"

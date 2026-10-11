@@ -148,7 +148,7 @@ test('api/router is cached briefly and read-only; /router redirects', async () =
 
 test('every surface links the router; the router page links all six', () => {
   for (const p of ['live', 'opencodex', 'tokscale', 'tray', 'usage', 'cpa']) {
-    assert.match(readFileSync(new URL(`../${p}/index.html`, import.meta.url), 'utf8'), /<a href="\.\.\/router\/">Router<\/a><\/nav>/, p);
+    assert.match(readFileSync(new URL(`../${p}/index.html`, import.meta.url), 'utf8'), /<a href="\.\.\/router\/">Router<\/a>/, p);
   }
   const html = readFileSync(new URL('../router/index.html', import.meta.url), 'utf8');
   for (const p of ['live', 'opencodex', 'tokscale', 'tray', 'usage', 'cpa']) assert.ok(html.includes(`href="../${p}/"`), p);

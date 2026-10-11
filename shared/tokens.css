@@ -111,3 +111,7 @@ select { font: inherit; min-height: var(--hit); background: var(--soft); color: 
    light uses a deeper clay so accent text and white button text reach AA. */
 :root[data-product="claude-code-router"] { --accent: #9a5b3c; --tint: #f6ebe4; --on-accent: #fff; }
 :root[data-product="claude-code-router"][data-theme="dark"] { --accent: #ce997d; --tint: #2e2620; --on-accent: #0b1420; }
+/* CC Switch blue from cc-switch.html (#1684f8, dark); light uses a deeper
+   blue so accent text and white button text reach AA. */
+:root[data-product="cc-switch"] { --accent: #0b63c4; --tint: #e6f0fd; --on-accent: #fff; }
+:root[data-product="cc-switch"][data-theme="dark"] { --accent: #4a9df9; --tint: #182a42; --on-accent: #0b1420; }

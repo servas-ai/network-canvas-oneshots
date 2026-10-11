@@ -1,0 +1,10 @@
+{
+  "oauthAccount": { "emailAddress": "person@SENTINEL.invalid" },
+  "mcpServers": {
+    "github": { "command": "npx", "args": ["-y", "SENTINEL-arg"], "env": { "GITHUB_TOKEN": "ghp_SECRET-SHOULD-NOT-LEAK" } },
+    "docs": { "type": "http", "url": "https://mcp.SENTINEL.invalid/mcp", "headers": { "Authorization": "Bearer SECRET-SHOULD-NOT-LEAK" } },
+    "events": { "type": "sse", "url": "https://sse.SENTINEL.invalid/" },
+    "bad name with spaces": { "command": "SENTINEL" }
+  },
+  "projects": { "/home/SENTINEL": { "mcpServers": { "project-only": { "command": "x" } } } }
+}
