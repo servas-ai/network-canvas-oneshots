@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { collectSwitch, endpoint, parseToml, pickClaude, pickCodex, pickGemini, modelName } from '../app/switch.mjs';
 import { createUsageServer } from '../app/server.mjs';
-import { endpointText, credentialText, toolStatus, skillMatrix, lastUse, counts } from '../shared/switch.mjs';
+import { endpointText, credentialText, toolStatus, skillMatrix, lastUse, counts, quotaScope } from '../shared/switch.mjs';
 
 const fx = p => fileURLToPath(new URL(`fixtures/switch/${p}`, import.meta.url));
 const LEAKS = ['SENTINEL', 'SECRET', 'PROMPT-SHOULD', 'OPTION-SHOULD', 'SKILL-BODY', 'npx', 'DEEPSEEK_API_KEY', 'notify-send',
@@ -160,6 +160,14 @@ test('view logic: custom endpoints never show a host, unknown stays unknown', as
   assert.deepEqual(counts(r.tools), { mcp: 6, skills: 3, prompts: 2, backups: 3 });
   const usage = { sources: [{ id: 'claude', observedAt: '2026-10-09T10:00:00Z' }, { id: 'codex', observedAt: null }] };
   assert.deepEqual([lastUse(usage, 'claude'), lastUse(usage, 'codex'), lastUse(usage, 'gemini')], ['2026-10-09T10:00:00Z', null, undefined]);
+});
+
+test('quota scope: codex windows apply only to the OpenAI login with a readable config', () => {
+  assert.equal(quotaScope({ id: 'codex', config: { valid: true, provider: 'openai' } }), null);
+  assert.match(quotaScope({ id: 'codex', config: { valid: true, provider: 'deepseek' } }), /nicht für diesen Provider/);
+  assert.match(quotaScope({ id: 'codex', config: { valid: false } }), /Provider unbekannt/);
+  assert.match(quotaScope({ id: 'codex', config: null }), /Provider unbekannt/);
+  assert.equal(quotaScope({ id: 'claude', config: { valid: false } }), null);
 });
 
 test('every surface links the switch; the switch page links all seven', () => {

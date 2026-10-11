@@ -53,6 +53,15 @@ export function lastUse(usage, id) {
   return src ? src.observedAt ?? null : undefined;
 }
 
+// Why the local Codex quota windows do not apply to this tool's route, or null
+// when they do: they belong to the OpenAI login, not to another provider, and
+// an unreadable config leaves the provider unknown.
+export function quotaScope(tool) {
+  if (tool?.id !== 'codex') return null;
+  if (!tool.config?.valid) return 'Provider unbekannt: config.toml nicht lesbar, Quota nicht zuordenbar';
+  return tool.config.provider === 'openai' ? null : 'Codex-Quota gilt für die OpenAI-Anmeldung, nicht für diesen Provider';
+}
+
 export const counts = tools => ({
   mcp: tools.reduce((s, t) => s + t.mcp.servers.length, 0),
   skills: new Set(tools.flatMap(t => t.skills ?? [])).size,

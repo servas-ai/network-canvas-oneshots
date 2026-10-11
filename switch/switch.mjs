@@ -6,7 +6,7 @@
 // Claude and Gemini quota have no source: UNKNOWN, never mockup values.
 import { observe } from '../shared/state.mjs';
 import { trayModel, PROVIDERS } from '../shared/quota.mjs';
-import { endpointText, credentialText, UNKNOWN_CREDENTIAL, toolStatus, skillMatrix, lastUse, counts } from '../shared/switch.mjs';
+import { endpointText, credentialText, UNKNOWN_CREDENTIAL, toolStatus, skillMatrix, lastUse, counts, quotaScope } from '../shared/switch.mjs';
 import { el, icon, stateBadge, panel, meter, table, fmt } from '../shared/components.mjs';
 import { mountPage, getJson } from '../shared/page.mjs';
 
@@ -39,9 +39,8 @@ function quotaRows(t, now) {
   const p = PROVIDERS.find(x => x.id === t.id);
   const model = trayModel(usage.quotas, { now }).providers.find(x => x.id === t.id);
   const windows = model?.accounts.flatMap(a => a.windows) ?? [];
-  // Quota belongs to the local Codex login; with another provider it says nothing about this route.
-  const own = t.id !== 'codex' || t.config?.provider === 'openai';
-  if (!windows.length || !own) return row('Quota', unknownBadge(now), !own ? 'Codex-Quota gilt für die OpenAI-Anmeldung, nicht für diesen Provider' : p?.reason ?? 'Kein Quota-Fenster im Zeitraum');
+  const scope = quotaScope(t);
+  if (!windows.length || scope) return row('Quota', unknownBadge(now), scope ?? p?.reason ?? 'Kein Quota-Fenster im Zeitraum');
   return el('div', { class: 'row wins' }, el('small', { text: 'Quota (Codex-Fenster)' }), windows.map(w => el('div', {},
     el('div', { class: 'between' }, el('small', { text: fmt.window(w.windowMinutes) }),
       w.obs.value === null ? stateBadge(w.obs) : el('small', { text: `${count(Math.round(w.obs.value))} % genutzt` })),
