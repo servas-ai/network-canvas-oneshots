@@ -1,0 +1,874 @@
+{
+  "sourceSha": "7818f71215e426e7d389409b14dda2acd4b4715e",
+  "fixtureSwitch": "full",
+  "checks": [
+    {
+      "name": "live dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "switch dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "live dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "switch dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "live light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "switch light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "live light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "switch light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "switch light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "read-only notice",
+      "ok": true
+    },
+    {
+      "name": "claude via local CLIProxyAPI with link",
+      "ok": true
+    },
+    {
+      "name": "claude model and env credential",
+      "ok": true
+    },
+    {
+      "name": "codex deepseek, effort, custom provider without host",
+      "ok": true
+    },
+    {
+      "name": "codex quota not claimed for deepseek",
+      "ok": true
+    },
+    {
+      "name": "gemini model and login",
+      "ok": true
+    },
+    {
+      "name": "gemini last use unknown with reason",
+      "ok": true
+    },
+    {
+      "name": "nav has eight links, switch current",
+      "ok": true
+    },
+    {
+      "name": "ArrowLeft wraps to last tab",
+      "ok": true,
+      "detail": [
+        "tab-files",
+        "tab-files"
+      ]
+    },
+    {
+      "name": "files tab: prompts and backups",
+      "ok": true,
+      "detail": [
+        "Claude Code ~/.claude/CLAUDE.md 44 B 11.10.26, 14:41",
+        "Codex ~/.codex/AGENTS.md 23 B 11.10.26, 14:41",
+        "Gemini CLI ~/.gemini/GEMINI.md fehlt –",
+        "Claude Code settings.json.2026-10-01.bak 18 B 11.10.26, 14:41",
+        "Claude Code settings.json.bak 17 B 11.10.26, 14:41",
+        "Codex config.toml.servas2001.bak 16 B 11.10.26, 14:41"
+      ]
+    },
+    {
+      "name": "Home returns to first tab",
+      "ok": true
+    },
+    {
+      "name": "mcp tab: names and transport only",
+      "ok": true,
+      "detail": [
+        "github stdio Claude Code",
+        "docs http Claude Code",
+        "events sse Claude Code",
+        "filesystem stdio Codex",
+        "remote http Codex",
+        "search http Gemini CLI"
+      ]
+    },
+    {
+      "name": "skills tab: matrix with unknown for missing folders",
+      "ok": true,
+      "detail": [
+        "frontend-design ✓ – unbekannt",
+        "release – ✓ unbekannt",
+        "review ✓ – unbekannt"
+      ]
+    },
+    {
+      "name": "tab-mcp: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "tab-skills: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "tab-files: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "tab-providers: no secret, URL or body rendered",
+      "ok": true
+    },
+    {
+      "name": "no secret, URL or body anywhere in the DOM",
+      "ok": true
+    },
+    {
+      "name": "e downloads switch JSON",
+      "ok": true,
+      "detail": "cc-switch-2026-10-11.json"
+    },
+    {
+      "name": "export carries no secret",
+      "ok": true,
+      "detail": "api payload of the export"
+    },
+    {
+      "name": "r refetches /api/switch",
+      "ok": true
+    },
+    {
+      "name": "t toggles theme",
+      "ok": true
+    },
+    {
+      "name": "gateway link opens /cpa/",
+      "ok": true,
+      "detail": "http://localhost:8874/cpa/"
+    },
+    {
+      "name": "no page errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "matrix": [
+    {
+      "page": "live",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "switch",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "live",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "switch",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "live",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "switch",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "live",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "switch",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    }
+  ],
+  "switchText": "6 MCP-Server · 3 Skills · 2 globale Prompts · 3 Backups\n3 von 3 Werkzeugen mit lesbarer Konfiguration\nNur lesend: Provider wechseln, bearbeiten und testen ist hier nicht freigegeben. Schlüssel, Adressen und Inhalte werden nie gelesen.\nUmschalten nicht verfügbar\nClaude Code\nAktiv\nCLIProxyAPI\nlocalhost:8317 · Oberfläche öffnen\nModell\nclaude-sonnet-4.6\nModell-Zuordnung\nopus: claude-opus-4.6 · sonnet: – · haiku: – · fast: –\nAnmeldung\nSchlüssel per Umgebungsvariable · Wert nie gelesen\nLetzte Nutzung\nVeraltet\n09.10.26, 12:04\nQuota\nUnbekannt\nClaude-Code-Session-Logs enthalten keine Quota-Fenster.\n~/.claude/settings.json · geändert 11.10.26, 14:41\nCodex\nAktiv\nDeepSeek\napi.deepseek.com\nModell\ngpt-5.3-codex\nReasoning high\nProvider-ID\ndeepseek\n1 Profile, keins aktiv\nAnmeldung\nSchlüssel per Umgebungsvariable · Wert nie gelesen\nLetzte Nutzung\nVeraltet\n09.10.26, 13:00\nQuota\nUnbekannt\nCodex-Quota gilt für die OpenAI-Anmeldung, nicht für diesen Provider\n~/.codex/config.toml · geändert 11.10.26, 14:41\nGemini CLI\nAktiv\nGoogle AI Studio\ngenerativelanguage.googleapis.com · Standard\nModell\ngemini-2.5-pro\nAnmeldung\nGoogle-Anmeldung\nLetzte Nutzung\nUnbekannt\nKein Session-Log-Collector für dieses Werkzeug\nQuota\nUnbekannt\nKein Adapter.\n~/.gemini/settings.json · geändert 11.10.26, 14:41\nCodex-Provider\nmodel_providers in config.toml\nID\tEndpunkt\tStatus\ndeepseek\tDeepSeek · api.deepseek.com\tAktiv\ncorp\tEigener Endpunkt · Adresse wird nicht angezeigt\t–\ncliproxy\tCLIProxyAPI · localhost:8317\t–",
+  "summary": {
+    "checks": 88,
+    "failed": 0
+  }
+}

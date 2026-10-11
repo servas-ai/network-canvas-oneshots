@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// SERVAS-2071 local server: static suite + GET /api/usage?days=N, /api/opencodex, /api/gateways and /api/router.
+// SERVAS-2071 local server: static suite + GET /api/usage?days=N, /api/opencodex, /api/gateways, /api/router and /api/switch.
 // Binds 127.0.0.1 only; no write endpoints, no provider calls.
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -9,19 +9,21 @@ import { collectUsage } from './collect.mjs';
 import { collectOpencodex } from './opencodex.mjs';
 import { collectGateways } from './gateways.mjs';
 import { collectRouter } from './router.mjs';
+import { collectSwitch } from './switch.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const CACHE_MS = 60000;
-const APPS = ['/live', '/tokscale', '/tray', '/usage', '/opencodex', '/cpa', '/router'];
+const APPS = ['/live', '/tokscale', '/tray', '/usage', '/opencodex', '/cpa', '/router', '/switch'];
 const OPENCODEX_CACHE_MS = 15000;
 
-export function createUsageServer({ collect = collectUsage, opencodex = collectOpencodex, gateways = collectGateways, router = collectRouter, root = ROOT } = {}) {
+export function createUsageServer({ collect = collectUsage, opencodex = collectOpencodex, gateways = collectGateways, router = collectRouter, switches = collectSwitch, root = ROOT } = {}) {
   const cache = new Map();
   let gateway = null; // { at, data }: catalogue read + one TCP probe, cached briefly
   let nodes = null; // { at, data }: gateway TCP probes, cached briefly
   let ccr = null; // { at, data }: whitelisted CCR config + one TCP probe, cached briefly
+  let tools = null; // { at, data }: whitelisted Claude Code / Codex / Gemini CLI configs, cached briefly
   let inflight = null; // one collection at a time keeps disk/CPU load bounded
   async function usage(days) {
     const hit = cache.get(days);
@@ -57,6 +59,11 @@ export function createUsageServer({ collect = collectUsage, opencodex = collectO
       if (url.pathname === '/api/router') {
         if (!ccr || Date.now() - ccr.at >= OPENCODEX_CACHE_MS) ccr = { at: Date.now(), data: await router() };
         res.writeHead(200, { 'content-type': TYPES['.json'], 'cache-control': 'no-store' }).end(JSON.stringify(ccr.data));
+        return;
+      }
+      if (url.pathname === '/api/switch') {
+        if (!tools || Date.now() - tools.at >= OPENCODEX_CACHE_MS) tools = { at: Date.now(), data: await switches() };
+        res.writeHead(200, { 'content-type': TYPES['.json'], 'cache-control': 'no-store' }).end(JSON.stringify(tools.data));
         return;
       }
       // Redirect so relative module/style URLs in the app pages resolve.

@@ -65,7 +65,7 @@ test('negative probe: the previous light state colours fail', () => {
 
 // button.primary: --on-accent on --accent, 13px text, per product and theme
 // (cpa-manager-plus keeps the default accent).
-const PRODUCTS = ['cpa-manager-plus', 'opencodex', 'tokscale', 'quota-tray', 'cliproxyapi-usage', 'claude-code-router'];
+const PRODUCTS = ['cpa-manager-plus', 'opencodex', 'tokscale', 'quota-tray', 'cliproxyapi-usage', 'claude-code-router', 'cc-switch'];
 const optional = (src, selector) => (src.includes(`${selector} {`) ? block(src, selector) : {});
 function primaryFailures(src) {
   const base = themes(src);
@@ -82,8 +82,8 @@ test('primary button text reaches AA 4.5 for every product in light and dark', (
   assert.deepEqual(primaryFailures(css), []);
 });
 
-test('negative probe: the previous fixed #0b1420 primary text fails default, quota tray light and router light', () => {
+test('negative probe: the previous fixed #0b1420 primary text fails default, quota tray light, router light and switch light', () => {
   const old = css.replace(/--on-accent: #[0-9a-f]{3,6}/gi, '--on-accent: #0b1420');
   assert.deepEqual(primaryFailures(old).map(f => f.split(' ').slice(0, 2).join(' ')).sort(),
-    ['claude-code-router light', 'cpa-manager-plus dark', 'cpa-manager-plus light', 'quota-tray light']);
+    ['cc-switch light', 'claude-code-router light', 'cpa-manager-plus dark', 'cpa-manager-plus light', 'quota-tray light']);
 });
