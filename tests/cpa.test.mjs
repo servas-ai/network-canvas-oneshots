@@ -29,7 +29,7 @@ test('recent: newest first across sources, failures included, bounded', async ()
     ['2026-10-09T11:00:00.000Z', 'codex', 'ok'],
     ['2026-10-09T10:00:02.000Z', 'codex', 'ok'],
   ]);
-  assert.deepEqual(Object.keys(d.recent[2]).sort(), ['at', 'model', 'source', 'status', 'total']);
+  assert.deepEqual(Object.keys(d.recent[2]).sort(), ['at', 'model', 'prompt', 'source', 'status', 'total']);
   assert.ok(d.recent.length <= 25);
 });
 

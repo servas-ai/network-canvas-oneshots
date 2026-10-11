@@ -1,0 +1,22 @@
+{
+  "APIKEY": "CCR-SECRET-SHOULD-NOT-LEAK",
+  "PORT": 3457,
+  "LOG": true,
+  "API_TIMEOUT_MS": 600000,
+  "Providers": [
+    { "name": "openrouter", "api_base_url": "https://SECRET-HOST-SHOULD-NOT-LEAK.example/v1", "api_key": "sk-SECRET-SHOULD-NOT-LEAK",
+      "models": ["google/gemini-2.5-pro-preview", "anthropic/claude-sonnet-4"],
+      "transformer": { "use": ["openrouter", ["maxtoken", { "max_tokens": 16384, "note": "OPTION-SHOULD-NOT-LEAK" }]] } },
+    { "name": "deepseek", "api_base_url": "https://api.deepseek.com/chat/completions", "api_key": "sk-SECRET-SHOULD-NOT-LEAK",
+      "models": ["deepseek-chat", "deepseek-reasoner"], "transformer": { "use": ["deepseek"], "deepseek-chat": { "use": ["tooluse"] } } },
+    { "name": "bad name with spaces", "models": ["x"] }
+  ],
+  "Router": {
+    "default": "deepseek,deepseek-chat",
+    "background": "deepseek,deepseek-chat",
+    "think": "deepseek,deepseek-reasoner",
+    "longContext": "openrouter,google/gemini-2.5-pro-preview",
+    "longContextThreshold": 60000,
+    "webSearch": "https://SECRET-HOST-SHOULD-NOT-LEAK.example,sk-x,y"
+  }
+}
