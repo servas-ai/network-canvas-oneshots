@@ -4,9 +4,9 @@
    products override --accent/--tint only. State colours follow the radar
    tool-ui contract (PR541): unknown/loading muted, stale warn, error bad. */
 :root {
-  --bg: #f5f6f8; --panel: #fff; --text: #202536; --muted: #737b8d;
+  --bg: #f5f6f8; --panel: #fff; --text: #202536; --muted: #4f576b;
   --line: #e6e8ee; --soft: #f1f3f7; --accent: #5261dc; --tint: #eef0ff;
-  --green: #138661; --amber: #a86200; --amber-bg: #fff4e0; --red: #d6505b; --red-bg: #fdecee;
+  --green: #17603f; --amber: #6f4a00; --amber-bg: #fff4e0; --red: #a8201a; --red-bg: #fdecee;
   --font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: SFMono-Regular, Consolas, "Liberation Mono", monospace;
   --r-control: 7px; --r-panel: 10px; --hit: 32px; --gap: 8px;
