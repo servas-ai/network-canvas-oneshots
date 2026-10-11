@@ -36,6 +36,7 @@ const iso = v => (typeof v === 'string' && Number.isFinite(Date.parse(v)) ? new 
 
 function makeAgg(sinceMs) {
   return { sinceMs, models: new Map(), days: new Map(), dayRequests: new Map(), hours: Array(24).fill(0), hourRequests: Array(24).fill(0), quotas: new Map(),
+    failures: new Map(), recent: [],
     sources: { codex: { files: 0, records: 0, observedAt: null }, claude: { files: 0, records: 0, observedAt: null } } };
 }
 
@@ -52,9 +53,34 @@ function add(agg, source, model, ts, u) {
   agg.dayRequests.set(day, (agg.dayRequests.get(day) ?? 0) + 1);
   agg.hours[new Date(t).getUTCHours()] += u.total;
   agg.hourRequests[new Date(t).getUTCHours()] += 1;
+  remember(agg, { at: ts, source, model, total: u.total, status: 'ok' });
   const s = agg.sources[source];
   s.records += 1;
   if (!s.observedAt || ts > s.observedAt) s.observedAt = ts;
+}
+
+// Newest requests across all sources; files arrive in directory order, so trim
+// by time only now and then to keep memory bounded.
+const RECENT = 25;
+function remember(agg, row) {
+  agg.recent.push(row);
+  if (agg.recent.length > 20 * RECENT) agg.recent = newest(agg.recent);
+}
+const newest = rows => rows.sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0)).slice(0, RECENT);
+
+// Failed API calls by error class. The class is kept only if it looks like an
+// identifier (e.g. authentication_failed, rate_limit); message text is never read.
+function fail(agg, source, error, status, ts) {
+  const t = Date.parse(ts);
+  if (!Number.isFinite(t) || t < agg.sinceMs) return;
+  const cls = typeof error === 'string' && /^[a-z][a-z0-9_]{0,39}$/.test(error) ? error : 'unbekannt';
+  const code = Number.isInteger(status) && status >= 100 && status < 600 ? status : null;
+  const key = `${source}\u0000${cls}\u0000${code}`;
+  const row = agg.failures.get(key) ?? { source, error: cls, status: code, count: 0, lastAt: null };
+  row.count += 1;
+  if (!row.lastAt || ts > row.lastAt) row.lastAt = ts;
+  agg.failures.set(key, row);
+  remember(agg, { at: ts, source, model: null, total: null, status: cls });
 }
 
 export async function collectCodex(agg, root) {
@@ -100,9 +126,15 @@ export async function collectClaude(agg, root) {
   const seen = new Set();
   for await (const file of jsonlFiles(root, agg.sinceMs)) {
     agg.sources.claude.files += 1;
-    for await (const rec of lines(file, ['"usage"'])) {
+    for await (const rec of lines(file, ['"usage"', '"isApiErrorMessage"'])) {
       const m = rec?.message;
       const u = m?.usage;
+      if (rec?.isApiErrorMessage === true) {
+        // Claude Code logs a failed call as a synthetic assistant line, once per line uuid.
+        const ts = iso(rec.timestamp), id = rec.uuid ?? m?.id;
+        if (ts && id && !seen.has(id)) { seen.add(id); fail(agg, 'claude', rec.error, rec.apiErrorStatus, ts); }
+        continue;
+      }
       if (rec.type !== 'assistant' || !u || typeof m.model !== 'string' || m.model.startsWith('<')) continue;
       // Claude Code writes one line per content block with identical usage; dedupe per API message.
       const id = m.id ?? rec.requestId ?? rec.uuid;
@@ -149,5 +181,10 @@ export async function collectUsage({ days = 30, now = Date.now(), roots = DEFAUL
     byHourUtc: agg.hours,
     requestsByHourUtc: agg.hourRequests,
     quotas: [...agg.quotas.values()],
+    // Only Claude Code writes failed calls into its session log; for Codex the
+    // failure count is unknown, not zero.
+    failureLogging: { claude: true, codex: false },
+    failures: [...agg.failures.values()].sort((a, b) => b.count - a.count),
+    recent: newest(agg.recent),
   };
 }

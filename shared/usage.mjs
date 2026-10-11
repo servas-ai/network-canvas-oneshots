@@ -40,3 +40,26 @@ export function shares(rows = [], key = 'model') {
   return [...groups.values()].sort((a, b) => b.total - a.total)
     .map(g => Object.freeze({ ...g, share: sum > 0 ? (g.total / sum) * 100 : null }));
 }
+
+// Success rate of one source: ok calls vs. failed calls in the same window.
+// Sources that do not log failures (failureLogging false) stay null, so a
+// missing failure log can never read as 100 %.
+export function successRate(data, source) {
+  if (data?.failureLogging?.[source] !== true) return Object.freeze({ ok: null, failed: null, rate: null });
+  const ok = (data.byModel ?? []).filter(r => r.source === source).reduce((s, r) => s + r.requests, 0);
+  const failed = (data.failures ?? []).filter(f => f.source === source).reduce((s, f) => s + f.count, 0);
+  return Object.freeze({ ok, failed, rate: ok + failed > 0 ? (ok / (ok + failed)) * 100 : null });
+}
+
+// Failure classes summed over sources, largest first.
+export function failureClasses(failures = []) {
+  const groups = new Map();
+  for (const f of failures) {
+    const key = f.status === null ? f.error : `${f.status} · ${f.error}`;
+    const g = groups.get(key) ?? { label: key, count: 0, lastAt: null };
+    g.count += f.count;
+    if (!g.lastAt || f.lastAt > g.lastAt) g.lastAt = f.lastAt;
+    groups.set(key, g);
+  }
+  return [...groups.values()].sort((a, b) => b.count - a.count).map(g => Object.freeze(g));
+}

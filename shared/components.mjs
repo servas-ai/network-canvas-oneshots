@@ -52,10 +52,12 @@ export function metric(label, value, hint) {
 }
 
 // percent: 0..100 or null (unknown -> hatched, no fake value).
-export function meter(percent, label) {
+// tone 'level' colours usage (70 % warn, 90 % bad); 'share' is a neutral
+// proportion where a high value is no warning.
+export function meter(percent, label, tone = 'level') {
   const known = Number.isFinite(percent);
   const clamped = known ? Math.max(0, Math.min(100, percent)) : 0;
-  const level = !known ? null : clamped >= 90 ? 'bad' : clamped >= 70 ? 'warn' : 'ok';
+  const level = !known ? null : tone === 'share' ? 'share' : clamped >= 90 ? 'bad' : clamped >= 70 ? 'warn' : 'ok';
   return el('div', { class: 'ui-meter', role: 'meter', 'aria-label': label,
     'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': known ? String(clamped) : null,
     'aria-valuetext': known ? `${clamped.toFixed(0)} %` : 'Unbekannt',

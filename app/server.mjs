@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// SERVAS-2071 local server: static suite + GET /api/usage?days=N and GET /api/opencodex.
+// SERVAS-2071 local server: static suite + GET /api/usage?days=N, /api/opencodex and /api/gateways.
 // Binds 127.0.0.1 only; no write endpoints, no provider calls.
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -7,17 +7,19 @@ import { extname, join, normalize, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { collectUsage } from './collect.mjs';
 import { collectOpencodex } from './opencodex.mjs';
+import { collectGateways } from './gateways.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const CACHE_MS = 60000;
-const APPS = ['/live', '/tokscale', '/tray', '/usage', '/opencodex'];
+const APPS = ['/live', '/tokscale', '/tray', '/usage', '/opencodex', '/cpa'];
 const OPENCODEX_CACHE_MS = 15000;
 
-export function createUsageServer({ collect = collectUsage, opencodex = collectOpencodex, root = ROOT } = {}) {
+export function createUsageServer({ collect = collectUsage, opencodex = collectOpencodex, gateways = collectGateways, root = ROOT } = {}) {
   const cache = new Map();
   let gateway = null; // { at, data }: catalogue read + one TCP probe, cached briefly
+  let nodes = null; // { at, data }: gateway TCP probes, cached briefly
   let inflight = null; // one collection at a time keeps disk/CPU load bounded
   async function usage(days) {
     const hit = cache.get(days);
@@ -43,6 +45,11 @@ export function createUsageServer({ collect = collectUsage, opencodex = collectO
       if (url.pathname === '/api/opencodex') {
         if (!gateway || Date.now() - gateway.at >= OPENCODEX_CACHE_MS) gateway = { at: Date.now(), data: await opencodex() };
         res.writeHead(200, { 'content-type': TYPES['.json'], 'cache-control': 'no-store' }).end(JSON.stringify(gateway.data));
+        return;
+      }
+      if (url.pathname === '/api/gateways') {
+        if (!nodes || Date.now() - nodes.at >= OPENCODEX_CACHE_MS) nodes = { at: Date.now(), data: await gateways() };
+        res.writeHead(200, { 'content-type': TYPES['.json'], 'cache-control': 'no-store' }).end(JSON.stringify(nodes.data));
         return;
       }
       // Redirect so relative module/style URLs in the app pages resolve.
