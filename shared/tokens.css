@@ -99,3 +99,6 @@ select { font: inherit; min-height: var(--hit); background: var(--soft); color: 
 .ui-nav a { color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: var(--r-control); min-height: var(--hit); display: inline-flex; align-items: center; }
 .ui-nav a:hover { background: var(--soft); color: var(--text); }
 .ui-nav a[aria-current="page"] { background: var(--tint); color: var(--text); font-weight: 560; }
+/* CLIProxyAPI Usage accent from cliproxyapi-usage.html. */
+:root[data-product="cliproxyapi-usage"] { --accent: #558bcf; --tint: #e8f0fa; }
+:root[data-product="cliproxyapi-usage"][data-theme="dark"] { --accent: #7aaae4; --tint: #1c2a3d; }

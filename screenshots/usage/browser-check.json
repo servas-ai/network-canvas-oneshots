@@ -1,0 +1,179 @@
+{
+  "usage-dark": {
+    "overflowX": false,
+    "tab": "Übersicht",
+    "panels": [
+      "Tokens heute (UTC)",
+      "Anfragen 24 h",
+      "Geschätzte Kosten",
+      "Cache-Anteil 24 h",
+      "Tokenverbrauch · letzte 24 h",
+      "Modellverteilung · 24 h",
+      "Konto-Quota-Fenster",
+      "Nutzung nach Maschine · 30 Tage"
+    ],
+    "values": [
+      "5,2 Mio.",
+      "536",
+      "–",
+      "98,3 %"
+    ],
+    "badges": [
+      "unknown:Unbekannt",
+      "ready:Aktuell",
+      "stale:Veraltet",
+      "ready:Aktuell",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "99 %",
+      "1 %",
+      "17 %",
+      "100 %",
+      "0 %"
+    ],
+    "bars": 24,
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "usage-light": {
+    "overflowX": false,
+    "tab": "Übersicht",
+    "panels": [
+      "Tokens heute (UTC)",
+      "Anfragen 24 h",
+      "Geschätzte Kosten",
+      "Cache-Anteil 24 h",
+      "Tokenverbrauch · letzte 24 h",
+      "Modellverteilung · 24 h",
+      "Konto-Quota-Fenster",
+      "Nutzung nach Maschine · 30 Tage"
+    ],
+    "values": [
+      "5,2 Mio.",
+      "536",
+      "–",
+      "98,3 %"
+    ],
+    "badges": [
+      "unknown:Unbekannt",
+      "ready:Aktuell",
+      "stale:Veraltet",
+      "ready:Aktuell",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "99 %",
+      "1 %",
+      "17 %",
+      "100 %",
+      "0 %"
+    ],
+    "bars": 24,
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "light"
+  },
+  "usage-narrow": {
+    "overflowX": false,
+    "tab": "Übersicht",
+    "panels": [
+      "Tokens heute (UTC)",
+      "Anfragen 24 h",
+      "Geschätzte Kosten",
+      "Cache-Anteil 24 h",
+      "Tokenverbrauch · letzte 24 h",
+      "Modellverteilung · 24 h",
+      "Konto-Quota-Fenster",
+      "Nutzung nach Maschine · 30 Tage"
+    ],
+    "values": [
+      "5,2 Mio.",
+      "536",
+      "–",
+      "98,3 %"
+    ],
+    "badges": [
+      "unknown:Unbekannt",
+      "ready:Aktuell",
+      "stale:Veraltet",
+      "ready:Aktuell",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "99 %",
+      "1 %",
+      "17 %",
+      "100 %",
+      "0 %"
+    ],
+    "bars": 24,
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "tab-account": {
+    "overflowX": false,
+    "tab": "Nach Konto",
+    "panels": [
+      "Konto-Quota-Fenster"
+    ],
+    "values": [],
+    "badges": [
+      "stale:Veraltet"
+    ],
+    "meters": [
+      "17 %"
+    ],
+    "bars": 0,
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "tab-model": {
+    "overflowX": false,
+    "tab": "Nach Modell",
+    "panels": [
+      "Modellverteilung · 30 Tage",
+      "Modellverteilung · 24 h",
+      "Modelle · 30 Tage"
+    ],
+    "values": [],
+    "badges": [],
+    "meters": [
+      "97 %",
+      "3 %",
+      "0 %",
+      "99 %",
+      "1 %"
+    ],
+    "bars": 0,
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "tab-machine": {
+    "overflowX": false,
+    "tab": "Nach Maschine",
+    "panels": [
+      "Nutzung nach Maschine · 30 Tage"
+    ],
+    "values": [],
+    "badges": [
+      "ready:Aktuell",
+      "unknown:Unbekannt"
+    ],
+    "meters": [
+      "100 %",
+      "0 %"
+    ],
+    "bars": 0,
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark"
+  },
+  "wrapToFirst": "tab-all",
+  "keyE": "cliproxyapi-usage-2026-10-11.json",
+  "keyR": "Aktualisiert 02:07:22",
+  "keyT": "light",
+  "navToTray": [
+    "/tray/",
+    4
+  ],
+  "pageErrors": []
+}
