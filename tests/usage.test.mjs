@@ -32,3 +32,14 @@ test('shares group by key, sort by tokens and sum to 100', () => {
   assert.deepEqual(shares(rows).map(g => g.label), ['b', 'a', 'c']);
   assert.equal(shares([{ model: 'x', requests: 0, total: 0, cachedInput: 0 }])[0].share, null);
 });
+
+test('coverage: names days before the first log entry, never invents data', async () => {
+  const { coverage } = await import('../shared/usage.mjs');
+  const day = (d, total, requests = total ? 1 : 0) => ({ day: `2026-10-${String(d).padStart(2, '0')}`, total, requests });
+  const month = [...Array.from({ length: 26 }, (_, i) => day(i + 1, 0)), day(27, 5), day(28, 0), day(29, 9), day(30, 1)];
+  assert.deepEqual({ ...coverage(month) }, { days: 30, covered: 4, firstDay: '2026-10-27' });
+  assert.deepEqual({ ...coverage([day(1, 3), day(2, 0)]) }, { days: 2, covered: 2, firstDay: '2026-10-01' }, 'gap after first entry is not missing coverage');
+  assert.deepEqual({ ...coverage([day(1, 0), day(2, 0)]) }, { days: 2, covered: 0, firstDay: null });
+  assert.deepEqual({ ...coverage([{ day: '2026-10-01', total: 0, requests: 2 }]) }, { days: 1, covered: 1, firstDay: '2026-10-01' }, 'requests without tokens count');
+  assert.deepEqual({ ...coverage() }, { days: 0, covered: 0, firstDay: null });
+});
