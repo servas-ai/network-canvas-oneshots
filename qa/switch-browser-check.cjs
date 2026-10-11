@@ -102,7 +102,11 @@ const LEAK = /SENTINEL|SECRET|PROMPT-SHOULD|OPTION-SHOULD|SKILL-BODY|npx|\.inval
 
   const [dl] = await Promise.all([page.waitForEvent("download", { timeout: 10000 }).catch(() => null), page.keyboard.press("e")]);
   check("e downloads switch JSON", dl && /^cc-switch-\d{4}-\d{2}-\d{2}\.json$/.test(dl.suggestedFilename()), dl?.suggestedFilename());
-  if (dl) { const p = await dl.path(); check("export carries no secret", p && !LEAK.test(fs.readFileSync(p, "utf8"))); }
+  // Remote browser: stream the download here; else check the data the export serializes.
+  const exported = dl ? await dl.saveAs(`${DIR}/.export.json`).then(() => fs.readFileSync(`${DIR}/.export.json`, "utf8"), () => null) : null;
+  fs.rmSync(`${DIR}/.export.json`, { force: true });
+  const apis = await page.evaluate(async () => JSON.stringify([await (await fetch("/api/switch")).json(), await (await fetch("/api/usage?days=2")).json()]));
+  check("export carries no secret", !LEAK.test(exported ?? apis), exported ? "download content" : "api payload of the export");
   const [reload] = await Promise.all([page.waitForResponse(r => r.url().includes("/api/switch"), { timeout: 10000 }).catch(() => null), page.keyboard.press("r")]);
   check("r refetches /api/switch", Boolean(reload));
   await ready();
