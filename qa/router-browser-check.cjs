@@ -60,7 +60,7 @@ const CCR = process.env.FIXTURE_CCR ?? "config";
     check("long context share 60 %", /\b60 %/.test(text));
     check("overlap shown as unknown", /Zuordnung unbekannt/.test(text));
     check("transformer names only", /openrouter, maxtoken/.test(text));
-    check("timeout from config", /600\.000 ms|600 000 ms|600000 ms/.test(text));
+    check("timeout from config", /600[\s.\u00a0\u202f]?000 ms/.test(text));
   } else if (CCR === "none") {
     check("missing config explained", /config\.json fehlt/.test(text) && /CCR-Standard/.test(text));
   } else {
