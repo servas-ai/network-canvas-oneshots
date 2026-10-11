@@ -42,6 +42,34 @@ test('parseRule accepts provider,model only', () => {
   for (const bad of ['anthropic', 'a,b,c', 'https://x.y,z', 'a b,c', '', null, 42, `a,${'m'.repeat(81)}`]) assert.equal(parseRule(bad), null, String(bad));
 });
 
+test('parseRule drops URL models, keeps namespace, tag and @ model ids', () => {
+  for (const bad of ['demo,https://demo.invalid/SENTINEL', 'demo,http://demo.invalid', 'demo,//demo.invalid/SENTINEL',
+    'demo,demo.invalid:8080/SENTINEL', 'demo,file:///SENTINEL', 'demo,localhost:11434/api']) assert.equal(parseRule(bad), null, bad);
+  for (const model of ['google/gemini-2.5-pro', 'qwen2.5:7b', 'ollama:llama3.1:8b-instruct-q4_K_M', 'anthropic/claude-sonnet-4@20250514', 'deepseek-ai/DeepSeek-V3.1', 'gemma3:4', 'llama3:70'])
+    assert.deepEqual(parseRule(`demo,${model}`), { provider: 'demo', model }, model);
+});
+
+test('api/router over the real server: URLs in rule models, provider models and transformers never leave', async () => {
+  const server = createUsageServer({ router: () => collectRouter({ configPath: fx('ccr/urls.json'), env: {}, probe }) });
+  await new Promise(r => server.listen(0, '127.0.0.1', r));
+  try {
+    const res = await fetch(`http://127.0.0.1:${server.address().port}/api/router`);
+    const text = await res.text(), { config: c } = JSON.parse(text);
+    assert.equal(c.valid, true);
+    for (const leak of ['SENTINEL', 'demo.invalid', '://']) assert.ok(!text.includes(leak), leak);
+    assert.deepEqual(c.rules, {
+      default: null,
+      background: { provider: 'demo', model: 'qwen2.5:7b' },
+      think: { provider: 'demo', model: 'anthropic/claude-sonnet-4@20250514' },
+      longContext: { provider: 'demo', model: 'google/gemini-2.5-pro' },
+      webSearch: null,
+    });
+    assert.deepEqual(c.providers, [{ name: 'demo',
+      models: ['google/gemini-2.5-pro', 'qwen2.5:7b', 'ollama:llama3.1:8b-instruct-q4_K_M', 'anthropic/claude-sonnet-4@20250514', 'deepseek-ai/DeepSeek-V3.1'],
+      transformers: ['openrouter', 'maxtoken'] }]);
+  } finally { server.close(); }
+});
+
 test('collectRouter probes config port, env wins, default 3456 without config', async () => {
   const seen = [];
   const p = async port => (seen.push(port), probe(port));

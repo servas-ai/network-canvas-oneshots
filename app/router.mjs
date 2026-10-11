@@ -3,7 +3,8 @@
 // 1. the CCR configuration (~/.claude-code-router/config.json), whitelisted to
 //    routing facts: Router rules ("provider,model"), long-context threshold,
 //    timeout, port and per provider its name, model names and transformer
-//    names. APIKEY, api_key, api_base_url and every other field are dropped;
+//    names. APIKEY, api_key, api_base_url, URL-shaped names and every other
+//    field are dropped;
 // 2. a TCP reachability probe of the CCR port. No request goes through the
 //    router, so no provider call and no credentials.
 import { readFile, stat } from 'node:fs/promises';
@@ -17,9 +18,10 @@ export const DEFAULT_PORT = 3456;
 export const RULES = Object.freeze(['default', 'background', 'think', 'longContext', 'webSearch']);
 
 // Model names may carry '/', ':' or '@' (google/gemini-2.5-pro, qwen2.5:7b);
-// provider names never do, so a URL can not pass as a provider.
-const NAME = /^[\w.:@/-]{1,80}$/, PROVIDER = /^[\w.-]{1,80}$/;
-const name = v => (typeof v === 'string' && NAME.test(v) ? v : null);
+// provider names never do, so a URL can not pass as a provider. URL shapes
+// (scheme:/, //host, host:port/) are dropped from model and transformer names.
+const NAME = /^[\w.:@/-]{1,80}$/, PROVIDER = /^[\w.-]{1,80}$/, URL_LIKE = /^[a-z][\w+.-]*:\/|\/\/|:\d+\//i;
+const name = v => (typeof v === 'string' && NAME.test(v) && !URL_LIKE.test(v) ? v : null);
 const provider = v => (typeof v === 'string' && PROVIDER.test(v) ? v : null);
 const int = (v, min, max) => (Number.isInteger(v) && v >= min && v <= max ? v : null);
 
