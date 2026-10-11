@@ -29,12 +29,12 @@ function render(data, { now }) {
       heatmap(weeks, monthMarks(weeks), levelScale(data.byDay), 'Tokens pro Tag als Jahresraster', fmt.tokens),
       el('div', { class: 'between' }, el('small', { text: `${st.activeDays} Tage mit KI gebaut · ${weeks.length} Wochen` }), legend())),
     el('div', { class: 'grid2' },
-      panel('Modelle', null, table([
+      panel('Modelle', null, el('div', { class: 'scroll' }, table([
         { key: 'model', label: 'Modell' }, { key: 'source', label: 'Quelle', format: v => SOURCE[v] ?? v },
         { key: 'requests', label: 'Anfragen', num: true, format: v => v.toLocaleString('de-AT') },
         { key: 'total', label: 'Tokens', num: true, format: fmt.tokens },
         { key: 'total', label: 'Anteil', num: true, format: v => (t.total ? pct((v / t.total) * 100) : '–') },
-      ], data.byModel, 'Keine Nutzung im Zeitraum')),
+      ], data.byModel, 'Keine Nutzung im Zeitraum'))),
       panel('Aktivität nach Stunde', el('small', { text: 'UTC, ganzer Zeitraum' }),
         bars(data.byHourUtc.map((value, h) => ({ label: `${String(h).padStart(2, '0')} UTC`, value })), 'Tokens nach Stunde (UTC)', fmt.tokens),
         el('div', { class: 'axis' }, el('small', { text: '00' }), el('small', { text: '12' }), el('small', { text: '23' })),

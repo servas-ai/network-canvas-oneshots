@@ -45,18 +45,18 @@ function render(data, { now }) {
         data.byDay.length ? el('div', { class: 'axis' }, el('small', { text: data.byDay[0].day }), el('small', { text: data.byDay.at(-1).day })) : null),
       quotaPanel(data, now)),
     el('div', { class: 'grid2' },
-      panel('Modelle', null, table([
+      panel('Modelle', null, el('div', { class: 'scroll' }, table([
         { key: 'source', label: 'Quelle' }, { key: 'model', label: 'Modell' },
         { key: 'requests', label: 'Anfragen', num: true, format: v => v.toLocaleString('de-AT') },
         { key: 'input', label: 'Input', num: true, format: fmt.tokens }, { key: 'cachedInput', label: 'Cache', num: true, format: fmt.tokens },
         { key: 'output', label: 'Output', num: true, format: fmt.tokens }, { key: 'total', label: 'Gesamt', num: true, format: fmt.tokens },
-      ], data.byModel, 'Keine Nutzung im Zeitraum')),
+      ], data.byModel, 'Keine Nutzung im Zeitraum'))),
       panel('Aktivität nach Stunde', el('small', { text: 'UTC' }), bars(hours, 'Tokens nach Stunde (UTC)', fmt.tokens),
         el('div', { class: 'axis' }, el('small', { text: '00' }), el('small', { text: '12' }), el('small', { text: '23' })))),
-    panel('Quellen', el('small', { text: `erzeugt ${fmt.dateTime(data.generatedAt)}` }), table([
+    panel('Quellen', el('small', { text: `erzeugt ${fmt.dateTime(data.generatedAt)}` }), el('div', { class: 'scroll' }, table([
       { key: 'id', label: 'Quelle' }, { key: 'files', label: 'Dateien', num: true }, { key: 'records', label: 'Datensätze', num: true },
       { key: 'observedAt', label: 'Letzte Beobachtung', format: v => (v ? fmt.dateTime(v) : 'keine') },
-    ], data.sources)));
+    ], data.sources))));
 }
 
 const range = document.getElementById('range');
