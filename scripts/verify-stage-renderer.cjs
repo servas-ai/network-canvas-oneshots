@@ -43,7 +43,7 @@ const {chromium} = require('playwright');
   await page.locator('#oneBtn').click();
   await page.setViewportSize({width:390,height:844});
   await page.emulateMedia({reducedMotion:'reduce',colorScheme:'dark'});
-  await page.waitForTimeout(100);
+  await page.waitForTimeout(400); // longer than --dur so the shot never shows a theme mid-transition
   const client=await ctx.newCDPSession(page);
   const shot=await client.send('Page.captureScreenshot',{format:'png'});
   fs.mkdirSync('reports',{recursive:true});fs.writeFileSync('reports/'+(forced?'fallback':'auto')+'.png',Buffer.from(shot.data,'base64'));
