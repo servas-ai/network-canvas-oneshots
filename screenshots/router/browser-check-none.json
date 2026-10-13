@@ -1,0 +1,162 @@
+{
+  "sourceSha": "65f26a63339c73ae0172d2b6718e770e9bbbc11c",
+  "fixtureCcr": "none",
+  "checks": [
+    {
+      "name": "router dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "no secret or option text rendered",
+      "ok": true
+    },
+    {
+      "name": "router down shown as not reachable",
+      "ok": true
+    },
+    {
+      "name": "missing config explained",
+      "ok": true
+    },
+    {
+      "name": "nav has seven links, router current",
+      "ok": true
+    },
+    {
+      "name": "ArrowLeft wraps to last tab",
+      "ok": true,
+      "detail": [
+        "tab-config",
+        "tab-config"
+      ]
+    },
+    {
+      "name": "Home returns to first tab",
+      "ok": true
+    },
+    {
+      "name": "stream tab lists routed requests",
+      "ok": true,
+      "detail": [
+        "12:04:00 claude-opus-5-5 250 Tsd. Default OK",
+        "12:03:00 claude-haiku-4-5 90 Tsd. Default OK",
+        "12:02:00 claude-haiku-4-5 2 Tsd. Default OK",
+        "12:01:00 claude-opus-5-5 70 Tsd. Default OK",
+        "12:00:00 claude-opus-5-5 60 Tsd. Default OK"
+      ]
+    },
+    {
+      "name": "e downloads router JSON",
+      "ok": true,
+      "detail": "claude-code-router-2026-10-10-1d.json"
+    },
+    {
+      "name": "30 day window loads",
+      "ok": true
+    },
+    {
+      "name": "t toggles theme",
+      "ok": true
+    },
+    {
+      "name": "no page errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "matrix": [
+    {
+      "page": "router",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    }
+  ],
+  "routerText": "Kein Router auf 127.0.0.1:3456\nKeine CCR-Konfiguration · Routen unten zeigen, was CCR mit Standardwerten wählen würde\nNicht erreichbar\nRouter-Dienst\n:3456\nNicht erreichbar\nTCP-Probe ohne Antwort · keine Anfrage gesendet\nKonfiguration\n–\nUnbekannt\n~/.claude-code-router/config.json fehlt: CCR ist hier nicht eingerichtet.\nClaude-Code-Anfragen · 24 h\n5\nVeraltet\nletzte 09.10.26, 12:04\nÜber Long-context-Schwelle · 24 h\n60 %\n3 Anfragen über 60 000 Tokens (CCR-Standard)\nRouting-Regeln\nTreffer · 24 h\nDefault\nAlle übrigen Anfragen\nUnbekannt\n5 passende Anfragen · alle Claude-Code-Anfragen\n→ 5 geroutet\nBackground\nHaiku-Anfragen von Claude Code\nUnbekannt\n2 passende Anfragen · Hintergrundaufrufe schreibt Claude Code nicht ins Session-Log\n→ 0 geroutet\nThink\nAnfragen mit Thinking\nUnbekannt\nPassende Anfragen unbekannt: Thinking-Anforderung steht nicht im Log\nUnbekannt\nLong context\nEingabe über der Schwelle\nUnbekannt\n3 passende Anfragen · über 60 000 Tokens (CCR-Standard)\n→ 0 geroutet\nWeb search\nAnfragen mit Websuche-Tool\nUnbekannt\nPassende Anfragen unbekannt: Tool-Liste der Anfrage steht nicht im Log\nUnbekannt\nEingabegröße je Anfrage\nVeraltet\n\n≤ 8 Tsd. 1, ≤ 32 Tsd. 0, ≤ 60 Tsd. 1, ≤ 100 Tsd. 2, ≤ 200 Tsd. 0, > 200 Tsd. 1\n\n≤ 8 Tsd.\n≤ 32 Tsd.\n≤ 60 Tsd.\n≤ 100 Tsd.\n≤ 200 Tsd.\n> 200 Tsd.\nEingabe = frische + Cache-Tokens laut API. CCR zählt selbst per Tokenizer; die Schwelle 60 000 Tokens (CCR-Standard) ist daher eine Näherung.\nAnfragen\nneueste 5 von Claude Code\nZeit\tModell\tEingabe\tRoute (CCR)\tStatus\n12:04:00\tclaude-opus-5-5\t250 Tsd.\tDefault\tOK\n12:03:00\tclaude-haiku-4-5\t90 Tsd.\tDefault\tOK\n12:02:00\tclaude-haiku-4-5\t2 Tsd.\tDefault\tOK\n12:01:00\tclaude-opus-5-5\t70 Tsd.\tDefault\tOK\n12:00:00\tclaude-opus-5-5\t60 Tsd.\tDefault\tOK\nLatenz und tatsächlicher Weg\nUnbekannt\nRouter nicht erreichbar: diese Anfragen liefen nicht über CCR. Route zeigt, was CCR wählen würde. Latenz steht nicht im Log.\nProvider und Transformer\nUnbekannt\n~/.claude-code-router/config.json fehlt: CCR ist hier nicht eingerichtet.\nRate-Limits und Timeout\nRequest-Timeout\nUnbekannt\nAPI_TIMEOUT_MS nicht gesetzt oder keine Konfiguration\nRate-Limit-Fehler · 24 h\n0\nKeine im Claude-Code-Log\nBackoff und Wiederholungen\nUnbekannt\nKeine belegte Quelle: weder config.json noch das Session-Log nennen Wiederholungen.",
+  "summary": {
+    "checks": 19,
+    "failed": 0
+  }
+}

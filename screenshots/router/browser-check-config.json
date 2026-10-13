@@ -1,0 +1,734 @@
+{
+  "sourceSha": "65f26a63339c73ae0172d2b6718e770e9bbbc11c",
+  "fixtureCcr": "config",
+  "checks": [
+    {
+      "name": "live dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router dark 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router dark 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "live dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router dark 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router dark 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "live light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1280,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router light 1280: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 1265,
+        "innerWidth": 1280,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router light 1280: no error panel",
+      "ok": true
+    },
+    {
+      "name": "live light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "live light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tokscale light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tokscale light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "tray light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "tray light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "usage light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "usage light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "opencodex light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "opencodex light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "cpa light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "cpa light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "router light 420: no page overflow",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 405,
+        "innerWidth": 420,
+        "over": [],
+        "errorPanel": false
+      }
+    },
+    {
+      "name": "router light 420: no error panel",
+      "ok": true
+    },
+    {
+      "name": "no secret or option text rendered",
+      "ok": true
+    },
+    {
+      "name": "router down shown as not reachable",
+      "ok": true
+    },
+    {
+      "name": "rules from config",
+      "ok": true
+    },
+    {
+      "name": "web search rule with URL rejected",
+      "ok": true
+    },
+    {
+      "name": "long context share 60 %",
+      "ok": true
+    },
+    {
+      "name": "overlap shown as unknown",
+      "ok": true
+    },
+    {
+      "name": "transformer names only",
+      "ok": true
+    },
+    {
+      "name": "timeout from config",
+      "ok": true
+    },
+    {
+      "name": "nav has seven links, router current",
+      "ok": true
+    },
+    {
+      "name": "ArrowLeft wraps to last tab",
+      "ok": true,
+      "detail": [
+        "tab-config",
+        "tab-config"
+      ]
+    },
+    {
+      "name": "Home returns to first tab",
+      "ok": true
+    },
+    {
+      "name": "stream tab lists routed requests",
+      "ok": true,
+      "detail": [
+        "12:04:00 claude-opus-5-5 250 Tsd. Long context OK",
+        "12:03:00 claude-haiku-4-5 90 Tsd. Long context OK",
+        "12:02:00 claude-haiku-4-5 2 Tsd. Background OK",
+        "12:01:00 claude-opus-5-5 70 Tsd. Long context OK",
+        "12:00:00 claude-opus-5-5 60 Tsd. Default OK"
+      ]
+    },
+    {
+      "name": "e downloads router JSON",
+      "ok": true,
+      "detail": "claude-code-router-2026-10-10-1d.json"
+    },
+    {
+      "name": "30 day window loads",
+      "ok": true
+    },
+    {
+      "name": "t toggles theme",
+      "ok": true
+    },
+    {
+      "name": "no page errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "matrix": [
+    {
+      "page": "live",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "dark",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "live",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "dark",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "live",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "light",
+      "width": 1280,
+      "scrollWidth": 1265,
+      "innerWidth": 1280,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "live",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tokscale",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "tray",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "usage",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "opencodex",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "cpa",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    },
+    {
+      "page": "router",
+      "theme": "light",
+      "width": 420,
+      "scrollWidth": 405,
+      "innerWidth": 420,
+      "over": [],
+      "errorPanel": false
+    }
+  ],
+  "routerText": "Kein Router auf 127.0.0.1:3457\nDefault-Route: deepseek,deepseek-chat · Konfiguration gültig\nNicht erreichbar\nRouter-Dienst\n:3457\nNicht erreichbar\nTCP-Probe ohne Antwort · keine Anfrage gesendet\nKonfiguration\n2\nGültig\n2 Provider · geändert 11.10.26, 14:12\nClaude-Code-Anfragen · 24 h\n5\nVeraltet\nletzte 09.10.26, 12:04\nÜber Long-context-Schwelle · 24 h\n60 %\n3 Anfragen über 60 000 Tokens\nRouting-Regeln\nTreffer · 24 h\nDefault\nAlle übrigen Anfragen\ndeepseek-chat\ndeepseek\n5 passende Anfragen · alle Claude-Code-Anfragen\nZuordnung unbekannt (Überschneidung)\nBackground\nHaiku-Anfragen von Claude Code\ndeepseek-chat\ndeepseek\n2 passende Anfragen · Hintergrundaufrufe schreibt Claude Code nicht ins Session-Log\nZuordnung unbekannt (Überschneidung)\nThink\nAnfragen mit Thinking\ndeepseek-reasoner\ndeepseek\nPassende Anfragen unbekannt: Thinking-Anforderung steht nicht im Log\nUnbekannt\nLong context\nEingabe über der Schwelle\ngoogle/gemini-2.5-pro-preview\nopenrouter\n3 passende Anfragen · über 60 000 Tokens\n→ 3 geroutet\nWeb search\nAnfragen mit Websuche-Tool\nNicht konfiguriert → default\nPassende Anfragen unbekannt: Tool-Liste der Anfrage steht nicht im Log\nUnbekannt\nEingabegröße je Anfrage\nVeraltet\n\n≤ 8 Tsd. 1, ≤ 32 Tsd. 0, ≤ 60 Tsd. 1, ≤ 100 Tsd. 2, ≤ 200 Tsd. 0, > 200 Tsd. 1\n\n≤ 8 Tsd.\n≤ 32 Tsd.\n≤ 60 Tsd.\n≤ 100 Tsd.\n≤ 200 Tsd.\n> 200 Tsd.\nEingabe = frische + Cache-Tokens laut API. CCR zählt selbst per Tokenizer; die Schwelle 60 000 Tokens ist daher eine Näherung.\nAnfragen\nneueste 5 von Claude Code\nZeit\tModell\tEingabe\tRoute (CCR)\tStatus\n12:04:00\tclaude-opus-5-5\t250 Tsd.\tLong context\tOK\n12:03:00\tclaude-haiku-4-5\t90 Tsd.\tLong context\tOK\n12:02:00\tclaude-haiku-4-5\t2 Tsd.\tBackground\tOK\n12:01:00\tclaude-opus-5-5\t70 Tsd.\tLong context\tOK\n12:00:00\tclaude-opus-5-5\t60 Tsd.\tDefault\tOK\nLatenz und tatsächlicher Weg\nUnbekannt\nRouter nicht erreichbar: diese Anfragen liefen nicht über CCR. Route zeigt, was CCR wählen würde. Latenz steht nicht im Log.\nProvider und Transformer\nnur Namen; Schlüssel und URLs werden nie gelesen\nProvider\tModelle\tTransformer\nopenrouter\tgoogle/gemini-2.5-pro-preview, anthropic/claude-sonnet-4\topenrouter, maxtoken\ndeepseek\tdeepseek-chat, deepseek-reasoner\tdeepseek\nRate-Limits und Timeout\nRequest-Timeout\n600 000 ms\nAPI_TIMEOUT_MS aus config.json\nRate-Limit-Fehler · 24 h\n0\nKeine im Claude-Code-Log\nBackoff und Wiederholungen\nUnbekannt\nKeine belegte Quelle: weder config.json noch das Session-Log nennen Wiederholungen.",
+  "summary": {
+    "checks": 72,
+    "failed": 0
+  }
+}

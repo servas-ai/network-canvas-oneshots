@@ -34,15 +34,19 @@ async function* lines(path, needles) {
 const n = v => (Number.isFinite(v) && v > 0 ? v : 0);
 const iso = v => (typeof v === 'string' && Number.isFinite(Date.parse(v)) ? new Date(Date.parse(v)).toISOString() : null);
 
+// Claude Code prompt sizes (input incl. cache) per request, as a histogram:
+// counts only, edges include CCR's default long-context threshold 60000.
+export const PROMPT_EDGES = Object.freeze([8000, 32000, 60000, 100000, 200000]);
+
 function makeAgg(sinceMs) {
   return { sinceMs, models: new Map(), days: new Map(), dayRequests: new Map(), hours: Array(24).fill(0), hourRequests: Array(24).fill(0), quotas: new Map(),
-    failures: new Map(), recent: [],
+    failures: new Map(), recent: [], prompts: PROMPT_EDGES.concat(null).map(upTo => ({ upTo, requests: 0 })),
     sources: { codex: { files: 0, records: 0, observedAt: null }, claude: { files: 0, records: 0, observedAt: null } } };
 }
 
 function add(agg, source, model, ts, u) {
   const t = Date.parse(ts);
-  if (!Number.isFinite(t) || t < agg.sinceMs) return;
+  if (!Number.isFinite(t) || t < agg.sinceMs) return false;
   const key = `${source}\u0000${model}`;
   const row = agg.models.get(key) ?? { source, model, requests: 0, input: 0, cachedInput: 0, output: 0, reasoning: 0, total: 0 };
   row.requests += 1; row.input += u.input; row.cachedInput += u.cachedInput;
@@ -53,10 +57,11 @@ function add(agg, source, model, ts, u) {
   agg.dayRequests.set(day, (agg.dayRequests.get(day) ?? 0) + 1);
   agg.hours[new Date(t).getUTCHours()] += u.total;
   agg.hourRequests[new Date(t).getUTCHours()] += 1;
-  remember(agg, { at: ts, source, model, total: u.total, status: 'ok' });
+  remember(agg, { at: ts, source, model, total: u.total, prompt: u.input + u.cachedInput, status: 'ok' });
   const s = agg.sources[source];
   s.records += 1;
   if (!s.observedAt || ts > s.observedAt) s.observedAt = ts;
+  return true;
 }
 
 // Newest requests across all sources; files arrive in directory order, so trim
@@ -80,7 +85,7 @@ function fail(agg, source, error, status, ts) {
   row.count += 1;
   if (!row.lastAt || ts > row.lastAt) row.lastAt = ts;
   agg.failures.set(key, row);
-  remember(agg, { at: ts, source, model: null, total: null, status: cls });
+  remember(agg, { at: ts, source, model: null, total: null, prompt: null, status: cls });
 }
 
 export async function collectCodex(agg, root) {
@@ -144,8 +149,10 @@ export async function collectClaude(agg, root) {
       if (!ts) continue;
       const input = n(u.input_tokens) + n(u.cache_creation_input_tokens), cachedInput = n(u.cache_read_input_tokens);
       const output = n(u.output_tokens);
-      add(agg, 'claude', m.model, ts, { input, cachedInput, output,
-        reasoning: n(u.output_tokens_details?.thinking_tokens), total: input + cachedInput + output });
+      if (add(agg, 'claude', m.model, ts, { input, cachedInput, output,
+        reasoning: n(u.output_tokens_details?.thinking_tokens), total: input + cachedInput + output })) {
+        agg.prompts.find(b => b.upTo === null || input + cachedInput <= b.upTo).requests += 1;
+      }
     }
   }
 }
@@ -186,5 +193,6 @@ export async function collectUsage({ days = 30, now = Date.now(), roots = DEFAUL
     failureLogging: { claude: true, codex: false },
     failures: [...agg.failures.values()].sort((a, b) => b.count - a.count),
     recent: newest(agg.recent),
+    claudePrompts: agg.prompts,
   };
 }

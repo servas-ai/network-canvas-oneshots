@@ -107,3 +107,7 @@ select { font: inherit; min-height: var(--hit); background: var(--soft); color: 
 /* CLIProxyAPI Usage accent from cliproxyapi-usage.html. */
 :root[data-product="cliproxyapi-usage"] { --accent: #558bcf; --tint: #e8f0fa; --on-accent: #0b1420; }
 :root[data-product="cliproxyapi-usage"][data-theme="dark"] { --accent: #7aaae4; --tint: #1c2a3d; }
+/* Claude Code Router clay accent from claude-code-router.html (#ce997d, dark);
+   light uses a deeper clay so accent text and white button text reach AA. */
+:root[data-product="claude-code-router"] { --accent: #9a5b3c; --tint: #f6ebe4; --on-accent: #fff; }
+:root[data-product="claude-code-router"][data-theme="dark"] { --accent: #ce997d; --tint: #2e2620; --on-accent: #0b1420; }
