@@ -63,3 +63,15 @@ export function failureClasses(failures = []) {
   }
   return [...groups.values()].sort((a, b) => b.count - a.count).map(g => Object.freeze(g));
 }
+
+// How much of a byDay window has log data: days from the first day with any
+// activity to the end. Earlier empty days cannot tell "no use" from "no logs",
+// so the UI names the gap instead of reading it as a quiet month.
+export function coverage(byDay = []) {
+  const first = byDay.findIndex(d => (d.total ?? 0) > 0 || (d.requests ?? 0) > 0);
+  return Object.freeze({
+    days: byDay.length,
+    covered: first < 0 ? 0 : byDay.length - first,
+    firstDay: first < 0 ? null : byDay[first].day,
+  });
+}

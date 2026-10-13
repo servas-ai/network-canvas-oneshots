@@ -6,15 +6,13 @@
 // mockup values. Codex does not log failed calls, so its success rate is
 // UNKNOWN too, not 100 %.
 import { observe } from '../shared/state.mjs';
-import { successRate, failureClasses, rollingHours, cacheRate } from '../shared/usage.mjs';
+import { successRate, failureClasses, rollingHours, cacheRate, coverage } from '../shared/usage.mjs';
 import { el, icon, stateBadge, panel, metric, meter, table, bars, fmt } from '../shared/components.mjs';
+import { mountPage, getJson } from '../shared/page.mjs';
 
-const POLL_MS = 60e3;
 const USAGE_MAX_AGE = 24 * 3600e3;
 const SOURCES = Object.freeze({ claude: 'Claude Code', codex: 'Codex CLI' });
-const $ = id => document.getElementById(id);
-const root = document.documentElement;
-let nodes = null, usage = null, loadedAt = null, view = 'all', days = 1;
+let nodes = null, usage = null, view = 'all', days = 1;
 
 const pct = v => (v === null ? '–' : `${v.toLocaleString('de-AT', { maximumFractionDigits: 2 })} %`);
 const count = v => (Number.isFinite(v) ? v.toLocaleString('de-AT') : '–');
@@ -60,7 +58,12 @@ function trafficPanel(now) {
       el('small', { text: 'Anfragen je Stunde · Latenz (P95) unbekannt: die Logs enthalten keine Antwortzeiten' }));
   }
   const pts = usage.byDay.map(d => ({ label: fmt.day(d.day), value: d.requests ?? 0 }));
-  return panel(`Verkehr · ${span()}`, stateBadge(obs), bars(pts, `Anfragen je Tag, ${span()}`, count),
+  const cov = coverage(usage.byDay);
+  return panel(`Verkehr · ${span()}`, stateBadge(obs),
+    cov.covered < cov.days ? el('div', { class: 'ui-empty', dataset: { state: 'stale' }, text: cov.firstDay
+      ? `Logdaten erst ab ${fmt.day(cov.firstDay)} (${cov.covered} Tage). Davor keine Einträge: ältere Logs fehlen oder es gab keine Nutzung.`
+      : `Keine Logdaten in ${span()}.` }) : null,
+    bars(pts, `Anfragen je Tag, ${span()}`, count),
     pts.length ? el('div', { class: 'axis' }, el('small', { text: pts[0].label }), el('small', { text: `${pts.at(-1).label} (laufend)` })) : null,
     el('small', { text: 'Anfragen je UTC-Tag · Latenz (P95) unbekannt: die Logs enthalten keine Antwortzeiten' }));
 }
@@ -115,97 +118,23 @@ function requestsPanel(now) {
       el('small', { text: 'Nicht in den Logs; ohne CLIProxy-Management-Key (menschliche Freigabe) keine Request-Logs des Gateways. Keine Anfrage-IDs oder Inhalte angezeigt.' })));
 }
 
-function render() {
-  if (!nodes || !usage) return;
-  const now = Date.now();
+function render({ gateways, usage: u }, { now }) {
+  nodes = gateways; usage = u;
   const views = {
     all: () => [overviewMetrics(now), el('div', { class: 'split' }, trafficPanel(now), nodesPanel(now)),
       el('div', { class: 'split' }, requestsPanel(now), el('div', { style: 'display:grid;gap:12px' }, mixPanel(), failuresPanel(now)))],
     requests: () => [requestsPanel(now)],
     failures: () => [failuresPanel(now)],
   };
-  $('app').replaceChildren(el('div', { style: 'display:grid;gap:12px' }, views[view]()));
-  $('poll').textContent = `127.0.0.1 · Abfrage jede Minute · zuletzt ${loadedAt ? `vor ${fmt.remaining(now - loadedAt)}` : '–'} · echte lokale Daten`;
+  return el('div', { style: 'display:grid;gap:12px' }, views[view]());
 }
 
-function renderError(message) {
-  $('app').replaceChildren(panel('Daten nicht verfügbar', stateBadge(observe({ error: true }, {})), el('div', { class: 'ui-empty', text: message })));
-}
-
-async function get(path) {
-  const res = await fetch(path, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
-  return res.json();
-}
-
-let pending = null;
-function load() {
-  if (pending) return pending;
-  const btn = $('refresh');
-  btn.disabled = true; $('app').setAttribute('aria-busy', 'true');
-  btn.replaceChildren(icon('loader-circle'), 'Lädt …');
-  pending = (async () => {
-    try {
-      nodes = await get('/api/gateways'); usage = await get(`/api/usage?days=${days}`); loadedAt = Date.now(); // sequential: one collection at a time
-      render();
-      $('export').disabled = false;
-      $('live').textContent = `Aktualisiert ${new Date().toLocaleTimeString('de-AT')}`;
-    } catch (err) {
-      renderError(`Abruf fehlgeschlagen (${err.message}). Läuft app/server.mjs?`);
-      $('live').textContent = 'Aktualisierung fehlgeschlagen';
-    } finally {
-      btn.disabled = false; $('app').setAttribute('aria-busy', 'false');
-      btn.replaceChildren(icon('refresh-cw'), 'Neu laden');
-      pending = null;
-    }
-  })();
-  return pending;
-}
-
-function exportJson() {
-  if (!nodes || !usage) return;
-  const url = URL.createObjectURL(new Blob([JSON.stringify({ gateways: nodes, usage }, null, 2)], { type: 'application/json' }));
-  el('a', { href: url, download: `cpa-gateway-${usage.generatedAt.slice(0, 10)}-${days}d.json` }).click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function select(tab, focus = false) {
-  for (const t of tabs) { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; }
-  view = tab.dataset.view;
-  $('app').setAttribute('aria-labelledby', tab.id);
-  if (focus) tab.focus();
-  render();
-}
-
-function applyTheme(theme) {
-  root.dataset.theme = theme;
-  $('theme').textContent = theme === 'dark' ? 'Hell' : 'Dunkel';
-  try { localStorage.setItem('oneshots.theme', theme); } catch {}
-}
-
-const tabs = [...document.querySelectorAll('[role=tab]')];
-for (const t of tabs) {
-  t.addEventListener('click', () => select(t));
-  t.addEventListener('keydown', e => {
-    const i = tabs.indexOf(t);
-    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
-    if (next === undefined) return;
-    e.preventDefault();
-    select(tabs[(next + tabs.length) % tabs.length], true);
-  });
-}
-applyTheme((() => { try { return localStorage.getItem('oneshots.theme'); } catch { return null; } })() ?? 'dark');
-$('export').replaceChildren(icon('download'), 'JSON');
-$('theme').addEventListener('click', () => applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
-$('refresh').addEventListener('click', load);
-$('export').addEventListener('click', exportJson);
-$('window').addEventListener('change', e => { days = Number(e.target.value); (pending ?? Promise.resolve()).then(load); });
-document.addEventListener('keydown', e => {
-  if (e.metaKey || e.ctrlKey || e.altKey || e.target.closest('input, select, textarea')) return;
-  if (e.key === 'r') load();
-  else if (e.key === 'e') exportJson();
-  else if (e.key === 't') applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+const page = mountPage({
+  // sequential: the server runs one collection at a time
+  fetchData: async () => ({ gateways: await getJson('/api/gateways'), usage: await getJson(`/api/usage?days=${days}`) }),
+  render,
+  exportFile: d => ({ name: `cpa-gateway-${d.usage.generatedAt.slice(0, 10)}-${days}d.json`, data: d }),
+  onView: v => { view = v; },
+  poll: 'Abfrage jede Minute', pollMs: 60e3, tickMs: 30e3,
 });
-setInterval(() => { if (!document.hidden) load(); }, POLL_MS);
-setInterval(render, 30e3);
-load();
+document.getElementById('window').addEventListener('change', e => { days = Number(e.target.value); page.reload(); });

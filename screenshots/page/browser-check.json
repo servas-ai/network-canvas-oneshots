@@ -1,0 +1,147 @@
+{
+  "live": {
+    "overflowX": false,
+    "panels": 9,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": null,
+    "live": "Aktualisiert 08:08:20",
+    "poll": null,
+    "theme": "dark",
+    "themeBtn": "Hell",
+    "keyRBusy": [
+      false,
+      "Neu laden"
+    ]
+  },
+  "tokscale": {
+    "overflowX": false,
+    "panels": 7,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": "JSON",
+    "live": "Aktualisiert 08:08:22",
+    "poll": null,
+    "theme": "dark",
+    "themeBtn": "Hell",
+    "keyE": "tokscale-2026-10-11.json",
+    "keyRBusy": [
+      false,
+      "Neu laden"
+    ]
+  },
+  "tray": {
+    "overflowX": false,
+    "panels": 3,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": null,
+    "live": "Aktualisiert 08:08:24",
+    "poll": "127.0.0.1 · Abfrage alle 20 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark",
+    "themeBtn": "Hell",
+    "arrowLeftWrapsTo": [
+      "tab-other",
+      "tab-other",
+      3
+    ],
+    "keyRBusy": [
+      false,
+      "Neu laden"
+    ]
+  },
+  "usage": {
+    "overflowX": false,
+    "panels": 8,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": "JSON",
+    "live": "Aktualisiert 08:08:27",
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark",
+    "themeBtn": "Hell",
+    "arrowLeftWrapsTo": [
+      "tab-machine",
+      "tab-machine",
+      1
+    ],
+    "keyE": "cliproxyapi-usage-2026-10-11.json",
+    "keyRBusy": [
+      false,
+      "Neu laden"
+    ]
+  },
+  "opencodex": {
+    "overflowX": false,
+    "panels": 7,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": "JSON",
+    "live": "Aktualisiert 08:08:30",
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark",
+    "themeBtn": "Hell",
+    "arrowLeftWrapsTo": [
+      "tab-models",
+      "tab-models",
+      1
+    ],
+    "keyE": "opencodex-2026-10-11.json",
+    "keyRBusy": [
+      true,
+      "Lädt …"
+    ]
+  },
+  "cpa": {
+    "overflowX": false,
+    "panels": 9,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": "JSON",
+    "live": "Aktualisiert 08:08:33",
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "dark",
+    "themeBtn": "Hell",
+    "arrowLeftWrapsTo": [
+      "tab-failures",
+      "tab-failures",
+      1
+    ],
+    "keyE": "cpa-gateway-2026-10-11-1d.json",
+    "keyRBusy": [
+      false,
+      "Neu laden"
+    ]
+  },
+  "themeAfterTOnCpaThenTray": "light",
+  "liveRangeDuringLoad": [
+    "?days=30",
+    "?days=7"
+  ],
+  "cpaCoverageHint": [
+    "Logdaten erst ab 7. Okt. (5 Tage). Davor keine Einträge: ältere Logs fehlen oder es gab keine Nutzung."
+  ],
+  "cpaNarrow": {
+    "overflowX": false,
+    "panels": 9,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": "JSON",
+    "live": "Aktualisiert 08:08:45",
+    "poll": "127.0.0.1 · Abfrage jede Minute · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "light",
+    "themeBtn": "Dunkel"
+  },
+  "usageNarrow": {
+    "overflowX": false,
+    "panels": 8,
+    "errorPanel": false,
+    "refresh": "Neu laden",
+    "exportBtn": "JSON",
+    "live": "Aktualisiert 08:08:47",
+    "poll": "127.0.0.1 · Abfrage alle 5 min · zuletzt vor < 1 min · echte lokale Daten",
+    "theme": "light",
+    "themeBtn": "Dunkel"
+  },
+  "pageErrors": []
+}

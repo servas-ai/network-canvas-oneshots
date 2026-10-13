@@ -5,13 +5,11 @@
 import { observe } from '../shared/state.mjs';
 import { trayModel } from '../shared/quota.mjs';
 import { cacheRate, dayCompare, rollingHours, shares } from '../shared/usage.mjs';
-import { el, icon, stateBadge, panel, metric, meter, table, bars, fmt } from '../shared/components.mjs';
+import { el, stateBadge, panel, metric, meter, table, bars, fmt } from '../shared/components.mjs';
+import { mountPage, getJson } from '../shared/page.mjs';
 
-const POLL_MS = 5 * 60e3;
 const USAGE_MAX_AGE = 24 * 3600e3;
-const $ = id => document.getElementById(id);
-const root = document.documentElement;
-let day = null, month = null, loadedAt = null, view = 'all';
+let day = null, month = null, view = 'all';
 
 const pct = v => (v === null ? '–' : `${v.toLocaleString('de-AT', { maximumFractionDigits: 1 })} %`);
 const count = v => v.toLocaleString('de-AT');
@@ -89,96 +87,22 @@ function modelTable() {
   ], month.byModel, 'Keine Nutzung im Zeitraum')));
 }
 
-function render() {
-  if (!day || !month) return;
-  const now = Date.now();
+function render(data, { now }) {
+  ({ day, month } = data);
   const views = {
     all: () => [overviewMetrics(now), el('div', { class: 'split' }, consumptionPanel(now), distributionPanel(day, 'Modellverteilung · 24 h')), accountsPanel(now), machinePanel(now)],
     account: () => [accountsPanel(now)],
     model: () => [el('div', { class: 'split' }, distributionPanel(month, 'Modellverteilung · 30 Tage'), distributionPanel(day, 'Modellverteilung · 24 h')), modelTable()],
     machine: () => [machinePanel(now)],
   };
-  $('app').replaceChildren(el('div', { style: 'display:grid;gap:12px' }, views[view]()));
-  $('poll').textContent = `127.0.0.1 · Abfrage alle 5 min · zuletzt ${loadedAt ? `vor ${fmt.remaining(now - loadedAt)}` : '–'} · echte lokale Daten`;
+  return el('div', { style: 'display:grid;gap:12px' }, views[view]());
 }
 
-function renderError(message) {
-  $('app').replaceChildren(panel('Daten nicht verfügbar', stateBadge(observe({ error: true }, {})), el('div', { class: 'ui-empty', text: message })));
-}
-
-async function get(days) {
-  const res = await fetch(`/api/usage?days=${days}`, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
-}
-
-let pending = null;
-function load() {
-  if (pending) return pending;
-  const btn = $('refresh');
-  btn.disabled = true; $('app').setAttribute('aria-busy', 'true');
-  btn.replaceChildren(icon('loader-circle'), 'Lädt …');
-  pending = (async () => {
-    try {
-      day = await get(1); month = await get(30); loadedAt = Date.now(); // sequential: server collects one at a time
-      render();
-      $('export').disabled = false;
-      $('live').textContent = `Aktualisiert ${new Date().toLocaleTimeString('de-AT')}`;
-    } catch (err) {
-      renderError(`Abruf von /api/usage fehlgeschlagen (${err.message}). Läuft app/server.mjs?`);
-      $('live').textContent = 'Aktualisierung fehlgeschlagen';
-    } finally {
-      btn.disabled = false; $('app').setAttribute('aria-busy', 'false');
-      btn.replaceChildren(icon('refresh-cw'), 'Neu laden');
-      pending = null;
-    }
-  })();
-  return pending;
-}
-
-function exportJson() {
-  if (!month) return;
-  const url = URL.createObjectURL(new Blob([JSON.stringify({ last24h: day, last30d: month }, null, 2)], { type: 'application/json' }));
-  el('a', { href: url, download: `cliproxyapi-usage-${month.generatedAt.slice(0, 10)}.json` }).click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function select(tab, focus = false) {
-  for (const t of tabs) { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; }
-  view = tab.dataset.view;
-  $('app').setAttribute('aria-labelledby', tab.id);
-  if (focus) tab.focus();
-  render();
-}
-
-function applyTheme(theme) {
-  root.dataset.theme = theme;
-  $('theme').textContent = theme === 'dark' ? 'Hell' : 'Dunkel';
-  try { localStorage.setItem('oneshots.theme', theme); } catch {}
-}
-
-const tabs = [...document.querySelectorAll('[role=tab]')];
-for (const t of tabs) {
-  t.addEventListener('click', () => select(t));
-  t.addEventListener('keydown', e => {
-    const i = tabs.indexOf(t);
-    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
-    if (next === undefined) return;
-    e.preventDefault();
-    select(tabs[(next + tabs.length) % tabs.length], true);
-  });
-}
-applyTheme((() => { try { return localStorage.getItem('oneshots.theme'); } catch { return null; } })() ?? 'dark');
-$('export').replaceChildren(icon('download'), 'JSON');
-$('theme').addEventListener('click', () => applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
-$('refresh').addEventListener('click', load);
-$('export').addEventListener('click', exportJson);
-document.addEventListener('keydown', e => {
-  if (e.metaKey || e.ctrlKey || e.altKey || e.target.closest('input, select, textarea')) return;
-  if (e.key === 'r') load();
-  else if (e.key === 'e') exportJson();
-  else if (e.key === 't') applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+mountPage({
+  // sequential: the server runs one collection at a time
+  fetchData: async () => ({ day: await getJson('/api/usage?days=1'), month: await getJson('/api/usage?days=30') }),
+  render,
+  exportFile: d => ({ name: `cliproxyapi-usage-${d.month.generatedAt.slice(0, 10)}.json`, data: { last24h: d.day, last30d: d.month } }),
+  onView: v => { view = v; },
+  poll: 'Abfrage alle 5 min', pollMs: 5 * 60e3, tickMs: 30e3,
 });
-setInterval(() => { if (!document.hidden) load(); }, POLL_MS);
-setInterval(render, 30e3);
-load();

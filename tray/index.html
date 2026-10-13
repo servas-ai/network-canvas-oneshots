@@ -39,10 +39,10 @@
     <button id="refresh" type="button" class="primary" aria-label="Daten neu laden"></button>
   </header>
   <div class="ui-tabs" role="tablist" aria-label="Anbieter">
-    <button role="tab" id="tab-all" aria-controls="app" aria-selected="true" data-filter="all">Übersicht</button>
-    <button role="tab" id="tab-codex" aria-controls="app" aria-selected="false" tabindex="-1" data-filter="codex">ChatGPT</button>
-    <button role="tab" id="tab-claude" aria-controls="app" aria-selected="false" tabindex="-1" data-filter="claude">Claude</button>
-    <button role="tab" id="tab-other" aria-controls="app" aria-selected="false" tabindex="-1" data-filter="other">Weitere</button>
+    <button role="tab" id="tab-all" aria-controls="app" aria-selected="true" data-view="all">Übersicht</button>
+    <button role="tab" id="tab-codex" aria-controls="app" aria-selected="false" tabindex="-1" data-view="codex">ChatGPT</button>
+    <button role="tab" id="tab-claude" aria-controls="app" aria-selected="false" tabindex="-1" data-view="claude">Claude</button>
+    <button role="tab" id="tab-other" aria-controls="app" aria-selected="false" tabindex="-1" data-view="other">Weitere</button>
   </div>
   <p id="live" role="status" aria-live="polite"></p>
   <main id="app" role="tabpanel" aria-labelledby="tab-all" aria-busy="true"></main>
